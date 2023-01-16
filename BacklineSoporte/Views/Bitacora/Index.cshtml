@@ -1,0 +1,79 @@
+﻿@model BacklineSoporte.Models.BitacoraModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Bitacora/Bitacora.cshtml";
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" />
+    <title>Bitacora</title>
+    <!-- Estilos y funciones básicas de funcionamiento -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+
+    <style>
+        html, body {
+            background-color: #121213;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg fill-opacity='0.52'%3E%3Ccircle fill='%23121213' cx='50' cy='0' r='50'/%3E%3Cg fill='%23171718' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%231b1b1c' cx='50' cy='100' r='50'/%3E%3Cg fill='%231f1f21' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23232326' cx='50' cy='200' r='50'/%3E%3Cg fill='%2327282b' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%232c2c2f' cx='50' cy='300' r='50'/%3E%3Cg fill='%23303134' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23343539' cx='50' cy='400' r='50'/%3E%3Cg fill='%23393a3f' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%233d3f44' cx='50' cy='500' r='50'/%3E%3Cg fill='%23424449' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%2347494e' cx='50' cy='600' r='50'/%3E%3Cg fill='%234b4e54' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23505359' cx='50' cy='700' r='50'/%3E%3Cg fill='%2354585f' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23595d64' cx='50' cy='800' r='50'/%3E%3Cg fill='%235e626a' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23626770' cx='50' cy='900' r='50'/%3E%3Cg fill='%23676d75' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%236C727B' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+            background-size: contain;
+            font-family: 'Numans', sans-serif;
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('.ui.selection.dropdown').dropdown();
+            $('.ui.menu .ui.dropdown').dropdown({
+                on: 'hover'
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <br />
+    <div style="margin-left:auto; margin-right:auto; width:80%; opacity:0.9">
+        <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
+            <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Home'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
+            <table class="ui celled striped table">
+                <thead>
+                    <tr>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Modulo</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Detalle</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Usuario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var Bitacora in Model.Bitacora)
+                        {
+                            <tr>
+                                <td style="text-align: center">@Bitacora.Fecha.ToString()</td>
+                                <td style="text-align: center">@Bitacora.Modulo</td>
+                                <td style="text-align: left">@Bitacora.Detalle</td>
+                                <td style="text-align: center">@Bitacora.NombreCompleto</td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
+       
+    </div>
+</body>
+</html>

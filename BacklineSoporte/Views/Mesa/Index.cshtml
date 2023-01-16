@@ -1,0 +1,335 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Mesa/Mesa.cshtml";
+}
+
+@model BacklineSoporte.Models.RequerimientoModel
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Requerimientos del sistema</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+
+    <style>
+        html, body {
+            background-color: #121213;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg fill-opacity='0.52'%3E%3Ccircle fill='%23121213' cx='50' cy='0' r='50'/%3E%3Cg fill='%23171718' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%231b1b1c' cx='50' cy='100' r='50'/%3E%3Cg fill='%231f1f21' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23232326' cx='50' cy='200' r='50'/%3E%3Cg fill='%2327282b' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%232c2c2f' cx='50' cy='300' r='50'/%3E%3Cg fill='%23303134' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23343539' cx='50' cy='400' r='50'/%3E%3Cg fill='%23393a3f' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%233d3f44' cx='50' cy='500' r='50'/%3E%3Cg fill='%23424449' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%2347494e' cx='50' cy='600' r='50'/%3E%3Cg fill='%234b4e54' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23505359' cx='50' cy='700' r='50'/%3E%3Cg fill='%2354585f' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23595d64' cx='50' cy='800' r='50'/%3E%3Cg fill='%235e626a' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23626770' cx='50' cy='900' r='50'/%3E%3Cg fill='%23676d75' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%236C727B' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+            background-size: contain;
+            font-family: 'Numans', sans-serif;
+        }
+    </style>
+
+    <script>
+
+        var urlObtienePrioridad = '@Url.Action("ObtienePrioridad", "Mesa")';
+        var urlObtieneModulo = '@Url.Action("ObtieneModulo", "Mesa")';
+        var urlInsertarApruebo = '@Url.Action("InsertarApruebo", "Mesa")';
+        var urlInsertarDesapruebo = '@Url.Action("InsertarDesapruebo", "Mesa")';
+        var urlObtenerFecha = '@Url.Action("ObtieneFecha", "Mesa")';
+        var urlGuardarComentario = '@Url.Action("GuardarComentario","Mesa")';
+
+        function MuestraComentarios(id) {
+            location.href = '/Comentario?id=' + id;
+        }
+        function MuestraImagenes(id) {
+            location.href = '/VisualizaImagenes?id=' + id;
+        }
+    </script>
+
+    <script src="~/ScriptsVistas/LogicaMesa.js"></script>
+</head>
+<body>
+    <br />
+    <h2 style="color: white" class="ui center aligned header">
+        <img src="~/Recursos/Imagenes/LogoBackline.png" class="ui image">
+        Bienvenido al modulo de requerimientos de Backline.
+    </h2>
+    <br />
+    <div style="margin-left:auto; margin-right:auto; width:95%; opacity:0.9">
+        <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
+            <table class="ui celled definition table" style="width:30%">
+                <tbody>
+
+                    <tr>
+                        <td>Botón</td>
+                        <td>
+                            <button class="ui icon yellow button" disabled>
+                                <i class="eye icon"></i>
+                            </button>
+
+
+                        </td>
+                        <td>
+                            <button class="ui blue icon button" disabled>
+                                <i class="camera icon"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="ui icon green button" disabled>
+                                <i class="thumbs up outline icon"></i>
+                            </button>
+
+
+                        </td>
+                        <td>
+                            <button class="ui icon red button" disabled>
+                                <i class="thumbs down outline icon"></i>
+                            </button>
+
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Acción</td>
+                        <td>Agregar comentario</td>
+                        <td>Agregar imagen</td>
+                        <td>Aprobar requerimiento</td>
+                        <td>Desaprobar requerimiento</td>
+                    </tr>
+                </tbody>
+            </table>
+
+           
+                <div id="btnSalir" class="ui  red right labeled icon button" onclick="javascript:location.href='/HomeCliente'" data-dismiss="modal">Volver<i class="arrow circle left icon"></i></div>
+                <br />
+                <table class="ui  inverted celled table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 200px; word-wrap: break-word; ">Acciones</th>
+                            <th style="word-wrap: break-word; ">Fecha</th>
+                            <th style="word-wrap: break-word; ">Requerimiento Nº</th>
+                            <th style="word-wrap: break-word; ">Funcionalidad</th>
+                            <th style="word-wrap: break-word; ">Detalle</th>
+                            <th style="word-wrap: break-word; ">Empresa</th>
+                            <th style="word-wrap: break-word;">Solicitante</th>
+                            <th style="word-wrap: break-word;">Apruebo</th>
+                            <th style="word-wrap: break-word;">Desapruebo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var Requerimiento in Model.ListaRequerimiento)
+                            {
+                                <tr>
+                                    <td>
+                                        @*<button style="color:red" class="ui icon button" value="@Requerimiento.Id" data-toggle="modal" data-target="#modalEliminarRequerimiento" onclick="PreparaEliminaRequerimiento(this.value, this);">
+                                        <i class="trash icon"></i>
+                                    </button>*@
+                                        <button class="ui icon yellow button" value="@Requerimiento.Id" onclick="MuestraComentarios(this.value, this);">
+                                            <i class="eye icon"></i>
+                                        </button>
+                                        <button class="ui icon blue button" value="@Requerimiento.Id" onclick="MuestraImagenes(this.value, this);">
+                                            <i class="camera icon"></i>
+                                        </button>
+                                        <button class="ui icon green button" value="@Requerimiento.Id" data-toggle="modal" data-target="#modalInsertarApruebo" onclick="PreparaInsertarApruebo(this.value, this);">
+                                            <i class="thumbs up outline icon"></i>
+                                        </button>
+                                        <button class="ui icon red button" value="@Requerimiento.Id" data-toggle="modal" data-target="#modalInsertarDesapruebo" onclick="PreparaInsertarDesapruebo(this.value, this);">
+                                            <i class="thumbs down outline icon"></i>
+                                        </button>
+
+                                    </td>
+                                    <td>@Requerimiento.FechaMostrar</td>
+                                    <td style="text-align:right">@Requerimiento.Id</td>
+                                    <td>@Requerimiento.Funcionalidad</td>
+                                    <td>@Requerimiento.Detalle</td>
+                                    <td>@Requerimiento.NombreEmpresa</td>
+                                    <td>@Requerimiento.NombreSolicitante</td>
+                                    <td style="width: 50px; word-wrap: break-word; background-color: lawngreen; text-align:right">@Requerimiento.Apruebo</td>
+                                    <td style="width: 50px; word-wrap: break-word; background-color: red; text-align: right">@Requerimiento.Desapruebo</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+
+           
+            <div class="modal fade" id="modalMesa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLabel">Listar Solicitudes</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div id="divDatosCliente" class="image content">
+                                <div class="ui info message">
+                                    <div class="header">
+                                        Atención al llenar el formulario!
+                                    </div>
+                                    La data de este formulario debe ser llenada con la mayor exactitud posible
+                                    <br />
+                                    <div class="ui divider"></div>
+                                    <div class="ui form">
+
+                                        <form>
+
+                                            <div id="divTxtFecha" class="field">
+                                                <label>Fecha</label>
+                                                <input type="date" id="txtFecha" placeholder="Ingrese la fecha" readonly>
+
+                                            </div>
+                                            <div id="divcmbPrioridad" class="field">
+                                                <label>Prioridad</label>
+                                                <select id="cmbPrioridad" class="ui search selection dropdown" onblur="ValidaGuardar();">
+                                                </select>
+                                            </div>
+
+                                            <div id="divcmbModulo" class="field">
+                                                <label>Modulo</label>
+                                                <select id="cmbModulo" class="ui search selection dropdown" onblur="ValidaGuardar();">
+                                                </select>
+                                            </div>
+
+
+                                            <div id="divTxtObservacion" class="field">
+                                                <label>Observacion:</label>
+                                                <textarea placeholder="Observación aquí..." rows="5" id="txtObservacion" onkeyup="ValidaGuardar();"></textarea>
+                                            </div>
+
+
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                                @*<div class="ui section divider"></div>*@
+                            </div>
+                            <div class="actions">
+                                <br />
+                                <div id="DivMessajeErrorGeneral" class="ui hidden error message" style="margin-left:auto; margin-right:auto; width:100%">
+                                    <div class="header">
+                                        Se han encontrado algunos problemas, revíselos...
+                                    </div>
+                                    <ul id="listMessajeError" class="list"></ul>
+                                </div>
+                            </div>
+                            <div id="divExito" class="ui icon success hidden  message">
+                                <i class="thumbs up outline icon"></i>
+                                <div class="content">
+                                    <div class="header">
+                                        Transacción exitosa
+                                    </div>
+                                    <p>La solicitud ha sido guardada con éxito.</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div id="divBotones" class="modal-footer">
+
+
+                            <div id="btnGuardaSolicitud" class="ui blue right labeled icon button" onclick="GuardarSolicitud();">
+                                Guardar
+                                <i class="save icon"></i>
+                            </div>
+                            <div id="btnLimpiar" class="ui right labeled icon button" onclick="Limpiar();">Limpiar<i class="trash icon"></i></div>
+                            <div id="btnSalir" class="ui right labeled icon button" onclick="Limpiar();" data-dismiss="modal">Salir<i class="cancel icon"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalInsertarApruebo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLongTitle">Aprobación</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="divConsultaApruebo" class="ui icon positive message">
+                                <i class="thumbs up icon"></i>
+                                <div class="content">
+                                    <div class="header">
+                                        ¿Desea dar su aprobación a este requerimiento?
+                                    </div>
+                                    <p>Este requerimiento sera aprobado de forma lógica desde la base de datos</p>
+                                </div>
+                            </div>
+                            <div id="divExitoAprueba" class="ui icon hidden positive  message">
+                                <i class="thumbs up icon"></i>
+                                <div class="content">
+                                    <div class="header">
+                                        Éxito!!
+                                    </div>
+                                    <p>El requerimiento fue aprobado con éxito.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div id="btnApruebo" onclick="InsertaApruebo();" class="ui green right labeled icon button">
+                                Aprobar
+                                <i class="thumbs up icon"></i>
+                            </div>
+                            <div id="btnCancelar" data-dismiss="modal" class="ui right labeled icon button">
+                                Cancelar
+                                <i class="cancel icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalInsertarDesapruebo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLongTitle">Desaprobación</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="divConsultaDesaprueba" class="ui icon negative message">
+                                <i class="thumbs down icon"></i>
+                                <div class="content">
+                                    <div class="header">
+                                        ¿Desea desaprobar este requerimiento?
+                                    </div>
+                                    <p>Este requerimiento sera desaprobado de forma lógica desde la base de datos</p>
+                                </div>
+                            </div>
+                            <div id="divExitoDesaprueba" class="ui icon hidden positive  message">
+                                <i class="thumbs down icon"></i>
+                                <div class="content">
+                                    <div class="header">
+                                        Éxito!!
+                                    </div>
+                                    <p>El requerimiento fue desaprobado con éxito.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div id="btnDesaprueba" onclick="InsertaDesapruebo();" class="ui red right labeled icon button">
+                                Desaprobar
+                                <i class="thumbs down icon"></i>
+                            </div>
+                            <div id="btnCancelar" data-dismiss="modal" class="ui right labeled icon button">
+                                Cancelar
+                                <i class="cancel icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+</html>
+
+<input type="hidden" id="hidRequerimiento" value="0" />

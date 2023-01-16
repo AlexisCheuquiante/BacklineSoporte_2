@@ -1,0 +1,122 @@
+﻿@model BacklineSoporte.Models.UsuariosModel
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" />
+    <title>Login</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+
+    <script src="~/ScriptsVistas/LogicaLogin.js"></script>
+
+
+    <style>
+        body {
+            background-color: #064137;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1200 800'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='600' y1='25' x2='600' y2='777'%3E%3Cstop offset='0' stop-color='%23064137'/%3E%3Cstop offset='1' stop-color='%233CFFFE'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='650' y1='25' x2='650' y2='777'%3E%3Cstop offset='0' stop-color='%2307564a'/%3E%3Cstop offset='1' stop-color='%232eecff'/%3E%3C/linearGradient%3E%3ClinearGradient id='c' gradientUnits='userSpaceOnUse' x1='700' y1='25' x2='700' y2='777'%3E%3Cstop offset='0' stop-color='%23086b5e'/%3E%3Cstop offset='1' stop-color='%2321d5ff'/%3E%3C/linearGradient%3E%3ClinearGradient id='d' gradientUnits='userSpaceOnUse' x1='750' y1='25' x2='750' y2='777'%3E%3Cstop offset='0' stop-color='%23088172'/%3E%3Cstop offset='1' stop-color='%2313bcff'/%3E%3C/linearGradient%3E%3ClinearGradient id='e' gradientUnits='userSpaceOnUse' x1='800' y1='25' x2='800' y2='777'%3E%3Cstop offset='0' stop-color='%23099787'/%3E%3Cstop offset='1' stop-color='%2306a0fe'/%3E%3C/linearGradient%3E%3ClinearGradient id='f' gradientUnits='userSpaceOnUse' x1='850' y1='25' x2='850' y2='777'%3E%3Cstop offset='0' stop-color='%2308ae9e'/%3E%3Cstop offset='1' stop-color='%230182f6'/%3E%3C/linearGradient%3E%3ClinearGradient id='g' gradientUnits='userSpaceOnUse' x1='900' y1='25' x2='900' y2='777'%3E%3Cstop offset='0' stop-color='%2308c4b5'/%3E%3Cstop offset='1' stop-color='%230164e8'/%3E%3C/linearGradient%3E%3ClinearGradient id='h' gradientUnits='userSpaceOnUse' x1='950' y1='25' x2='950' y2='777'%3E%3Cstop offset='0' stop-color='%2307dbce'/%3E%3Cstop offset='1' stop-color='%230149da'/%3E%3C/linearGradient%3E%3ClinearGradient id='i' gradientUnits='userSpaceOnUse' x1='1000' y1='25' x2='1000' y2='777'%3E%3Cstop offset='0' stop-color='%2306f3e7'/%3E%3Cstop offset='1' stop-color='%230131cc'/%3E%3C/linearGradient%3E%3ClinearGradient id='j' gradientUnits='userSpaceOnUse' x1='1050' y1='25' x2='1050' y2='777'%3E%3Cstop offset='0' stop-color='%2313fbf3'/%3E%3Cstop offset='1' stop-color='%23011cbe'/%3E%3C/linearGradient%3E%3ClinearGradient id='k' gradientUnits='userSpaceOnUse' x1='1100' y1='25' x2='1100' y2='777'%3E%3Cstop offset='0' stop-color='%2327fdf9'/%3E%3Cstop offset='1' stop-color='%230109b1'/%3E%3C/linearGradient%3E%3ClinearGradient id='l' gradientUnits='userSpaceOnUse' x1='1150' y1='25' x2='1150' y2='777'%3E%3Cstop offset='0' stop-color='%233CFFFE'/%3E%3Cstop offset='1' stop-color='%230901A3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg %3E%3Crect fill='url(%23a)' width='1200' height='800'/%3E%3Crect fill='url(%23b)' x='100' width='1100' height='800'/%3E%3Crect fill='url(%23c)' x='200' width='1000' height='800'/%3E%3Crect fill='url(%23d)' x='300' width='900' height='800'/%3E%3Crect fill='url(%23e)' x='400' width='800' height='800'/%3E%3Crect fill='url(%23f)' x='500' width='700' height='800'/%3E%3Crect fill='url(%23g)' x='600' width='600' height='800'/%3E%3Crect fill='url(%23h)' x='700' width='500' height='800'/%3E%3Crect fill='url(%23i)' x='800' width='400' height='800'/%3E%3Crect fill='url(%23j)' x='900' width='300' height='800'/%3E%3Crect fill='url(%23k)' x='1000' width='200' height='800'/%3E%3Crect fill='url(%23l)' x='1100' width='100' height='800'/%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        .modal-content {
+            width: 85%;
+        }
+
+        .card-img-top {
+            width: 100%;
+        }
+
+        .contenedor-imagen {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+
+        var urlValidaUsuario = '@Url.Action("ValidarLogin", "Login")';
+
+        $(document).ready(function () {
+
+            $('.ui.selection.dropdown').dropdown();
+            $('.ui.menu .ui.dropdown').dropdown({
+                on: 'hover'
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+    <!-- Modal Productos (bootstrap) -->
+    <div id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="opacity:1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <h4 class="ui center aligned header">
+                    <img src="~/Recursos/Imagenes/LogoBackline.png" class="ui image">
+                    Backline soluciones integrales.
+                </h4>
+                <div class="contenedor-imagen">
+                    <img class="card-img-top" src="~/Recursos/Imagenes/ImagenLogin.jpg" />
+                </div>
+
+
+                <div class="modal-body">
+                    <div class="image content">
+                        <div class="ui info message">
+                            <div>
+                                Indique su usuario y contraseña
+                            </div>
+                            <div class="ui divider"></div>
+                            <div class="ui form">
+                                <form>
+                                    <div id="divtxtUsuario" class="field">
+                                        <label>Usuario</label>
+                                        <input id="txtUsuario" name="txtEmail" type="text" placeholder="Digite su usuario..." autocomplete="off"  value=@Model.Usuario>
+                                    </div>
+                                    <div id="divtxtPassword" class="field">
+                                        <label>Password</label>
+                                        <input id="txtPassword" name="txtPassword" type="password" placeholder="Digite su password..." autocomplete="off" value=@Model.Contraseña>
+                                    </div>
+                                    <div id="divErroLogin" class="ui icon hidden negative message">
+                                        <i class="exclamation triangle icon"></i>
+                                        <div class="content">
+                                            <div class="header">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">
+                                                        Error de login
+                                                    </font>
+                                                </font>
+                                            </div>
+                                            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">El nombre de usuario o la contraseña son incorrectos.</font></font></p>
+                                        </div>
+                                    </div>
+                                </form>
+                                <button class="ui  fluid labeled purple icon button" @*style="color:darkviolet"*@ onclick="ValidarUsuario();">
+                                    <i class="checkmark icon"></i>
+                                    Ingresar
+                                </button>
+                                @*<div style="height:5px">
+
+                                    </div>
+                                    <button class="ui fluid labeled blue icon button" onclick="window.location.replace('/RegistroProfesional')">
+                                        <i class="user md icon"></i>
+                                        Crear usuario
+                                    </button>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

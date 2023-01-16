@@ -1,0 +1,245 @@
+﻿@model BacklineSoporte.Models.VisualizadorModel
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" />
+    <title>Imagenes de comentarios</title>
+    <!-- Estilos y funciones básicas de funcionamiento -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+
+
+    <!-- Fotorama from CDNJS, 19 KB -->
+    <!-- Fotorama from CDNJS, 19 KB -->
+    <link href="~/CSS/fotorama.css" rel="stylesheet">
+    <script src="~/Scripts/fotorama.js"></script>
+
+    <script src="~/ScriptsVistas/LogicaVisualizaImagenes.js"></script>
+
+    <style>
+        html, body {
+            background-color: #121213;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg fill-opacity='0.52'%3E%3Ccircle fill='%23121213' cx='50' cy='0' r='50'/%3E%3Cg fill='%23171718' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%231b1b1c' cx='50' cy='100' r='50'/%3E%3Cg fill='%231f1f21' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23232326' cx='50' cy='200' r='50'/%3E%3Cg fill='%2327282b' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%232c2c2f' cx='50' cy='300' r='50'/%3E%3Cg fill='%23303134' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23343539' cx='50' cy='400' r='50'/%3E%3Cg fill='%23393a3f' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%233d3f44' cx='50' cy='500' r='50'/%3E%3Cg fill='%23424449' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%2347494e' cx='50' cy='600' r='50'/%3E%3Cg fill='%234b4e54' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23505359' cx='50' cy='700' r='50'/%3E%3Cg fill='%2354585f' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23595d64' cx='50' cy='800' r='50'/%3E%3Cg fill='%235e626a' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23626770' cx='50' cy='900' r='50'/%3E%3Cg fill='%23676d75' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%236C727B' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+            background-size: contain;
+            font-family: 'Numans', sans-serif;
+        }
+    </style>
+
+
+    <script>
+        function goBack() {
+            window.history.back()
+        }
+    </script>
+
+    <script>
+
+        var urlInsertarObservacion = '@Url.Action("InsertarObservacion", "VisualizaImagenes")';
+        var urlSaveImagenSolicitud = '@Url.Action("SaveImagen", "VisualizaImagenes")';
+        var urlObtenerDestinos = '@Url.Action("ObtenerDestinos", "VisualizaImagenes")';
+        var urlCambiaDestino = '@Url.Action("CambiaDestino", "VisualizaImagenes")';
+        var urlSaveImagen = '@Url.Action("SaveImagenProblema", "VisualizaImagenes")';
+        @*var urlRechazaDestino = '@Url.Action("RechazaDestino", "VisualizaImagenes")';*@
+
+        $(document).ready(function () {
+
+            $('.ui.selection.dropdown').dropdown();
+            $('.ui.menu .ui.dropdown').dropdown({
+                on: 'hover'
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+    <div @*class="modal fade"*@ id="modalSolicitudes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 95%; opacity:1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <h4 style="color:black" class="ui center aligned header">
+                    <img src="~/Recursos/Imagenes/LogoBackline.png" class="ui image">
+                    Imagenes requerimiento N° @Model.IdRequerimiento
+                </h4>
+                <div class="modal-body">
+                    <div class="image content">
+                        <div class="ui info message">
+                            <div class="ui form">
+                                <form>
+                                    @*<div class="ui info orange message">
+                                        <div class="header">
+                                            Atención!!
+                                        </div>
+                                        <ul class="list">
+                                            <li>Aquí podrás adjuntar imágenes al requerimiento correspondiente.</li>
+                                            <li>Recuerda que primero debes adjuntar la imagen para evitar errores en el guardado.</li>
+                                        </ul>
+                                    </div>*@
+                                    <div style="width:65%; height:50%;"  class="ui centered inverted card">
+                                        <div class="ui slide masked reveal image">
+                                            <div class="fotorama" data-autoplay="true" data-loop="true" data-arrows="true" data-swipe="false" data-nav="thumbs">
+                                                @foreach (var imagex in Model.ListaImagenes)
+                                                {
+                                                    <div data-img=@imagex.RUTA_IMAGEN>
+                                                        <div class="slider_inner">
+                                                            <a href=@imagex.RUTA_IMAGEN target="_blank"><img src=@imagex.RUTA_IMAGEN style="width:100%;"></a>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="ui icon message">
+                                    <i class="file image outline icon"></i>
+                                    <div class="content">
+                                        <div class="header">
+                                            Agregar archivo adjunto
+                                        </div>
+                                        
+                                        <p>Recuerda que primero debes adjuntar la imagen para evitar errores en el guardado.</p>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding:5px">
+                                    <div class="panel panel-info">
+                                        @*<div class="panel-heading">Fotos del Camión</div>*@
+                                        <div class="panel-body">
+                                            <label class="btn btn-primary" style="width:100%;">
+                                                Agregar archivo adjunto
+                                                <input id="camionImg" type="file" style="display: none;" accept="image/gif, image/jpeg, image/png" multiple />
+                                            </label>
+
+                                            <div style="height:5px"></div>
+                                            <div class="row" id="imagenesCamion">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="divExito" class="ui icon hidden positive  message">
+                        <i class="stopwatch icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Éxito!!
+                            </div>
+                            <p>La solicitud fue guardada con éxito.</p>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div id="DivMessajeErrorGeneral" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Se han encontrado algunos problemas, revíselos...
+                            </div>
+                            <ul id="listMessajeError" class="list"></ul>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div id="DivMessajeErrorGeneralAgregar" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Se han encontrado algunos problemas, revíselos...
+                            </div>
+                            <ul id="listMessajeErrorAgregar" class="list"></ul>
+                        </div>
+                    </div>
+                    <div style="height:5px">
+
+                    </div>
+                   
+                    <button id="btnAprobar" class="ui green button" onclick="GuardarImagen1();">
+                        Guardar imagen
+                    </button>
+                    <button class="ui button" onclick="goBack()">
+                        Volver
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalAceptarRechazarSolicitud" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Aceptar o rechazar solicitud</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="divConsultaAcepta" class="ui icon warning message">
+                        <i class="thumbs up outline icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                ¿Desea aceptar o rechazar la solicitud?
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divExitoAcepta" class="ui icon hidden positive  message">
+                        <i class="thumbs up outline icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Éxito!!
+                            </div>
+                            <p>La solicitud fue aceptada con éxito.</p>
+                        </div>
+                    </div>
+                    <div id="divExitoRechaza" class="ui icon hidden positive  message">
+                        <i class="thumbs up outline icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Éxito!!
+                            </div>
+                            <p>La solicitud ya fue rechazada.</p>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="two fields">
+                            <div id="divcmbArea" class="field">
+                                <header>Área de destino</header>
+                                <select id="cmbArea" name="cmbArea" class="ui search selection dropdown">
+                                </select>
+                            </div>
+                            <div id="divcmbAprobadoRechazado" class="field" style="width:20%">
+                                <label>Aprobado/Rechazado</label>
+                                <div id="cmbAprobadoRechazado" class="ui search selection dropdown">
+                                    <input type="hidden" id="idAprobadoRechazado" name="idAprobadoRechazado">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Seleccione</div>
+                                    <div id="cmbAprobadoRechazadoMenu" class="menu">
+                                        <div class="item" data-value="2">Aprobado</div>
+                                        <div class="item" data-value="3">Rechazado</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div id="btnAceptaSol" onclick="CambiaDestino();" class="ui green right labeled icon button">
+                        Enviar solicitud
+                        <i class="checkmark icon"></i>
+                    </div>
+                    <div id="btnCancelar" data-dismiss="modal" class="ui right labeled icon button">
+                        Cancelar
+                        <i class="cancel icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

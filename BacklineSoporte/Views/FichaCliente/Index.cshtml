@@ -1,0 +1,927 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/FichaCliente/FichaCliente.cshtml";
+}
+@model BacklineSoporte.Models.FichaClienteModel
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" />
+    <title>Ficha de clientes</title>
+    <!-- Estilos y funciones básicas de funcionamiento -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+
+    <script src="~/ScriptsVistas/LogicaFichaCliente202203191652.js"></script>
+
+    <style>
+        html, body {
+            background-color: #121213;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg fill-opacity='0.52'%3E%3Ccircle fill='%23121213' cx='50' cy='0' r='50'/%3E%3Cg fill='%23171718' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%231b1b1c' cx='50' cy='100' r='50'/%3E%3Cg fill='%231f1f21' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23232326' cx='50' cy='200' r='50'/%3E%3Cg fill='%2327282b' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%232c2c2f' cx='50' cy='300' r='50'/%3E%3Cg fill='%23303134' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23343539' cx='50' cy='400' r='50'/%3E%3Cg fill='%23393a3f' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%233d3f44' cx='50' cy='500' r='50'/%3E%3Cg fill='%23424449' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%2347494e' cx='50' cy='600' r='50'/%3E%3Cg fill='%234b4e54' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23505359' cx='50' cy='700' r='50'/%3E%3Cg fill='%2354585f' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23595d64' cx='50' cy='800' r='50'/%3E%3Cg fill='%235e626a' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23626770' cx='50' cy='900' r='50'/%3E%3Cg fill='%23676d75' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%236C727B' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+            background-size: contain;
+            font-family: 'Numans', sans-serif;
+        }
+    </style>
+
+    <script>
+       var urlObtenerEntidad = '@Url.Action("ObtenerEntidad", "FichaCliente")';
+       var urlGuardarFicha = '@Url.Action("GuardarFicha", "FichaCliente")';
+       var urlObtenerRegion = '@Url.Action("ObtenerRegion", "FichaCliente")';
+       var urlObtenerEstadoFicha = '@Url.Action("ObtenerEstadoFicha", "FichaCliente")';
+       var urlObtenerTipoContratacion = '@Url.Action("ObtenerTipoContratacion", "FichaCliente")';
+       var urlObtenerProveedor = '@Url.Action("ObtenerProveedor", "FichaCliente")';
+       var urlAgregarEstablecimiento = '@Url.Action("AgregarEstablecimiento", "FichaCliente")';
+       var urlEliminarFicha = '@Url.Action("EliminarFicha", "FichaCliente")';
+       var urlObtenerArchivos = '@Url.Action("ObtenerArchivos", "FichaCliente")';
+       var urlObtenerTipoArchivo = '@Url.Action("ObtenerTipoArchivo", "FichaCliente")';
+       var urlEditarFicha = '@Url.Action("EditarFicha", "FichaCliente")';
+       var urlObtenerEstablecimientos = '@Url.Action("ObtenerEstablecimientos", "FichaCliente")';
+
+        $(document).ready(function () {
+
+            $('.ui.selection.dropdown').dropdown();
+            $('.ui.menu .ui.dropdown').dropdown({
+                on: 'hover'
+            });
+
+            $('.ui.accordion')
+                .accordion()
+                ;
+        });
+
+        function MuestraEstablecimientos(id) {
+            location.href = '/Establecimiento?id=' + id;
+        }
+
+    </script>
+</head>
+<body>
+    <br />
+   
+    <div style="margin-left:auto; margin-right:auto; width:95%; opacity:0.9">
+        <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
+            <table class="ui celled definition table" style="width:30%;">
+                <tbody>
+
+                    <tr>
+                        <td>Botón</td>
+                        <td>
+                            <button class="ui icon red button" disabled>
+                                <i class="trash icon"></i>
+                            </button>
+
+
+                        </td>
+                        <td>
+                            <button class="ui green icon button" disabled>
+                                <i class="edit icon"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="ui blue icon button" disabled>
+                                <i class="file pdf icon"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="ui orange icon button" disabled>
+                                <i class="industry icon"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Acción</td>
+                        <td>Elimina ficha</td>
+                        <td>Edita ficha</td>
+                        <td>Adjuntar PDF</td>
+                        <td>Edita establecimientos</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="btnAgregaFicha" data-toggle="modal" data-target="#modalFichaCliente" class="ui blue right labeled icon button">
+                Agregar Ficha
+                <i class="checkmark icon"></i>
+            </div>
+            <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Home'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
+
+            <table class="ui celled striped table">
+                <thead>
+                    <tr>
+                        <th style="width: 250px; text-align: center; word-wrap: break-word; background-color: deepskyblue"></th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">ID</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">RAZÓN SOCIAL</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">COMUNA</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">TIPO CONTRATACION</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">N°ORDEN DE COMPRA</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">FECHA TERMINO OC</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">FRACCIONAMIENTO</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">VENTA SIMPLE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var Ficha in Model.ListaFichaCliente)
+                        {
+                            <tr>
+                                <td>
+                                    <button class="ui icon red button" value="@Ficha.Id" data-toggle="modal" data-target="#modalEliminarFicha" onclick="PreparaEliminaFicha(this.value, this);">
+                                        <i class="trash icon"></i>
+                                    </button>
+                                    <button class="ui icon green button" value="@Ficha.Id" data-toggle="modal" data-target="#modalFichaCliente" onclick="PrepararEditarFicha(this.value, this); EditarFicha();">
+                                        <i class="edit icon"></i>
+                                    </button>
+                                    <button class="ui icon blue button" value="@Ficha.Id" data-toggle="modal" data-target="#modalAnexarArchivos" onclick="PreparaAnexar(this.value, this);">
+                                        <i class="file pdf icon"></i>
+                                    </button>
+                                    <button class="ui icon orange button" value="@Ficha.Id" onclick="MuestraEstablecimientos(this.value, this);">
+                                        <i class="industry icon"></i>
+                                    </button>
+                                </td>
+                                <td>@Ficha.Id</td>
+                                <td>@Ficha.Razon_Social.ToUpper()</td>
+                                <td>@Ficha.Comuna</td>
+                                @if (Ficha.Tipo_Contratacion_Id == 1)
+                                {
+                                    <td>Licitación</td>
+                                }
+                                else
+                                {
+                                    <td>Trato directo</td>
+                                }
+                                <td>@Ficha.Numero_Oc</td>
+                                <td>@Ficha.Fecha_Termino_Oc.ToShortDateString()</td>
+                                @if (Ficha.Fraccionamiento == true)
+                                {
+                                    <td>Si</td>
+
+                                }
+                                else
+                                {
+                                    <td>No</td>
+
+                                }
+
+                                @if (Ficha.Venta_Simple == true)
+
+                                {
+                                    <td>Si</td>
+
+                                }
+                                else
+                                {
+                                    <td>No</td>
+
+                                }
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <div class="modal fade" id="modalFichaCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 40%; opacity: 1">
+        <div class="modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="ui center aligned header">
+                        <img src="~/Recursos/Imagenes/LogoBackline.png" class="ui image">
+                        Ficha del cliente.
+                    </h3>
+                </div>
+                @*<img class="ui fluid image" src="~/Recursos/Imagenes/LogoEsyser_v2.png" />*@
+                <div class="modal-body">
+                    <div class="image content">
+                        <div class="ui info message">
+                            <div class="header">
+                                Atención al completar los campos!
+                            </div>
+                            Recuerda completar todos los datos para guardar.
+                            <div class="ui divider"></div>
+                            <div class="ui form">
+                                <form>
+                                    <div class="ui styled fluid accordion">
+                                        <div class="title active">
+                                            <i class="dropdown icon"></i>
+                                            Datos clientes y gestión adquisición
+                                        </div>
+                                        <div class="content active">
+                                            <div class="two fields">
+                                                <div id="divcmbRegion" class="field">
+                                                    <label>Región</label>
+                                                    <select id="cmbRegion" class="ui search selection dropdown">
+                                                    </select>
+                                                </div>
+                                                <div id="divTxtComuna" class="field">
+                                                    <label>Comuna:</label>
+                                                    <input type="text" id="txtComuna" style="text-transform:uppercase;" placeholder="Ingrese la comuna" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divtxtRazonSocial" class="field">
+                                                    <label>Razón social:</label>
+                                                    <input type="text" id="txtRazonSocial" style="text-transform:uppercase;" placeholder="Ingrese la razón social" autocomplete="off">
+                                                </div>
+                                                <div id="divtxtRut" class="field">
+                                                    <label>Rut:</label>
+                                                    <input type="text" id="txtRut" style="text-transform:uppercase;" placeholder="Ingrese el rut" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divTxtDireccion" class="field" style="width: 100%">
+                                                    <label>Dirección:</label>
+                                                    <input type="text" id="txtDireccion" style="text-transform:uppercase;" placeholder="Ingrese la dirección" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divcmbC_D" class="field">
+                                                    <label>C/D</label>
+                                                    <select id="cmbC_D" name="cmbC_D" class="ui search selection dropdown">
+                                                    </select>
+                                                </div>
+                                                <div id="divcmbEstado" class="field">
+                                                    <label>Estado</label>
+                                                    <select id="cmbEstado" name="cmbEstado" class="ui search selection dropdown">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="title">
+                                            <i class="dropdown icon"></i>
+                                            Datos cotización
+                                        </div>
+                                        <div class="content">
+                                            <div class="two fields">
+                                                <div id="divtxtNCotización" class="field">
+                                                    <label>N° Cotización:</label>
+                                                    <input type="text" id="txtNCotización" style="text-transform:uppercase;" placeholder="Ingrese el N° cotización" autocomplete="off">
+                                                </div>
+                                                <div id="divtxtFechaIngresoCoti" class="field">
+                                                    <label>Fecha ingreso sistema:</label>
+                                                    <input type="date" id="txtFechaIngresoCoti" style="text-transform:uppercase;" placeholder="Ingrese la fecha de ingreso" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divtxtNombreCompletoCoti" class="field">
+                                                    <label>Nombre completo:</label>
+                                                    <input type="text" id="txtNombreCompletoCoti" style="text-transform:uppercase;" placeholder="Ingrese el nombre completo" autocomplete="off">
+                                                </div>
+                                                <div id="divtxtCorreoCoti" class="field">
+                                                    <label>Correo:</label>
+                                                    <input type="text" id="txtCorreoCoti" style="text-transform:uppercase;" placeholder="Ingrese el correo" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divtxtTeléfonoCoti" class="field">
+                                                    <label>Teléfono:</label>
+                                                    <input type="text" id="txtTeléfonoCoti" style="text-transform:uppercase;" placeholder="Ingrese el telefono" autocomplete="off">
+
+                                                </div>
+                                                <div id="divtxtFechaVigenciaCoti" class="field">
+                                                    <label>Fecha vigencia:</label>
+                                                    <input type="date" id="txtFechaVigenciaCoti" style="text-transform:uppercase;" placeholder="Ingrese la fecha de vigencia" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <h4 class="ui dividing red header">Implementación</h4>
+                                            <br />
+                                            <div class="two fields">
+                                                <div id="divcmbUF_PesoIM" class="field">
+                                                    <label>UF/$</label>
+                                                    <div id="cmbUF_PesoIM" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idUF_PesoIM" name="idUF_PesoIM">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbcmbUF_PesoIMMenu" class="menu">
+                                                            <div class="item" data-value="1">UF</div>
+                                                            <div class="item" data-value="2">$</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="divtxtValorIM" class="field">
+                                                    <label>Valor</label>
+                                                    <input type="text" id="txtValorIM" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <h4 class="ui dividing red header">Adaptación</h4>
+                                            <br />
+                                            <div class="two fields">
+                                                <div id="divcmbUF_PesoAD" class="field">
+                                                    <label>UF/$</label>
+                                                    <div id="cmbUF_PesoAD" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idUF_PesoAD" name="idUF_PesoAD">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbcmbUF_PesoADMenu" class="menu">
+                                                            <div class="item" data-value="1">UF</div>
+                                                            <div class="item" data-value="2">$</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="divtxtValorAD" class="field">
+                                                    <label>Valor</label>
+                                                    <input type="text" id="txtValorAD" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <h4 class="ui dividing red header">Tarifa uso</h4>
+                                            <br />
+                                            <div class="two fields">
+                                                <div id="divcmbUF_PesoTA" class="field">
+                                                    <label>UF/$</label>
+                                                    <div id="cmbUF_PesoTA" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idUF_PesoTA" name="idUF_PesoTA">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbcmbUF_PesoTAMenu" class="menu">
+                                                            <div class="item" data-value="1">UF</div>
+                                                            <div class="item" data-value="2">$</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="divTxtValorTA" class="field">
+                                                    <label>Valor</label>
+                                                    <input type="text" id="TxtValorTA" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <h4 class="ui dividing red header">Usuario</h4>
+                                            <br />
+                                            <div class="two fields">
+                                                <div id="divcmbUF_PesoUS" class="field">
+                                                    <label>UF/$</label>
+                                                    <div id="cmbUF_PesoUS" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idUF_PesoUS" name="idUF_PesoUS">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbUF_PesoUSMenu" class="menu">
+                                                            <div class="item" data-value="1">UF</div>
+                                                            <div class="item" data-value="2">$</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="divTxtValorUS" class="field">
+                                                    <label>Valor</label>
+                                                    <input type="text" id="TxtValorUS" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <h4 class="ui dividing red header">Fraccionamiento</h4>
+                                            <br />
+                                            <div class="two fields">
+                                                <div id="divcmbUF_PesoFRA" class="field">
+                                                    <label>UF/$</label>
+                                                    <div id="cmbUF_PesoFRA" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idUF_PesoFRA" name="idUF_PesoFRA">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbcmbUF_PesoFRAMenu" class="menu">
+                                                            <div class="item" data-value="1">UF</div>
+                                                            <div class="item" data-value="2">$</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="divTxtValorFRA" class="field">
+                                                    <label>Valor</label>
+                                                    <input type="text" id="TxtValorFRA" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <h4 class="ui dividing red header">Integración</h4>
+                                            <br />
+                                            <div class="two fields">
+                                                <div id="divcmbUF_PesoINT" class="field">
+                                                    <label>UF/$</label>
+                                                    <div id="cmbUF_PesoINT" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idUF_PesoINT" name="idUF_PesoINT">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbcmbUF_PesoINTMenu" class="menu">
+                                                            <div class="item" data-value="1">UF</div>
+                                                            <div class="item" data-value="2">$</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="divTxtValorINT" class="field">
+                                                    <label>Valor</label>
+                                                    <input type="text" id="TxtValorINT" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <h4 class="ui dividing red header">Boleta electrónica</h4>
+                                            <br />
+                                            <div class="two fields">
+                                                <div id="divcmbUF_PesoBE" class="field">
+                                                    <label>UF/$</label>
+                                                    <div id="cmbUF_PesoBE" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idUF_PesoBE" name="idUF_PesoBE">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbcmbUF_PesoBEMenu" class="menu">
+                                                            <div class="item" data-value="1">UF</div>
+                                                            <div class="item" data-value="2">$</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="divTxtValorBE" class="field">
+                                                    <label>Valor</label>
+                                                    <input type="text" id="TxtValorBE" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <h4 class="ui dividing red header">Punto de venta simple</h4>
+                                            <br />
+                                            <div class="two fields">
+                                                <div id="divcmbUF_PesoPVS" class="field">
+                                                    <label>UF/$</label>
+                                                    <div id="cmbUF_PesoPVS" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idUF_PesoPVS" name="idUF_PesoPVS">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbcmbUF_PesoPVSMenu" class="menu">
+                                                            <div class="item" data-value="1">UF</div>
+                                                            <div class="item" data-value="2">$</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="divTxtValorptv" class="field">
+                                                    <label>Valor</label>
+                                                    <input type="text" id="TxtValorptv" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="title">
+                                            <i class="dropdown icon"></i>
+                                            Datos contratación
+                                        </div>
+                                        <div class="content">
+                                            <div class="two fields">
+                                                <div id="divTxtNumeroContra" class="field">
+                                                    <label>Numero:</label>
+                                                    <input type="number" id="TxtNumeroContra" style="text-transform:uppercase;" placeholder="Ingrese numero" autocomplete="off">
+
+
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divcmbLicitacion" class="field">
+                                                    <label>Licitación/Trato directo</label>
+                                                    <select id="cmbLicitacion" name="cmbLicitacion" class="ui search selection dropdown">
+                                                    </select>
+                                                </div>
+                                                <div id="divtxtMesesDuracion" class="field">
+                                                    <label>Meses de duración:</label>
+                                                    <input type="number" id="txtMesesDuracion" style="text-transform:uppercase;" placeholder="Ingrese los meses de duración" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divTxtFechaIniCon" class="field">
+                                                    <label>Fecha inicio:</label>
+                                                    <input type="date" id="TxtFechaIniCon" style="text-transform:uppercase;" placeholder="Ingrese la fecha de inicio" autocomplete="off">
+
+                                                </div>
+                                                <div id="divTxtFechaTerCon" class="field">
+                                                    <label>Fecha termino:</label>
+                                                    <input type="date" id="TxtFechaTerCon" style="text-transform:uppercase;" placeholder="Ingrese la fecha de termino" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divTxtOrdenC" class="field">
+                                                    <label>N° orden de compra:</label>
+                                                    <input type="text" id="TxtOrdenC" style="text-transform:uppercase;" placeholder="Ingrese numero de OC" autocomplete="off">
+
+                                                </div>
+                                                <div id="divTxtFechaTermOc" class="field">
+                                                    <label>Fecha termino oc:</label>
+                                                    <input type="date" id="TxtFechaTermOc" style="text-transform:uppercase;" placeholder="Ingrese la fecha de termino" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <div class="three fields">
+                                                <div id="divTxtTotalNeto" class="field">
+                                                    <label>Total neto:</label>
+                                                    <input type="number" id="TxtTotalNeto" style="text-transform:uppercase;" placeholder="Ingrese el total neto" autocomplete="off">
+                                                </div>
+                                                <div id="divTxtIVA" class="field">
+                                                    <label>IVA:</label>
+                                                    <input type="number" id="txtIVA" style="text-transform:uppercase;" placeholder="Ingrese el iva" autocomplete="off">
+                                                </div>
+                                                <div id="divTxtBruto" class="field">
+                                                    <label>Bruto:</label>
+                                                    <input type="number" id="txtBruto" style="text-transform:uppercase;" placeholder="Ingrese el bruto" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divcmbBE" class="field">
+                                                    <label>Boleta electrónica</label>
+                                                    <div id="cmbBE" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idBE" name="idBE">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbBEMenu" class="menu">
+                                                            <div class="item" data-value="true">Si</div>
+                                                            <div class="item" data-value="false">No</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="divcmbProveedor" class="field">
+                                                    <label>Proveedor</label>
+                                                    <select id="cmbProveedor" name="cmbProveedor" class="ui search selection dropdown">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divcmbFRA" class="field">
+                                                    <label>Fraccionamiento</label>
+                                                    <div id="cmbFRA" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idFRA" name="idFRA">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbFRAMenu" class="menu">
+                                                            <div class="item" data-value="true">Si</div>
+                                                            <div class="item" data-value="false">No</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divcmbVS" class="field">
+                                                    <label>Venta simple</label>
+                                                    <div id="cmbVS" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idVS" name="idVS">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbVSMenu" class="menu">
+                                                            <div class="item" data-value="true">Si</div>
+                                                            <div class="item" data-value="false">No</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="divtxtCPTV" class="field">
+                                                    <label>Cantidad de puntos venta simple:</label>
+                                                    <input type="number" id="txtCPTV" style="text-transform:uppercase;" placeholder="Ingrese la cantidad de puntos de venta" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="ui info message">
+                                                <div class="header">
+                                                    Atención!!
+                                                </div>
+                                                <ul class="list">
+                                                    <li>En esta sección solo podrás agregar nuevos establecimientos.</li>
+                                                    <li>Al momento de agregar nuevos establecimientos a los existentes, solo se veran en la tabla los nuevos hasta que se finalice el guardado.</li>
+                                                    <li>Si deseas editar los establecimientos agregados debes pinchar el botón con un icono de industria que se encuentra en la tabla inicial.</li>
+                                                </ul>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divtxtNombreEstablecimiento" class="field">
+                                                    <label>Nombre establecimiento:</label>
+                                                    <input type="text" id="txtNombreEstablecimiento" style="text-transform:uppercase;" placeholder="Ingrese el nombre del establecimiento" autocomplete="off">
+                                                </div>
+                                                <div id="divcmbBAE" class="field">
+                                                    <label>BE Afecta/Exenta a IVA</label>
+                                                    <div id="cmbBAE" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idBAE" name="idBAE">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbBAEMenu" class="menu">
+                                                            <div class="item" data-value="true">Afecta</div>
+                                                            <div class="item" data-value="false">Exenta</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button id="btnAgregar" class="ui right labeled blue icon button" onclick="AgregarEstablecimiento(); return false">
+                                                <i class="check circle icon"></i><font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">
+                                                        Agregar establecimiento
+                                                    </font>
+                                                </font>
+                                            </button>
+                                            <table id="grdDatos" class="ui celled table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Nombre establecimiento</th>
+                                                        <th>Es afecta a IVA</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="two fields">
+                                                <div id="divtxtTotalUf" class="field">
+                                                    <label>Total mensualidad contratado en UF neto:</label>
+                                                    <input type="number" id="txtTotalUf" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+                                                </div>
+                                                <div id="divtxtTotalPeso" class="field">
+                                                    <label>Total mensualidad contratado en $ neto:</label>
+                                                    <input type="number" id="txtTotalPeso" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divTxtObservación" class="field" style="width:100%">
+                                                    <label>Observación:</label>
+                                                    <textarea placeholder="Observaciones aquí..." rows="5" id="txtObservación" style="text-transform:uppercase;"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="title">
+                                            <i class="dropdown icon"></i>
+                                            Datos de contacto
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="ui dividing red header">Farmacia/Droguería/Punto venta</h4>
+                                            <br />
+                                            <div class="two fields">
+                                                <div id="divtxtNombreCFDP" class="field">
+                                                    <label>Nombre:</label>
+                                                    <input type="text" id="txtNombreCFDP" style="text-transform:uppercase;" placeholder="Ingrese nombre" autocomplete="off">
+
+                                                </div>
+                                                <div id="divTxtCargoCFDP" class="field">
+                                                    <label>Cargo:</label>
+                                                    <input type="text" id="TxtCargoCFDP" style="text-transform:uppercase;" placeholder="Ingrese cargo" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divTxtCorreoCFDP" class="field">
+                                                    <label>Correo:</label>
+                                                    <input type="text" id="TxtCorreoCFDP" style="text-transform:uppercase;" placeholder="Ingrese correo" autocomplete="off">
+
+                                                </div>
+                                                <div id="divTxtTeléfonoCFDP" class="field">
+                                                    <label>Teléfono:</label>
+                                                    <input type="number" id="TxtTeléfonoCFDP" style="text-transform:uppercase;" placeholder="Ingrese teléfono" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <h4 class="ui dividing red header">Informatica</h4>
+                                            <br />
+                                            <div class="two fields">
+                                                <div id="divtxtNombreInfo" class="field">
+                                                    <label>Nombre:</label>
+                                                    <input type="text" id="txtNombreInfo" style="text-transform:uppercase;" placeholder="Ingrese nombre" autocomplete="off">
+
+                                                </div>
+                                                <div id="divTxtCargoInfo" class="field">
+                                                    <label>Cargo:</label>
+                                                    <input type="text" id="TxtCargoInfo" style="text-transform:uppercase;" placeholder="Ingrese cargo" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divTxtCorreoInfo" class="field">
+                                                    <label>Correo:</label>
+                                                    <input type="text" id="TxtCorreoInfo" style="text-transform:uppercase;" placeholder="Ingrese correo" autocomplete="off">
+
+                                                </div>
+                                                <div id="divTxtTeléfonoInfo" class="field">
+                                                    <label>Teléfono:</label>
+                                                    <input type="number" id="TxtTeléfonoInfo" style="text-transform:uppercase;" placeholder="Ingrese teléfono" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <h4 class="ui dividing red header">Contabilidad</h4>
+                                            <br />
+                                            <div class="two fields">
+                                                <div id="divTxtNombreConta" class="field">
+                                                    <label>Nombre:</label>
+                                                    <input type="text" id="TxtNombreConta" style="text-transform:uppercase;" placeholder="Ingrese nombre" autocomplete="off">
+
+                                                </div>
+                                                <div id="divTxtCargoConta" class="field">
+                                                    <label>Cargo:</label>
+                                                    <input type="text" id="TxtCargoConta" style="text-transform:uppercase;" placeholder="Ingrese cargo" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divTxtCorreoConta" class="field">
+                                                    <label>Correo:</label>
+                                                    <input type="text" id="TxtCorreoConta" style="text-transform:uppercase;" placeholder="Ingrese correo" autocomplete="off">
+
+                                                </div>
+                                                <div id="divTxtTeléfonoConta" class="field">
+                                                    <label>Teléfono:</label>
+                                                    <input type="number" id="TxtTeléfonoConta" style="text-transform:uppercase;" placeholder="Ingrese teléfono" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <h4 class="ui dividing red header">Facturación</h4>
+                                            <br />
+                                            <div class="two fields">
+                                                <div id="divTxtNombreFact" class="field">
+                                                    <label>Nombre:</label>
+                                                    <input type="text" id="TxtNombreFact" style="text-transform:uppercase;" placeholder="Ingrese nombre" autocomplete="off">
+
+                                                </div>
+                                                <div id="divTxtCargoFact" class="field">
+                                                    <label>Cargo:</label>
+                                                    <input type="text" id="TxtCargoFact" style="text-transform:uppercase;" placeholder="Ingrese cargo" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divTxtCorreoFact" class="field">
+                                                    <label>Correo:</label>
+                                                    <input type="text" id="TxtCorreoFact" style="text-transform:uppercase;" placeholder="Ingrese correo" autocomplete="off">
+
+                                                </div>
+                                                <div id="divTxtTeléfonoFact" class="field">
+                                                    <label>Teléfono:</label>
+                                                    <input type="number" id="TxtTeléfonoFact" style="text-transform:uppercase;" placeholder="Ingrese teléfono" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divExito" class="ui icon hidden positive  message">
+                        <i class="stopwatch icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Éxito!!
+                            </div>
+                            <p>El aviso fue subido con éxito.</p>
+                        </div>
+                    </div>
+                    <div id="divError" class="ui icon hidden positive  message">
+                        <i class="stopwatch icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Error!!
+                            </div>
+                            <p>La boleta no fue generada.</p>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div id="DivMessajeErrorGeneral" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Se han encontrado algunos problemas, revíselos...
+                            </div>
+                            <ul id="listMessajeError" class="list"></ul>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div id="DivMessajeErrorGeneralAgregar" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Se han encontrado algunos problemas al agregar establecimiento, revíselos...
+                            </div>
+                            <ul id="listMessajeErrorAgregar" class="list"></ul>
+                        </div>
+                    </div>
+                    <br />
+
+                    <button id="btnGuardaFicha" class="ui right labeled blue icon button" onclick="GuardarFicha();">
+                        <i class="check circle icon"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Guardar
+                            </font>
+                        </font>
+                    </button>
+                    <button class="ui right labeled red icon button" onclick="window.location.replace('/FichaCliente')">
+                        <i class="left arrow icon"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Volver
+                            </font>
+                        </font>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<div class="modal fade" id="modalEliminarFicha" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Eliminar Ficha</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="ui icon warning message">
+                    <i class="trash icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            ¿Desea eliminar esta ficha?
+                        </div>
+                        <p>Esta ficha será eliminada de forma lógica desde la base de datos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="btnEliminarFicha" onclick="EliminarFicha();" class="ui red right labeled icon button">
+                    Eliminar Ficha
+                    <i class="checkmark icon"></i>
+                </div>
+                <div id="btnCancelar" data-dismiss="modal" class="ui right labeled icon button">
+                    Cancelar
+                    <i class="cancel icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalAnexarArchivos" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 40%; opacity:0.9; margin-top: 5% ">
+    <div class="modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="ui center aligned header">
+                    <img src="~/Recursos/Imagenes/LogoBackline.png" class="ui image">
+                    Anexar archivos
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="ui icon info message">
+                    <i class="file pdf icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            Documentos del cliente
+                        </div>
+                        <p>Esta archivo será adjuntado a la ficha del cliente como complemento a la información disponible</p>
+                        <div id="divcmbUnidad" class="field">
+                            <input id="fileAnexo" type="file" accept="application/pdf" />
+                        </div>
+                    </div>
+                </div>
+                <form>
+                    <div class="content">
+                        <div class="ui form">
+                            <div class="field">
+                                <div id="divcmbTipoArchivo">
+                                    <label>Tipo de archivo</label>
+                                    <select id="cmbTipoArchivo" name="cmbTipoArchivo" class="ui search selection dropdown">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="ui form">
+                            <div id="divtxtObservacion" class="field">
+                                <label>Observación</label>
+                                <textarea placeholder="Agregue su observación aquí..." rows="3" id="txtObservacion" style="text-transform:uppercase;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="actions">
+                    <div id="DivMessajeErrorAnexar" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Se han encontrado algunos problemas, revíselos...
+                        </div>
+                        <ul id="listMessajeErrorAnexar" class="list"></ul>
+                    </div>
+                </div>
+                <table id="grdArchivos" class="ui celled table table-striped"></table>
+            </div>
+
+
+            <div class="modal-footer">
+                <div id="btnEliminarFicha" onclick="UploadFicha();" class="ui blue right labeled icon button" data-dismiss="modal">
+                    Adjuntar
+                    <i class="checkmark icon"></i>
+                </div>
+                <div id="btnCancelar" data-dismiss="modal" class="ui right labeled icon button" onclick="window.location.replace('/FichaCliente')">
+                    Cancelar
+                    <i class="cancel icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="hidFicha" value="0" />

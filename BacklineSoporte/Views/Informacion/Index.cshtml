@@ -1,0 +1,259 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Informacion/Informacion.cshtml";
+}
+@model BacklineSoporte.Models.InformacionModel
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" />
+    <title>Informaciones</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+
+    <script src="~/ScriptsVistas/LogicaInformacion.js"></script>
+
+    <style>
+        html, body {
+            background-color: #121213;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg fill-opacity='0.52'%3E%3Ccircle fill='%23121213' cx='50' cy='0' r='50'/%3E%3Cg fill='%23171718' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%231b1b1c' cx='50' cy='100' r='50'/%3E%3Cg fill='%231f1f21' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23232326' cx='50' cy='200' r='50'/%3E%3Cg fill='%2327282b' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%232c2c2f' cx='50' cy='300' r='50'/%3E%3Cg fill='%23303134' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23343539' cx='50' cy='400' r='50'/%3E%3Cg fill='%23393a3f' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%233d3f44' cx='50' cy='500' r='50'/%3E%3Cg fill='%23424449' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%2347494e' cx='50' cy='600' r='50'/%3E%3Cg fill='%234b4e54' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23505359' cx='50' cy='700' r='50'/%3E%3Cg fill='%2354585f' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23595d64' cx='50' cy='800' r='50'/%3E%3Cg fill='%235e626a' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23626770' cx='50' cy='900' r='50'/%3E%3Cg fill='%23676d75' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%236C727B' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+            background-size: contain;
+            font-family: 'Numans', sans-serif;
+        }
+    </style>
+
+    <script type="text/javascript">
+         var urlGuardarInformacion = '@Url.Action("GuardarInformacion","Informacion")';
+         var urlObtenerFecha = '@Url.Action("ObtenerFecha", "Informacion")';
+        var urlEliminarInformacion = '@Url.Action("EliminarInformacion", "Informacion")';
+        var urlEditarInformacion = '@Url.Action("EditarInformacion","Informacion")';
+    </script>
+</head>
+
+<body>
+    <br />
+    <div style="margin-left:auto; margin-right:auto; width:95%; opacity:0.9">
+        <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
+            <table class="ui celled definition table" style="width:30%">
+                <tbody>
+
+                    <tr>
+                        <td>Botón</td>
+                        <td>
+                            <button class="ui icon red button" disabled>
+                                <i class="trash icon"></i>
+                            </button>
+
+
+                        </td>
+                        <td>
+                            <button class="ui blue icon button" disabled>
+                                <i class="edit icon"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Acción</td>
+                        <td>Elimina información</td>
+                        <td>Edita información</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="btnAgregaInformacion" data-toggle="modal" data-target="#modalInformaciones" class="ui blue right labeled icon button">
+                Agregar información
+                <i class="checkmark icon"></i>
+            </div>
+            <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Home'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
+
+            <table class="ui celled striped table">
+                <thead>
+                    <tr>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue"></th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">ID</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Titulo</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha ingreso</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Detalle</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Creador información</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var Informacion in Model.ListaInformacion)
+                        {
+                            <tr>
+                                <td>
+                                    <button class="ui icon red button" value="@Informacion.Id" data-toggle="modal" data-target="#modalEliminarInformacion" onclick="PreparaEliminaInformacion(this.value, this);">
+                                        <i class="trash icon"></i>
+                                    </button>
+                                    <button class="ui icon blue button" value="@Informacion.Id" data-toggle="modal" data-target="#modalInformaciones" onclick="PrepararEditarInformacion(this.value, this); EditarInformacion();">
+
+                                        <i class="edit icon"></i>
+                                    </button>
+                                </td>
+                                <td>@Informacion.Id</td>
+                                <td>@Informacion.Titulo</td>
+                                <td>@Informacion.Fecha.ToShortDateString()</td>
+                                <td>@Informacion.Detalle_Informacion</td>
+                                <td>@Informacion.CreadorInformacion</td>
+                            </tr>
+
+                        }
+
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <br />
+    <div class="modal fade" id="modalInformaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 95%; opacity:0.9">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div style="height:5px"></div>
+                <div>
+
+                    <h3 style="color:black" class="ui header">
+                        <img class="bordered rounded" src="~/Recursos/Imagenes/LogoBackline.png" width="50" alt="">
+                        Informaciones
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="image content">
+                        <div class="ui info message">
+                            <div class="header">
+                                Atención al llenar los datos!
+                            </div>
+                            Debes completar todos los campos para guardar!
+                            <div class="ui divider"></div>
+                            <div class="ui form">
+                                <form>
+                                    <div id="divTxtTitulo" class="field">
+                                        <label>Título:</label>
+                                        <input type="text" id="txtTitulo" style="text-transform:uppercase;" placeholder="Ingrese el título de la información" >
+
+                                    </div>
+
+                                    <div id="divTxtFecha" class="field">
+                                        <label>Fecha:</label>
+                                        <input type="text" id="txtFecha" placeholder="Ingrese la fecha" readonly>
+
+                                    </div>
+                                    <div id="divTxtDetalle" class="field">
+                                        <label>Detalle información:</label>
+                                        <textarea placeholder="Detalle aquí..." rows="5" id="txtDetalle" style="text-transform:uppercase;" ></textarea>
+                                    </div>
+                                    <div id="divcmbRepetición" class="field">
+                                        <label>Visible</label>
+                                        <div id="cmbRepetición" class="ui search selection dropdown">
+                                            <input type="hidden" id="idRepetición" name="idRepetición" >
+                                            <i class="dropdown icon"></i>
+                                            <div class="default text">Seleccione</div>
+                                            <div id="cmbRepeticiónMenu" class="menu">
+                                                <div class="item" data-value="true">Si</div>
+                                                <div class="item" data-value="false">No</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height:5px">
+
+                    </div>
+                    <div id="divExito" class="ui icon hidden positive  message">
+                        <i class="stopwatch icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Éxito!!
+                            </div>
+                            <p>La información fue guardada con éxito.</p>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div id="DivMessajeErrorGeneral" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Se han encontrado algunos problemas, revíselos...
+                            </div>
+                            <ul id="listMessajeError" class="list"></ul>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div id="DivMessajeErrorGeneral" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Se han encontrado algunos problemas, revíselos...
+                            </div>
+                            <ul id="listMessajeErrorAgregar" class="list"></ul>
+                        </div>
+                    </div>
+                    <button id="btnGuardaInformacion" class="ui right labeled blue icon button" onclick="GuardarInformacion();">
+                        <i class="check circle icon"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Guardar Información
+                            </font>
+                        </font>
+                    </button>
+                    <button class="ui right labeled red icon button" onclick="window.location.replace('/Informacion')">
+                        <i class="left arrow icon"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Volver
+                            </font>
+                        </font>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
+
+<div class="modal fade" id="modalEliminarInformacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Eliminar Informacion</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="ui icon warning message">
+                    <i class="trash icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            ¿Desea eliminar esta información?
+                        </div>
+                        <p>Esta información será eliminada de forma lógica desde la base de datos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="btnEliminarInformacion" onclick="EliminarInformacion();" class="ui red right labeled icon button">
+                    Eliminar Información
+                    <i class="checkmark icon"></i>
+                </div>
+                <div id="btnCancelar" data-dismiss="modal" class="ui right labeled icon button">
+                    Cancelar
+                    <i class="cancel icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="hidInformacion" value="0" />

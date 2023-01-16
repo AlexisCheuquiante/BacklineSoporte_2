@@ -1,0 +1,199 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/ConsultasDrogueria/ConsultasDrogueria.cshtml";
+}
+
+<html>
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" />
+        <title>Consultas de farmacia</title>
+        <!-- Estilos y funciones básicas de funcionamiento -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <!-- Semantic UI CSS -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+
+        <script src="~/ScriptsVistas/LogicaConsultasDrogueria.js"></script>
+
+        <style>
+            html, body {
+                background-color: #121213;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg fill-opacity='0.52'%3E%3Ccircle fill='%23121213' cx='50' cy='0' r='50'/%3E%3Cg fill='%23171718' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%231b1b1c' cx='50' cy='100' r='50'/%3E%3Cg fill='%231f1f21' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23232326' cx='50' cy='200' r='50'/%3E%3Cg fill='%2327282b' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%232c2c2f' cx='50' cy='300' r='50'/%3E%3Cg fill='%23303134' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23343539' cx='50' cy='400' r='50'/%3E%3Cg fill='%23393a3f' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%233d3f44' cx='50' cy='500' r='50'/%3E%3Cg fill='%23424449' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%2347494e' cx='50' cy='600' r='50'/%3E%3Cg fill='%234b4e54' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23505359' cx='50' cy='700' r='50'/%3E%3Cg fill='%2354585f' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23595d64' cx='50' cy='800' r='50'/%3E%3Cg fill='%235e626a' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23626770' cx='50' cy='900' r='50'/%3E%3Cg fill='%23676d75' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%236C727B' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+                background-attachment: fixed;
+                background-size: contain;
+                font-family: 'Numans', sans-serif;
+            }
+
+      
+        </style>
+
+        <script>
+
+        var urlObtenerEmpresas = '@Url.Action("ObtenerEmpresas", "ConsultasDrogueria")';
+        var urlObtenerTipoDocumetoConsulta = '@Url.Action("ObtenerTipoDocumetoConsulta", "ConsultasDrogueria")';
+        var urlObtenerSolicitante = '@Url.Action("ObtenerSolicitante", "ConsultasDrogueria")';
+        var urlObtenerDocumentosConsulta = '@Url.Action("ObtenerDocumentosConsulta", "ConsultasDrogueria")';
+
+
+        $(document).ready(function () {
+
+            $('.ui.selection.dropdown').dropdown();
+            $('.ui.menu .ui.dropdown').dropdown({
+                on: 'hover'
+            });
+
+            $('.ui.accordion')
+                .accordion()
+                ;
+            $('.tabular.menu .item').tab();
+        });
+
+
+        </script>
+
+    </head>
+    <body>
+        <div @*class="modal fade"*@ id="modalUsuarios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 40%; opacity:0.9; margin-top: 5% ">
+            <div class="modal-lg" role="document">
+                <div class="modal-content">
+                    <div style="height:5px"></div>
+                    <div>
+
+                        <h3 style="color:black" class="ui header">
+                            <img class="bordered rounded" src="~/Recursos/Imagenes/LogoBackline.png" width="50" alt="">
+                            Droguerías
+                        </h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="image content">
+                            <div class="ui info message">
+                                <div class="header">
+                                    Atención al llenar los datos!
+                                </div>
+                                Debes completar todos los campos para guardar!
+                                <div class="ui divider"></div>
+                                <div class="ui form">
+                                    <form>
+                                        <div class="ui tabular menu">
+                                            <div class="active item" data-tab="tab-name">Empresas y Usuarios</div>
+                                            <div class="item" data-tab="tab-name2">Primeros 20 movimientos</div>
+                                        </div>
+                                        <div class="ui active tab" data-tab="tab-name">
+                                            <div class="content active">
+                                                <div class="two fields">
+                                                    <div id="divcmbEmpresa" class="field">
+                                                        <label>Empresas</label>
+                                                        <select id="cmbEmpresa" class="ui search selection dropdown" onchange="ObtenerSolicitante();">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <table id="grdDatos" class="ui celled table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Nombre usuario</th>
+                                                            <th>Activo</th>
+                                                            <th>Eliminado</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="ui tab" data-tab="tab-name2">
+                                            <div class="two fields">
+                                                <div id="divcmbTipoDocumento" class="field">
+                                                    <label>Tipo Documento</label>
+                                                    <select id="cmbTipoDocumento" class="ui search selection dropdown" onchange="ObtenerDocumentosConsulta();">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <table id="grdDatosMovimiento" class="ui celled table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Fecha</th>
+                                                        <th>Numero</th>
+                                                        <th>Numero SII</th>
+                                                        <th>Tipo documento</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height:5px">
+
+                        </div>
+                        <div id="divExito" class="ui icon hidden positive  message">
+                            <i class="stopwatch icon"></i>
+                            <div class="content">
+                                <div class="header">
+                                    Éxito!!
+                                </div>
+                                <p>La droguería fue guardada con éxito.</p>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <div id="DivMessajeErrorGeneral" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                                <i class="close icon"></i>
+                                <div class="header">
+                                    Se han encontrado algunos problemas, revíselos...
+                                </div>
+                                <ul id="listMessajeError" class="list"></ul>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <div id="DivMessajeErrorGeneral" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                                <i class="close icon"></i>
+                                <div class="header">
+                                    Se han encontrado algunos problemas, revíselos...
+                                </div>
+                                <ul id="listMessajeErrorAgregar" class="list"></ul>
+                            </div>
+                        </div>
+                        <div id="divBotones" class="modal-footer">
+                            @*<div id="btnGuardaComentario" class="ui blue right labeled icon button" onclick="GuardarComentario();">
+                                Guardar
+                                <i class="save icon"></i>
+                            </div>*@
+                            <div id="btnLimpiar" class="ui right labeled icon button" onclick="Limpiar();">Limpiar<i class="trash icon"></i></div>
+                            <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Consultas'" data-dismiss="modal">Volver<i class="cancel icon"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </body>
+
+</html>
+

@@ -1,0 +1,53 @@
+﻿.flex-container {
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: black;
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    padding: 1rem;
+    background: rgb(41,39,39);
+    background: linear-gradient(90deg, rgba(41,39,39,1) 0%, rgba(136,134,146,0.8524452017134979) 33%, rgba(145,150,161,0.7011846975118172) 100%);
+}
+#top {
+    background: rgb(41,39,39);
+    background: linear-gradient(90deg, rgba(41,39,39,1) 0%, rgba(136,134,146,0.8524452017134979) 33%, rgba(145,150,161,0.7011846975118172) 100%);
+    border:0px;
+}
+    
+h3 {
+    color: aliceblue;
+}
+#fondo {
+    background: rgb(41,39,39);
+    background: linear-gradient(90deg, rgba(41,39,39,1) 0%, rgba(136,134,146,0.8524452017134979) 33%, rgba(145,150,161,0.7011846975118172) 100%);
+    border:0px;
+}
+.ui-card{
+
+    text-align:center;
+    display:flex;
+    margin: 5px;
+    background-color:aliceblue;
+    
+}
+.ui.card.realizada {
+    background-color: #8BFF92
+}
+.container-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items:start;
+    
+}
+#CardAtrasada {
+    background-color: #FF7070;
+    border-bottom-color: red;
+}
+a {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: -32px;
+}
+}
