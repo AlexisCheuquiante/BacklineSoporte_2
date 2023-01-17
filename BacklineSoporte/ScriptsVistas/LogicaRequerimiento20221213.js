@@ -380,7 +380,7 @@ function EditarRequerimiento() {
         data: { idRequerimiento: idRequerimiento },
         success: function (requerimiento) {
 
-                $('#txtFechaIngreso').val(requerimiento.FechaMostrar),
+            $('#txtFechaIngreso').val(requerimiento.FechaMostrarIngreso),
                 $("#cmbSoftware").dropdown('set selected', requerimiento.TisoId),
                 $("#cmbEmpresa").dropdown('set selected', requerimiento.EmpId),
                     $("#cmbSolicitante").dropdown('set selected', requerimiento.SolicitanteId),

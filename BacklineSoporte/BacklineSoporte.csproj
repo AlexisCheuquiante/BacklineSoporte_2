@@ -317,6 +317,7 @@
     <Content Include="Views\MantenedorUsuarios\MantenedorUsuarios.cshtml" />
     <Content Include="Views\Agenda\index.cshtml" />
     <Content Include="Views\Agenda\Agenda.cshtml" />
+    <Content Include="Views\Desarrollos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

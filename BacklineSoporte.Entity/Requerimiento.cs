@@ -12,6 +12,17 @@ namespace BacklineSoporte.Entity
         public int UsrCreador { get; set; }
         public string NombreCreador { get; set; }
         public DateTime FechaIngreso { get; set; }
+
+        public string FechaMostrarIngreso
+        {
+            get
+            {
+                var dd = FechaIngreso.Day.ToString("00");
+                var mm = FechaIngreso.Month.ToString("00");
+                var yy = FechaIngreso.Year;
+                return yy + "-" + mm + "-" + dd;
+            }
+        }
         public string FechaMostrar
         {
             get
