@@ -134,6 +134,7 @@
     <Compile Include="Controllers\ConsultasFarmaciasController.cs" />
     <Compile Include="Controllers\ConsultasPuntoVentaSimpleController.cs" />
     <Compile Include="Controllers\CrearFarmaciaController.cs" />
+    <Compile Include="Controllers\DesarrollosController.cs" />
     <Compile Include="Controllers\EstablecimientoController.cs" />
     <Compile Include="Controllers\FichaClienteController.cs" />
     <Compile Include="Controllers\HomeClienteController.cs" />
@@ -208,6 +209,7 @@
     <Content Include="Recursos\Imagenes\ba11d2a2a56da950b9e44d234fbcfc95.jpg" />
     <Content Include="Recursos\Imagenes\BotonIngresoRequerimientos.jpg" />
     <Content Include="Recursos\Imagenes\Consultas.jpg" />
+    <Content Include="Recursos\Imagenes\Desa.jpg" />
     <Content Include="Recursos\Imagenes\FichaCliente.png" />
     <Content Include="Recursos\Imagenes\FondoFinal.png" />
     <Content Include="Recursos\Imagenes\IconoSoporte.png" />
@@ -226,6 +228,7 @@
     <Content Include="ScriptsVistas\LogicaComentario.js" />
     <Content Include="ScriptsVistas\LogicaConsultasFarmacias.js" />
     <Content Include="ScriptsVistas\LogicaCrearFarmacia.js" />
+    <Content Include="ScriptsVistas\LogicaDesarrollos.js" />
     <Content Include="ScriptsVistas\LogicaEstablecimiento.js" />
     <Content Include="ScriptsVistas\LogicaFichaCliente202203191652.js" />
     <Content Include="ScriptsVistas\LogicaInformacion.js" />
@@ -318,6 +321,7 @@
     <Content Include="Views\Agenda\index.cshtml" />
     <Content Include="Views\Agenda\Agenda.cshtml" />
     <Content Include="Views\Desarrollos\Index.cshtml" />
+    <Content Include="Views\Desarrollos\Desarrollos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

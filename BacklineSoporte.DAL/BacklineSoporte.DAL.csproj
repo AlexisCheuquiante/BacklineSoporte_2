@@ -60,6 +60,7 @@
     <Compile Include="BitacoraDAL.cs" />
     <Compile Include="ComentarioDAL.cs" />
     <Compile Include="CreacionFarmaciaDAL.cs" />
+    <Compile Include="DesarrollosDAL.cs" />
     <Compile Include="DocumentoConsultaDAL.cs" />
     <Compile Include="EmpresaDAL.cs" />
     <Compile Include="EntidadDAL.cs" />
