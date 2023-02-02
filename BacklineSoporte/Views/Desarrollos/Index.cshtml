@@ -1,9 +1,8 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Desarrollos/Desarrollos.cshtml";
 }
-
+@model BacklineSoporte.Models.DesarrollosModel
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
     <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="~/CSS/DesarrolloCSS.css">
     <script src="~/ScriptsVistas/LogicaDesarrollos.js"></script>
 
     <style>
@@ -33,6 +32,16 @@
     </style>
     <script type="text/javascript">
         var urlGuardarDesarrollo = '@Url.Action("GuardarDesarrollo" , "Desarrollos")';
+        var urlEliminarDesarrollo = '@Url.Action("EliminarDesarrollo" , "Desarrollos")';
+        var urlEditarDesarrollo = '@Url.Action("EditarDesarrollo" , "Desarrollos")';
+        var urlObtenerEstados = '@Url.Action("ObtenerEstados" , "Desarrollos")';
+        var urlObtenerUsuarios = '@Url.Action("ObtenerUsuarios" , "Desarrollos")';
+        var urlBusquedaFiltro = '@Url.Action("BusquedaFiltro" , "Desarrollos")';
+
+        function MuestraImagenes(id) {
+            location.href = '/ImagenesDesarrollo?id=' + id;
+        }
+
     </script>
 </head>
 
@@ -40,37 +49,69 @@
     <br />
     <div style="margin-left:auto; margin-right:auto; width:95%; opacity:0.9">
         <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
-            <table class="ui celled definition table" style="width:30%">
-                <tbody>
+            <div class="ui info message">
+                <div class="ui form">
+                    <form>
 
-                    <tr>
-                        <td>Botón</td>
-                        <td>
-                            <button class="ui icon red button" disabled>
-                                <i class="trash icon"></i>
-                            </button>
+                        <div class="fields" style="width:100%">
+                            <div id="divtxtFiltroFechaDesde" class="field" style="width:15%">
+                                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de desde</font></font></label>
+                                <input id="txtFiltroFechaDesde" type="date" placeholder="" value=@Session["FiltroInformeDesde"]>
+                            </div>
+                            <div id="divtxtFiltroFechaHasta" class="field" style="width:15%">
+                                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de hasta</font></font></label>
+                                <input id="txtFiltroFechaHasta" type="date" placeholder="" value=@Session["FiltroInformeHasta"]>
+                            </div>
+
+                        </div>
+                        <button id="btnBuscar" class="ui right labeled blue icon button" style="display:flex;" onclick="BusquedaFiltro();return false">
+                            <i class="search icon"></i><font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">
+                                    Buscar desarrollos
+                                </font>
+                            </font>
+                        </button>
+
+                    </form>
+                </div>
+
+                <table class="ui celled definition table" style="width:30%">
+                    <tbody>
+
+                        <tr>
+                            <td>Botón</td>
+                            <td>
+                                <button class="ui icon red button" disabled>
+                                    <i class="trash icon"></i>
+                                </button>
 
 
-                        </td>
-                        <td>
-                            <button class="ui blue icon button" disabled>
-                                <i class="edit icon"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Acción</td>
-                        <td>Elimina desarrollo</td>
-                        <td>Edita desarrollo</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="btnAgregaDesarrollo" data-toggle="modal" data-target="#modalDesarrollos" class="ui blue right labeled icon button">
-                Agregar Desarrollo
-                <i class="checkmark icon"></i>
+                            </td>
+                            <td>
+                                <button class="ui blue icon button" disabled>
+                                    <i class="edit icon"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="ui orange icon button" disabled>
+                                    <i class="camera icon"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Acción</td>
+                            <td>Elimina desarrollo</td>
+                            <td>Edita desarrollo</td>
+                            <td>Agregar imagen</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="btnAgregaDesarrollo" data-toggle="modal" data-target="#modalDesarrollos" class="ui blue right labeled icon button">
+                    Agregar Desarrollo
+                    <i class="checkmark icon"></i>
+                </div>
+                <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Home'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
             </div>
-            <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Home'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
-
             <table class="ui celled striped table">
                 <thead>
                     <tr>
@@ -79,11 +120,96 @@
                         <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Módulo</th>
                         <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Requerimiento</th>
                         <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Detalle requerimiento</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha Ingreso</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Responsable</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha Inicio</th>
                         <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha Termino</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Tiempo restante</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Estado</th>
                     </tr>
                 </thead>
+                <tbody>
+                    @{
+                        foreach (var desarrollo in Model.listaDesarrollos)
+                        {
+                                        <tr>
+                                            <td>
+                                                <button class="ui icon red button" value="@desarrollo.Id" data-toggle="modal" data-target="#modalEliminarDesarrollo" onclick="PreparaEliminarDesarrollo(this.value, this);">
+                                                    <i class="trash icon"></i>
+                                                </button>
+                                                <button class="ui icon blue button" value="@desarrollo.Id" data-toggle="modal" data-target="#modalDesarrollos" onclick="PrepararEditarDesarrollo(this.value, this); EditarDesarrollo();">
 
+                                                    <i class="edit icon"></i>
+                                                </button>
+                                                <button class="ui icon orange button" value="@desarrollo.Id" onclick="MuestraImagenes(this.value, this);">
+
+                                                    <i class="camera icon"></i>
+                                                </button>
+                                            </td>
+                                            <td>@desarrollo.Id</td>
+                                            <td>@desarrollo.Modulo</td>
+                                            <td>@desarrollo.Requerimiento</td>
+                                            <td>@desarrollo.Detalle_Requerimiento</td>
+                                            <td>@desarrollo.NombreCompleto</td>
+                                            <td>@desarrollo.Fecha_Inicio.ToShortDateString()</td>
+                                            <td>@desarrollo.Fecha_Termino.ToShortDateString()</td>
+
+                                            @if (DateTime.Now > desarrollo.Fecha_Inicio && DateTime.Now <= desarrollo.Fecha_Termino)
+                                            {
+
+                                                <td class="@(desarrollo.Estado_Id == 2?"Atiempo":"Apunto")">@desarrollo.DiferenciaFecha Días</td>
+
+
+
+                                            }
+                                            @if (desarrollo.DiferenciaFecha < 1 && desarrollo.Estado_Id == 1)
+                                            {
+
+
+                                                <td style="background-color:orange;">0 días</td>
+
+                                            }
+                                            @if (desarrollo.DiferenciaFecha < 1 && desarrollo.Estado_Id == 3)
+                                            {
+
+
+                                                <td style="background-color:red;">0 días</td>
+
+                                            }
+                                            @if (desarrollo.DiferenciaFecha < 1 && desarrollo.Estado_Id == 2)
+                                            {
+
+
+                                                <td style="background-color:lawngreen;">0 días</td>
+
+                                            }
+                                            @if (desarrollo.Fecha_Inicio > DateTime.Now)
+                                            {
+                                                <td style="background-color:coral;">Aun no comienza.</td>
+                                            }
+
+
+
+
+                                            @if (desarrollo.Estado_Id == 1)
+                                            {
+                                                <td>EN PROCESO</td>
+                                            }
+                                            @if (desarrollo.Estado_Id == 2)
+                                            {
+                                                <td>TERMINADO</td>
+                                            }
+                                            @if (desarrollo.Estado_Id == 3)
+                                            {
+                                                <td>ATRASADO</td>
+                                            }
+
+                                        </tr>
+
+                        }
+
+                    }
+
+                </tbody>
 
             </table>
         </div>
@@ -114,7 +240,7 @@
 
                                         <div id="divTxtFechaInicio" class="field">
                                             <label>Fecha Inicio:</label>
-                                            <input type="date" id="txtFechaInicio" >
+                                            <input type="date" id="txtFechaInicio">
 
                                         </div>
                                         <div id="divTxtFechaTermino" class="field">
@@ -123,7 +249,7 @@
 
                                         </div>
                                     </div>
-                                    
+
 
                                     <div id="divTxtModulo" class="field">
                                         <label>Módulo:</label>
@@ -132,8 +258,18 @@
                                     </div>
                                     <div id="divTxtRequerimiento" class="field">
                                         <label>Requerimiento:</label>
-                                        <input type="text" id="txtRequerimiento"  placeholder="Ingrese requerimiento solicitado">
+                                        <input type="text" id="txtRequerimiento" placeholder="Ingrese requerimiento solicitado">
 
+                                    </div>
+                                    <div id="divcmbEstado" class="field">
+                                        <label>Estado:</label>
+                                        <select id="cmbEstado" name="cmbEstado" class="ui search selection dropdown">
+                                        </select>
+                                    </div>
+                                    <div id="divcmbResponsable" class="field">
+                                        <label>Responsable:</label>
+                                        <select id="cmbResponsable" name="cmbResponsable" class="ui search selection dropdown">
+                                        </select>
                                     </div>
                                     <div id="divTxtDetalle" class="field">
                                         <label>Detalle requerimiento:</label>
@@ -198,4 +334,47 @@
 </body>
 
 </html>
+<div class="modal fade" id="modalEliminarDesarrollo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Eliminar Desarrollo</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="ui icon warning message">
+                    <i class="trash icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            ¿Desea eliminar este desarrollo?
+                        </div>
+                        <p>Este desarrollo será eliminado de forma lógica desde la base de datos</p>
+                    </div>
+
+                </div>
+                <div id="divExitoElimina" class="ui icon hidden positive  message">
+                    <i class="thumbs up icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            Éxito!!
+                        </div>
+                        <p>El Desarrollo fue eliminado con éxito.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="btnEliminarDesarrollo" onclick="EliminarDesarrollo();" class="ui red right labeled icon button">
+                    Eliminar Desarrollo
+                    <i class="checkmark icon"></i>
+                </div>
+                <div id="btnCancelar" data-dismiss="modal" class="ui right labeled icon button">
+                    Cancelar
+                    <i class="cancel icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <input type="hidden" id="hidDesarrollo" value="0" />

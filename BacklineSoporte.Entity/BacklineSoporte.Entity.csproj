@@ -49,12 +49,14 @@
     <Compile Include="Empresa.cs" />
     <Compile Include="Entidad.cs" />
     <Compile Include="Establecimiento.cs" />
+    <Compile Include="EstadoDesarrollo.cs" />
     <Compile Include="EstadoFicha.cs" />
     <Compile Include="EstadoRequerimiento.cs" />
     <Compile Include="FarmaciasCreadas.cs" />
     <Compile Include="FichaCliente.cs" />
     <Compile Include="Filtro.cs" />
     <Compile Include="Imagen.cs" />
+    <Compile Include="ImagenDesarrollo.cs" />
     <Compile Include="Informacion.cs" />
     <Compile Include="Modulo.cs" />
     <Compile Include="Prioridad.cs" />

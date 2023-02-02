@@ -139,6 +139,7 @@
     <Compile Include="Controllers\FichaClienteController.cs" />
     <Compile Include="Controllers\HomeClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImagenesDesarrolloController.cs" />
     <Compile Include="Controllers\InformacionClienteController.cs" />
     <Compile Include="Controllers\InformacionController.cs" />
     <Compile Include="Controllers\LoginClienteController.cs" />
@@ -159,9 +160,11 @@
     <Compile Include="Models\ComentarioModel.cs" />
     <Compile Include="Models\ConsultasModel.cs" />
     <Compile Include="Models\CrearFarmaciaModel.cs" />
+    <Compile Include="Models\DesarrollosModel.cs" />
     <Compile Include="Models\EstablecimientosModel.cs" />
     <Compile Include="Models\FichaClienteModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\ImagenesDesarrolloModel.cs" />
     <Compile Include="Models\InformacionModel.cs" />
     <Compile Include="Models\HomeClienteModel.cs" />
     <Compile Include="Models\MantenedorModulosModel.cs" />
@@ -183,6 +186,7 @@
     <Content Include="CSS\AgendaCSS.css" />
     <Content Include="CSS\CreacionFarmaciaEstilo.css" />
     <Content Include="CSS\demo.css" />
+    <Content Include="CSS\DesarrolloCSS.css" />
     <Content Include="CSS\EstiloLogin.css" />
     <Content Include="CSS\fotorama.css" />
     <Content Include="CSS\jquery.easy-gallery.css" />
@@ -231,6 +235,7 @@
     <Content Include="ScriptsVistas\LogicaDesarrollos.js" />
     <Content Include="ScriptsVistas\LogicaEstablecimiento.js" />
     <Content Include="ScriptsVistas\LogicaFichaCliente202203191652.js" />
+    <Content Include="ScriptsVistas\LogicaImagenDesarrollo.js" />
     <Content Include="ScriptsVistas\LogicaInformacion.js" />
     <Content Include="ScriptsVistas\LogicaLogin.js" />
     <Content Include="ScriptsVistas\LogicaLoginCliente.js" />
@@ -322,6 +327,7 @@
     <Content Include="Views\Agenda\Agenda.cshtml" />
     <Content Include="Views\Desarrollos\Index.cshtml" />
     <Content Include="Views\Desarrollos\Desarrollos.cshtml" />
+    <Content Include="Views\ImagenesDesarrollo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
