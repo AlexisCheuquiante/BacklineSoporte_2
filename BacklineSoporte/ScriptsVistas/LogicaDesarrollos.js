@@ -60,7 +60,7 @@ function GuardarDesarrollo() {
         success: function (resultado) {
             if (resultado == 'ok') {
                 $('#divExito').removeClass("hidden");
-                setTimeout(() => { window.location.href = '/Agenda?actualizar=1' }, 1000);
+                setTimeout(() => { window.location.href = '/Desarrollos?actualizar=1' }, 1000);
                 /*setTimeout(() => { location.reload(); }, 2000);*/
             }
         },

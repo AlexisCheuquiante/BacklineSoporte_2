@@ -170,13 +170,7 @@
                                                 <td style="background-color:red;">0 días</td>
 
                                             }
-                                            @if (desarrollo.DiferenciaFecha < 1 && desarrollo.Estado_Id == 3)
-                                            {
-
-
-                                                <td style="background-color:red;">0 días</td>
-
-                                            }
+                
                                             @if (desarrollo.DiferenciaFecha < 1 && desarrollo.Estado_Id == 2)
                                             {
 
@@ -204,10 +198,7 @@
                                             {
                                                 <td>TERMINADO</td>
                                             }
-                                            @if (desarrollo.Estado_Id == 3)
-                                            {
-                                                <td>ATRASADO</td>
-                                            }
+                                           
                                             @if (desarrollo.Estado_Id == 1 && desarrollo.DiferenciaFecha < 1)
                                             {
                                                 <td>ATRASADO</td>

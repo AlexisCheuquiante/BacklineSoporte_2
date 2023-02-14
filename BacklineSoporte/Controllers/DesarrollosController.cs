@@ -19,7 +19,7 @@ namespace BacklineSoporte.Controllers
             {
                 Session["FiltroInformeDesde"] = Session["FiltroInformeDesde"];
                 Session["FiltroInformeHasta"] = Session["FiltroInformeHasta"];
-                modelo.listaDesarrollos = Session["registrosEncontrados"] as List<Entity.Desarrollo>;
+                modelo.listaDesarrollos = Session["RegistrosEncontrados"] as List<Entity.Desarrollo>;
             }
             if (limpiar != null)
             {
@@ -30,8 +30,8 @@ namespace BacklineSoporte.Controllers
                 Session["FiltroInformeHasta"] = Utiles.ReversaFecha(terminoSemana);
                 filtro.FechaDesde = Utiles.FechaObtenerMinimo(inicioSemana);
                 filtro.FechaHasta = Utiles.FechaObtenerMaximo(terminoSemana);
-                Session["registrosEncontrados"] = DAL.DesarrollosDAL.ObtenerDesarrollos(filtro);
-                modelo.listaDesarrollos = Session["registrosEncontrados"] as List<Entity.Desarrollo>;
+                Session["RegistrosEncontrados"] = DAL.DesarrollosDAL.ObtenerDesarrollos(filtro);
+                modelo.listaDesarrollos = Session["RegistrosEncontrados"] as List<Entity.Desarrollo>;
             }
             if (actualizar != null)
             {
@@ -40,7 +40,7 @@ namespace BacklineSoporte.Controllers
                 filtro.FechaDesde = Utiles.FechaObtenerMinimo(filtro.FechaDesde);
                 filtro.FechaHasta = Utiles.FechaObtenerMaximo(filtro.FechaHasta);
                 modelo.listaDesarrollos = DAL.DesarrollosDAL.ObtenerDesarrollos(filtro);
-                Session["registrosEncontrados"] = modelo.listaDesarrollos;
+                Session["RegistrosEncontrados"] = modelo.listaDesarrollos;
             }
             return View(modelo);
         }
@@ -101,7 +101,7 @@ namespace BacklineSoporte.Controllers
             List<Entity.Desarrollo> historicosEncontrados = DAL.DesarrollosDAL.ObtenerDesarrollos(entity);
             Session["FiltroInformeDesde"] = Utiles.ReversaFecha(entity.FechaDesde);
             Session["FiltroInformeHasta"] = Utiles.ReversaFecha(entity.FechaHasta);
-            Session["registrosEncontrados"] = historicosEncontrados;
+            Session["RegistrosEncontrados"] = historicosEncontrados;
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = "OK", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
