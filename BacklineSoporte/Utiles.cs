@@ -44,7 +44,47 @@ namespace BacklineSoporte
 
             return new DateTime(year, mes, day, 0, 0, 0);
         }
+        public static DateTime ObtenerInicioSemana(DateTime fecha)
+        {
+            DateTime monday = new DateTime();
+            int diasArestar = 0;
+            if (fecha.DayOfWeek == DayOfWeek.Sunday)
+            {
+                diasArestar = 6;
+            }
+            else
+            {
+                diasArestar = (int)fecha.DayOfWeek - 1;
+            }
+            monday = fecha.AddDays(diasArestar * -1);
+            
+        
+            
+            
+            return monday;
+        }
+        public static DateTime ObtenerTerminoSemana(DateTime fecha)
+        {
+            
+            DateTime sunday = new DateTime();
+            int diasAsumar = 0;
+           
+            if (fecha.DayOfWeek == DayOfWeek.Sunday)
+            {
+                diasAsumar = 0;
 
+            }
+            else
+            {
+                diasAsumar = 7 - (int)fecha.DayOfWeek;
+            }
+            sunday = fecha.AddDays(diasAsumar);
+            
+
+
+
+            return sunday;
+        }
         public static DateTime FechaObtenerMaximo(DateTime fecha)
         {
             int year = fecha.Year;

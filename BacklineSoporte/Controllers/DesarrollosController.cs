@@ -10,11 +10,11 @@ namespace BacklineSoporte.Controllers
     public class DesarrollosController : Controller
     {
         // GET: Desarrollos
-        public ActionResult Index(string buscar, string limpiar)
+        public ActionResult Index(string buscar, string limpiar, string actualizar)
         {
             Models.DesarrollosModel modelo = new Models.DesarrollosModel();
             Entity.Filtro filtro = new Entity.Filtro();
-          
+            
             if (buscar != null)
             {
                 Session["FiltroInformeDesde"] = Session["FiltroInformeDesde"];
@@ -23,12 +23,24 @@ namespace BacklineSoporte.Controllers
             }
             if (limpiar != null)
             {
-                Session["FiltroInformeDesde"] = Utiles.ReversaFecha(DateTime.Now);
-                Session["FiltroInformeHasta"] = Utiles.ReversaFecha(DateTime.Now);
-                filtro.FechaDesde = Utiles.FechaObtenerMinimo(DateTime.Now);
-                filtro.FechaHasta = Utiles.FechaObtenerMaximo(DateTime.Now);
+                DateTime inicioSemana = Utiles.ObtenerInicioSemana(DateTime.Now);
+                DateTime terminoSemana = Utiles.ObtenerTerminoSemana(DateTime.Now);
+
+                Session["FiltroInformeDesde"] = Utiles.ReversaFecha(inicioSemana);
+                Session["FiltroInformeHasta"] = Utiles.ReversaFecha(terminoSemana);
+                filtro.FechaDesde = Utiles.FechaObtenerMinimo(inicioSemana);
+                filtro.FechaHasta = Utiles.FechaObtenerMaximo(terminoSemana);
                 Session["registrosEncontrados"] = DAL.DesarrollosDAL.ObtenerDesarrollos(filtro);
                 modelo.listaDesarrollos = Session["registrosEncontrados"] as List<Entity.Desarrollo>;
+            }
+            if (actualizar != null)
+            {
+                filtro.FechaHasta = Convert.ToDateTime(Session["FiltroInformeHasta"]);
+                filtro.FechaDesde = Convert.ToDateTime(Session["FiltroInformeDesde"]);
+                filtro.FechaDesde = Utiles.FechaObtenerMinimo(filtro.FechaDesde);
+                filtro.FechaHasta = Utiles.FechaObtenerMaximo(filtro.FechaHasta);
+                modelo.listaDesarrollos = DAL.DesarrollosDAL.ObtenerDesarrollos(filtro);
+                Session["registrosEncontrados"] = modelo.listaDesarrollos;
             }
             return View(modelo);
         }

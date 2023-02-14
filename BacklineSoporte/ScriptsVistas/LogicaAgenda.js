@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
-    ObtenerTipoTarea(),
-        ObtenerPrioridadTarea(),
+        ObtenerTipoTarea(),
+        ObtenerModalidadTarea(),
         ObtenerUsuarios()
 });
 
@@ -32,26 +32,26 @@ function ObtenerTipoTarea() {
 
 }
 
-function ObtenerPrioridadTarea() {
+function ObtenerModalidadTarea() {
 
     $.ajax({
-        url: window.urlObtenerPrioridadTarea,
+        url: window.urlObtenerModalidadTarea,
         type: 'POST',
         success: function (data) {
-            $('#cmbPrioridad').dropdown('clear');
-            $('#cmbPrioridad').empty();
-            $('#cmbPrioridad').append('<option value="-1">[Seleccione la priorirdad de la tarea]</option>');
+            $('#cmbModalidad').dropdown('clear');
+            $('#cmbModalidad').empty();
+            $('#cmbModalidad').append('<option value="-1">[Seleccione la modalidad de la tarea]</option>');
             $.each(data,
                 function (value, item) {
 
-                    var texto = '<option value="' + item.Id + '">' + item.Prioridad + '</option>';
-                    $('#cmbPrioridad').append(texto);
+                    var texto = '<option value="' + item.Id + '">' + item.Modalidad + '</option>';
+                    $('#cmbModalidad').append(texto);
                 }
             );
 
         },
         error: function () {
-            alert('Error al cargar las prioridades existentes');
+            alert('Error al cargar las modalidades existentes');
         }
     });
 
@@ -111,7 +111,7 @@ function GuardarTarea() {
         Fecha_Inicio_Tarea: $('#txtFechaInicio').val(),
         Fecha_Termino_Tarea: $('#txtFechaTermino').val(),
         Tipo_Tarea_Id: $('#cmbTipoTarea').val(),
-        Prioridad_Id: $('#cmbPrioridad').val(),
+        Modalidad_Id: $('#cmbModalidad').val(),
         Detalle: $('#txtDetalle').val()
     };
     $.ajax({
@@ -214,7 +214,7 @@ function EditarTarea() {
                 $('#txtFechaTermino').val(tarea.FechaTerminoHora),
 
                 $("#cmbTipoTarea").dropdown('set selected', tarea.Tipo_Tarea_Id),
-                $("#cmbPrioridad").dropdown('set selected', tarea.Prioridad_Id),
+                $("#cmbModalidad").dropdown('set selected', tarea.Modalidad_Id),
                            
                 $('#txtDetalle').val(tarea.Detalle)
 

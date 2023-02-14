@@ -11,6 +11,8 @@ namespace BacklineSoporte.Entity
         public int Id { get; set; }
         public DateTime Fecha_Ingreso { get; set; }
         public DateTime Fecha_Inicio_Tarea { get; set; }
+        public int Modalidad_Id { get; set; }
+        public string Modalidad { get; set; }
         public string FechaInicioHora
         {
             get

@@ -58,6 +58,7 @@
     <Compile Include="Imagen.cs" />
     <Compile Include="ImagenDesarrollo.cs" />
     <Compile Include="Informacion.cs" />
+    <Compile Include="ModalidadTarea.cs" />
     <Compile Include="Modulo.cs" />
     <Compile Include="Prioridad.cs" />
     <Compile Include="PrioridadTarea.cs" />

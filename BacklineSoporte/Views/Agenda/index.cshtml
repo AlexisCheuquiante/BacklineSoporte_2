@@ -37,7 +37,7 @@
 
 
         var urlObtenerTipoTarea = '@Url.Action("ObtenerTipoTarea", "Agenda")';
-        var urlObtenerPrioridadTarea = '@Url.Action("ObtenerPrioridadTarea", "Agenda")';
+        var urlObtenerModalidadTarea = '@Url.Action("ObtenerModalidadTarea", "Agenda")';
         var urlObtenerUsuarios = '@Url.Action("ObtenerUsuarios", "Agenda")';
         var urlInsertarTarea = '@Url.Action("InsertarTarea", "Agenda")';
         var urlEditarTarea = '@Url.Action("EditarTarea", "Agenda")';
@@ -134,7 +134,7 @@
 
         <section class="flex-container">
             <h2 class="ui header" style="color:aliceblue">
-                Baja
+                Remoto
                 <a class="btnAgendar" data-toggle="modal" data-target="#modalAgenda">
                     <i class="calendar alternate icon"></i>
                 </a>
@@ -144,7 +144,7 @@
 
             @foreach (var tarea in Model.ListaTarea)
             {
-                if (tarea.Prioridad_Id == 1 && (tarea.Fecha_Termino_Tarea >= DateTime.Now && tarea.Realizada == false))
+                if (tarea.Modalidad_Id == 1 && (tarea.Fecha_Termino_Tarea >= DateTime.Now && tarea.Realizada == false))
                 {
 
                     <div class="ui card @(@tarea.Realizada?"realizada":"")">
@@ -192,7 +192,7 @@
 
         <section class="flex-container">
             <h2 class="ui header" style="color:aliceblue">
-                Media
+                Presencial
                 <a class="btnAgendar" data-toggle="modal" data-target="#modalAgenda">
                     <i class="calendar alternate icon"></i>
                 </a>
@@ -200,7 +200,7 @@
             @foreach (var tarea in Model.ListaTarea)
             {
 
-                if (tarea.Prioridad_Id == 2 && (tarea.Fecha_Termino_Tarea >= DateTime.Now && tarea.Realizada == false))
+                if (tarea.Modalidad_Id == 2 && (tarea.Fecha_Termino_Tarea >= DateTime.Now && tarea.Realizada == false))
                 {
 
 
@@ -247,59 +247,7 @@
 
 
 
-        <section class="flex-container">
-            <h2 class="ui header" style="color:aliceblue">
-                Alta
-                <a class="btnAgendar" data-toggle="modal" data-target="#modalAgenda">
-                    <i class="calendar alternate icon"></i>
-                </a>
-            </h2>
-            @foreach (var tarea in Model.ListaTarea)
-            {
-                if (tarea.Prioridad_Id == 3 && (tarea.Fecha_Termino_Tarea >= DateTime.Now && tarea.Realizada == false))
-                {
-
-                    <div class="ui card @(@tarea.Realizada?"realizada":"")">
-                        <div class="content">
-                            <button class=" right floated red circular  ui icon button" value="@tarea.Id" data-toggle="modal" data-target="#modalEliminarTarea" onclick="PreparaEliminaTarea(this.value, this);">
-                                <i class="trash icon"></i>
-                            </button>
-                            <button class=" right floated purple circular ui icon button" value="@tarea.Id" data-toggle="modal" data-target="#modalFinalizarTarea" onclick="PreparaEliminaTarea(this.value, this);">
-                                <i class="check icon"></i>
-                            </button>
-                            <button class=" right floated blue circular ui icon button" value="@tarea.Id" onclick="PrepararEditarTarea(this.value, this); EditarTarea();" data-toggle="modal" data-target="#modalAgenda">
-                                <i class="eye icon"></i>
-                            </button>
-                            <div class="header">@tarea.Tipo_Tarea</div>
-                            <div class="description">
-                                <p>
-                                    @tarea.Detalle
-                                </p>
-                            </div>
-                        </div>
-                        <div class="extra content">
-                            <span class="left floated like">
-                                <i class="user icon"></i>
-                                @tarea.Nombre_Completo
-                            </span>
-                            <span class="left floated star">
-                                <i class="calendar alternate outline icon"></i>
-                                Fecha inicio @tarea.Fecha_Inicio_Tarea.ToString()
-
-                            </span>
-                            <span class="left floated star">
-                                <i class="calendar alternate outline icon"></i>
-                                Fecha termino @tarea.Fecha_Termino_Tarea.ToString()
-
-                            </span>
-                        </div>
-                    </div>
-                }
-            }
-
-
-        </section>
-
+        
 
         <section class="flex-container">
             <h2 class="ui header" style="color:aliceblue">
@@ -451,12 +399,12 @@
                                         <input id="txtFechaInicio" type="datetime-local" placeholder="">
                                     </div>
                                     <div id="divtxtFechaTermino" class="field">
-                                        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de termino tarea:</font></font></label>
+                                        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de término tarea:</font></font></label>
                                         <input id="txtFechaTermino" type="datetime-local" placeholder="">
                                     </div>
-                                    <div id="divcmbPrioridad" class="field">
-                                        <label>Prioridad de tarea:</label>
-                                        <select id="cmbPrioridad" name="cmbPrioridad" class="ui search selection dropdown">
+                                    <div id="divcmbModalidad" class="field">
+                                        <label>Modalidad tarea:</label>
+                                        <select id="cmbModalidad" name="cmbModalidad" class="ui search selection dropdown">
                                         </select>
                                     </div>
                                     <div id="divcmbAsignacionUsuario" class="field">

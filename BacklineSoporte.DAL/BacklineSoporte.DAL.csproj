@@ -72,6 +72,7 @@
     <Compile Include="ImagenDAL.cs" />
     <Compile Include="ImagenDesarrolloDAL.cs" />
     <Compile Include="InformacionDAL.cs" />
+    <Compile Include="ModalidadTareaDAL.cs" />
     <Compile Include="ModuloDAL.cs" />
     <Compile Include="PrioridadDAL.cs" />
     <Compile Include="PrioridadTareaDAL.cs" />

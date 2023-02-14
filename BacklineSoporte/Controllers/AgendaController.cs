@@ -29,10 +29,13 @@ namespace BacklineSoporte.Controllers
             }
             if (limpiar != null)
             {
-                Session["FiltroTareaDesde"] = Utiles.ReversaFecha(DateTime.Now);
-                Session["FiltroTareaHasta"] = Utiles.ReversaFecha(DateTime.Now);
-                filtro.FechaDesde = Utiles.FechaObtenerMinimo(DateTime.Now);
-                filtro.FechaHasta = Utiles.FechaObtenerMaximo(DateTime.Now);
+                DateTime inicioSemana = Utiles.ObtenerInicioSemana(DateTime.Now);
+                DateTime terminoSemana = Utiles.ObtenerTerminoSemana(DateTime.Now);
+
+                Session["FiltroTareaDesde"] = Utiles.ReversaFecha(inicioSemana);
+                Session["FiltroTareaHasta"] = Utiles.ReversaFecha(terminoSemana);
+                filtro.FechaDesde = Utiles.FechaObtenerMinimo(inicioSemana);
+                filtro.FechaHasta = Utiles.FechaObtenerMaximo(terminoSemana);
                 modelo.ListaTarea = DAL.TareaDAL.ObtenerTarea(filtro);
                 Session["registrosEncontrados"] = modelo.ListaTarea;
             }
@@ -59,9 +62,9 @@ namespace BacklineSoporte.Controllers
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-        public JsonResult ObtenerPrioridadTarea()
+        public JsonResult ObtenerModalidadTarea()
         {
-            var lista = DAL.PrioridadTareaDAL.ObtenerPrioridadTarea();
+            var lista = DAL.ModalidadTareaDAL.ObtenerModalidadTarea();
 
             if (lista == null || lista.Count == 0)
                 return new JsonResult() { ContentEncoding = Encoding.Default, Data = "Error", JsonRequestBehavior = JsonRequestBehavior.AllowGet };

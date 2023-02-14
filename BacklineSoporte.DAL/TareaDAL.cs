@@ -33,12 +33,12 @@ namespace BacklineSoporte.DAL
                 int FECHA_TERMINO_TAREA = reader.GetOrdinal("FECHA_TERMINO_TAREA");
                 int DETALLE = reader.GetOrdinal("DETALLE");
                 int TIPO_TAREA_ID = reader.GetOrdinal("TIPO_TAREA_ID");
-                int PRIORIDAD_ID = reader.GetOrdinal("PRIORIDAD_ID");          
                 int USR_CREADOR_ID = reader.GetOrdinal("USR_CREADOR_ID");
                 int REALIZADA = reader.GetOrdinal("REALIZADA");
-                int PRIORIDAD = reader.GetOrdinal("PRIORIDAD");
                 int TIPO_TAREA = reader.GetOrdinal("TIPO_TAREA");
                 int NOMBRE_COMPLETO = reader.GetOrdinal("NOMBRE_COMPLETO");
+                int MODALIDAD_ID = reader.GetOrdinal("MODALIDAD_ID");
+                int MODALIDAD = reader.GetOrdinal("MODALIDAD");
                 
 
 
@@ -49,13 +49,13 @@ namespace BacklineSoporte.DAL
                     tarea.Fecha_Ingreso = (DateTime)(!reader.IsDBNull(FECHA_INGRESO_TAREA) ? reader.GetValue(FECHA_INGRESO_TAREA) : DateTime.MinValue);
                     tarea.Fecha_Inicio_Tarea = (DateTime)(!reader.IsDBNull(FECHA_INICIO_TAREA) ? reader.GetValue(FECHA_INICIO_TAREA) : DateTime.MinValue);
                     tarea.Fecha_Termino_Tarea = (DateTime)(!reader.IsDBNull(FECHA_TERMINO_TAREA) ? reader.GetValue(FECHA_TERMINO_TAREA) : DateTime.MinValue);
-                    tarea.Prioridad_Id = (int)(reader.IsDBNull(PRIORIDAD_ID) == false ? reader.GetValue(PRIORIDAD_ID) : 0);
                     tarea.Detalle = (string)(reader.IsDBNull(DETALLE) == false ? reader.GetValue(DETALLE) : "");
                     tarea.Tipo_Tarea_Id = (int)(reader.IsDBNull(TIPO_TAREA_ID) == false ? reader.GetValue(TIPO_TAREA_ID) : 0);
                     tarea.Realizada = (bool)(!reader.IsDBNull(REALIZADA) ? reader.GetValue(REALIZADA) : false);
-                    tarea.Prioridad = (string)(reader.IsDBNull(PRIORIDAD) == false ? reader.GetValue(PRIORIDAD) : "");
                     tarea.Tipo_Tarea = (string)(reader.IsDBNull(TIPO_TAREA) == false ? reader.GetValue(TIPO_TAREA) : "");
                     tarea.Nombre_Completo = (string)(reader.IsDBNull(NOMBRE_COMPLETO) == false ? reader.GetValue(NOMBRE_COMPLETO) : "");
+                    tarea.Modalidad = (string)(reader.IsDBNull(MODALIDAD) == false ? reader.GetValue(MODALIDAD) : "");
+                    tarea.Modalidad_Id = (int)(reader.IsDBNull(MODALIDAD_ID) == false ? reader.GetValue(MODALIDAD_ID) : 0);
 
                     listaRetorno.Add(tarea);
                 }
@@ -88,7 +88,7 @@ namespace BacklineSoporte.DAL
             db.AddInParameter(dbCommand, "FECHA_TERMINO_TAREA", DbType.DateTime, tarea.Fecha_Termino_Tarea != DateTime.MinValue ? tarea.Fecha_Termino_Tarea : (object)null);
             db.AddInParameter(dbCommand, "DETALLE", DbType.String, tarea.Detalle != "" ? tarea.Detalle : (object)null);
             db.AddInParameter(dbCommand, "TIPO_TAREA_ID", DbType.Int32, tarea.Tipo_Tarea_Id != 0 ? tarea.Tipo_Tarea_Id : (object)null);
-            db.AddInParameter(dbCommand, "PRIORIDAD_ID", DbType.Int32, tarea.Prioridad_Id != 0 ? tarea.Prioridad_Id : (object)null);
+            db.AddInParameter(dbCommand, "MODALIDAD_ID", DbType.Int32, tarea.Modalidad_Id != 0 ? tarea.Modalidad_Id : (object)null);
             db.AddInParameter(dbCommand, "USUARIO_CREADOR_ID", DbType.Int32, tarea.Usr_Creador_Id != 0 ? tarea.Usr_Creador_Id : (object)null);
             
            

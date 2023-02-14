@@ -55,11 +55,11 @@
 
                         <div class="fields" style="width:100%">
                             <div id="divtxtFiltroFechaDesde" class="field" style="width:15%">
-                                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de desde</font></font></label>
+                                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha desde</font></font></label>
                                 <input id="txtFiltroFechaDesde" type="date" placeholder="" value=@Session["FiltroInformeDesde"]>
                             </div>
                             <div id="divtxtFiltroFechaHasta" class="field" style="width:15%">
-                                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de hasta</font></font></label>
+                                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha hasta</font></font></label>
                                 <input id="txtFiltroFechaHasta" type="date" placeholder="" value=@Session["FiltroInformeHasta"]>
                             </div>
 
@@ -122,9 +122,11 @@
                         <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Detalle requerimiento</th>
                         <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Responsable</th>
                         <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha Inicio</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha Termino</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha Término</th>
                         <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Tiempo restante</th>
                         <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Estado</th>
+                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Días de atraso</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -165,7 +167,7 @@
                                             {
 
 
-                                                <td style="background-color:orange;">0 días</td>
+                                                <td style="background-color:red;">0 días</td>
 
                                             }
                                             @if (desarrollo.DiferenciaFecha < 1 && desarrollo.Estado_Id == 3)
@@ -190,7 +192,11 @@
 
 
 
-                                            @if (desarrollo.Estado_Id == 1)
+
+
+
+
+                                            @if (desarrollo.Estado_Id == 1 && desarrollo.DiferenciaFecha >= 1)
                                             {
                                                 <td>EN PROCESO</td>
                                             }
@@ -202,7 +208,24 @@
                                             {
                                                 <td>ATRASADO</td>
                                             }
+                                            @if (desarrollo.Estado_Id == 1 && desarrollo.DiferenciaFecha < 1)
+                                            {
+                                                <td>ATRASADO</td>
+                                            }
 
+
+                                            @if (desarrollo.Fecha_Termino < DateTime.Now && desarrollo.Estado_Id != 2)
+                                            {
+                                                <td>@desarrollo.DiferenciaFecha Días</td>
+                                            }
+                                            @if (desarrollo.Fecha_Termino < DateTime.Now && desarrollo.Estado_Id == 2)
+                                            {
+                                                <td>0 días</td>
+                                            }
+                                            @if (DateTime.Now > desarrollo.Fecha_Inicio && DateTime.Now <= desarrollo.Fecha_Termino)
+                {
+                                             <td> 0 días</td>
+                }
                                         </tr>
 
                         }
@@ -244,7 +267,7 @@
 
                                         </div>
                                         <div id="divTxtFechaTermino" class="field">
-                                            <label>Fecha Termino:</label>
+                                            <label>Fecha Término:</label>
                                             <input type="date" id="txtFechaTermino">
 
                                         </div>
