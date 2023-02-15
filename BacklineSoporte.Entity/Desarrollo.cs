@@ -13,6 +13,7 @@ namespace BacklineSoporte.Entity
         public string Requerimiento { get; set; }
         public string Detalle_Requerimiento { get; set; }
         public string NombreCompleto { get; set; }
+        public int Tiempo_Atraso { get; set; }
         public int Estado_Id { get; set; }
         public DateTime Fecha_Inicio { get; set; }
         public int Usuario_Responsable_Id { get; set;}

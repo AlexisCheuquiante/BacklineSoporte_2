@@ -170,7 +170,7 @@
                                                 <td style="background-color:red;">0 días</td>
 
                                             }
-                
+
                                             @if (desarrollo.DiferenciaFecha < 1 && desarrollo.Estado_Id == 2)
                                             {
 
@@ -198,7 +198,7 @@
                                             {
                                                 <td>TERMINADO</td>
                                             }
-                                           
+
                                             @if (desarrollo.Estado_Id == 1 && desarrollo.DiferenciaFecha < 1)
                                             {
                                                 <td>ATRASADO</td>
@@ -211,12 +211,14 @@
                                             }
                                             @if (desarrollo.Fecha_Termino < DateTime.Now && desarrollo.Estado_Id == 2)
                                             {
-                                                <td>0 días</td>
+                                                <td>@desarrollo.Tiempo_Atraso Días</td>
                                             }
-                                            @if (DateTime.Now > desarrollo.Fecha_Inicio && DateTime.Now <= desarrollo.Fecha_Termino)
-                {
-                                             <td> 0 días</td>
-                }
+                                            @if (DateTime.Now > desarrollo.Fecha_Inicio && DateTime.Now <= desarrollo.Fecha_Termino || desarrollo.Fecha_Termino > DateTime.Now)
+                                            {
+                                                <td> 0 días</td>
+
+                                            }
+                                           
                                         </tr>
 
                         }

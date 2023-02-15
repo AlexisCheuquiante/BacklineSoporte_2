@@ -51,6 +51,7 @@ namespace BacklineSoporte.DAL
                 int DIFERENCIAFECHA = reader.GetOrdinal("DIFERENCIAFECHA");
                 int NOMBRECOMPLETO = reader.GetOrdinal("NOMBRECOMPLETO");
                 int USR_RESPONSABLE_ID = reader.GetOrdinal("USR_RESPONSABLE_ID");
+                int TIEMPO_ATRASO = reader.GetOrdinal("TIEMPO_ATRASO");
                
 
                 while (reader.Read())
@@ -58,7 +59,6 @@ namespace BacklineSoporte.DAL
                     Entity.Desarrollo desarrollo = new Entity.Desarrollo();
                     desarrollo.Id = (int)(reader.IsDBNull(ID) == false ? reader.GetValue(ID) : 0);
                     desarrollo.Usuario_Responsable_Id = (int)(reader.IsDBNull(USR_RESPONSABLE_ID) == false ? reader.GetValue(USR_RESPONSABLE_ID) : 0);
-
                     desarrollo.NombreCompleto = (string)(reader.IsDBNull(NOMBRECOMPLETO) == false ? reader.GetValue(NOMBRECOMPLETO) : "");
                     desarrollo.Modulo = (string)(reader.IsDBNull(MODULO) == false ? reader.GetValue(MODULO) : "");
                     desarrollo.Fecha_Inicio = (DateTime)(reader.IsDBNull(FECHA_INICIO) == false ? reader.GetValue(FECHA_INICIO) : null);
@@ -67,6 +67,8 @@ namespace BacklineSoporte.DAL
                     desarrollo.Detalle_Requerimiento = (string)(reader.IsDBNull(DETALLE_REQUERIMIENTO) == false ? reader.GetValue(DETALLE_REQUERIMIENTO) : "");
                     desarrollo.Estado_Id = (int)(reader.IsDBNull(ESTADO_ID) == false ? reader.GetValue(ESTADO_ID) : 0);
                     desarrollo.DiferenciaFecha = (int)(reader.IsDBNull(DIFERENCIAFECHA) == false ? reader.GetValue(DIFERENCIAFECHA) : 0);
+                    desarrollo.Tiempo_Atraso = (int)(reader.IsDBNull(TIEMPO_ATRASO) == false ? reader.GetValue(TIEMPO_ATRASO) : 0);
+
                     listaRetorno.Add(desarrollo);
                 }
             }
