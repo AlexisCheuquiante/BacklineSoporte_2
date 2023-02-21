@@ -129,6 +129,7 @@
     <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\CambiarContraseñaController.cs" />
     <Compile Include="Controllers\ComentarioController.cs" />
+    <Compile Include="Controllers\CompletarVentaController.cs" />
     <Compile Include="Controllers\ConsultasController.cs" />
     <Compile Include="Controllers\ConsultasDrogueriaController.cs" />
     <Compile Include="Controllers\ConsultasFarmaciasController.cs" />
@@ -212,10 +213,13 @@
     <Content Include="Recursos\Imagenes\AvisoCobro.jpg" />
     <Content Include="Recursos\Imagenes\ba11d2a2a56da950b9e44d234fbcfc95.jpg" />
     <Content Include="Recursos\Imagenes\BotonIngresoRequerimientos.jpg" />
+    <Content Include="Recursos\Imagenes\CompletarVenta2.png" />
+    <Content Include="Recursos\Imagenes\CompletaVenta.png" />
     <Content Include="Recursos\Imagenes\Consultas.jpg" />
     <Content Include="Recursos\Imagenes\Desa.jpg" />
     <Content Include="Recursos\Imagenes\FichaCliente.png" />
     <Content Include="Recursos\Imagenes\FondoFinal.png" />
+    <Content Include="Recursos\Imagenes\FondoNuevoSoporte.jpeg" />
     <Content Include="Recursos\Imagenes\IconoSoporte.png" />
     <Content Include="Recursos\Imagenes\Imagen info.jpg" />
     <Content Include="Recursos\Imagenes\informacion.jpg" />
@@ -225,6 +229,7 @@
     <Content Include="Recursos\Imagenes\Solicitud.jpg" />
     <Content Include="Recursos\Imagenes\wall.jpg" />
     <Content Include="ScriptsVistas\LogicaAgenda.js" />
+    <Content Include="ScriptsVistas\LogicaCompletarVenta.js" />
     <Content Include="ScriptsVistas\LogicaConsultasVentaSimple.js" />
     <Content Include="ScriptsVistas\LogicaConsultasDrogueria.js" />
     <Content Include="ScriptsVistas\LogicaAvisoCobro.js" />
@@ -328,6 +333,8 @@
     <Content Include="Views\Desarrollos\Index.cshtml" />
     <Content Include="Views\Desarrollos\Desarrollos.cshtml" />
     <Content Include="Views\ImagenesDesarrollo\Index.cshtml" />
+    <Content Include="Views\CompletarVenta\Index.cshtml" />
+    <Content Include="Views\CompletarVenta\CompletarVenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Archivo.cs" />
     <Compile Include="Bitacora.cs" />
+    <Compile Include="Bodega.cs" />
     <Compile Include="Comentario.cs" />
     <Compile Include="Desarrollo.cs" />
     <Compile Include="DocumentoConsulta.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="EstadoDesarrollo.cs" />
     <Compile Include="EstadoFicha.cs" />
     <Compile Include="EstadoRequerimiento.cs" />
+    <Compile Include="Factura.cs" />
     <Compile Include="FarmaciasCreadas.cs" />
     <Compile Include="FichaCliente.cs" />
     <Compile Include="Filtro.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="Modulo.cs" />
     <Compile Include="Prioridad.cs" />
     <Compile Include="PrioridadTarea.cs" />
+    <Compile Include="Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProveedorBE.cs" />
     <Compile Include="Regiones.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="Requerimiento.cs" />
     <Compile Include="RlTareaUsuario.cs" />
     <Compile Include="RLUsuarioRol.cs" />
+    <Compile Include="RL_EMP_BODE.cs" />
     <Compile Include="Rol.cs" />
     <Compile Include="Software.cs" />
     <Compile Include="Tarea.cs" />

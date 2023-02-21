@@ -32,5 +32,9 @@ namespace BacklineSoporte.Entity
         public bool TraeUsuario { get; set; }
 
         public int Usuario_Id { get; set; }
+        public int Fact_Id { get; set; }
+        public int Bode_Id { get; set; }
+        public int Prod_Id { get; set; }
+        public string Lote { get; set; }
     }
 }

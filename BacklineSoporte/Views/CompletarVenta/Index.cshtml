@@ -1,14 +1,13 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/MantenedorTipoArchivo/MantenedorTipoArchivo.cshtml";
+    Layout = "~/Views/CompletarVenta/CompletarVenta.cshtml";
 }
-@model BacklineSoporte.Models.TipoArchivoModel
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" />
-    <title>Usuarios</title>
+    <title>Completar Venta</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -19,29 +18,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
     <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
-    <script src="~/ScriptsVistas/LogicaMantenedorTipoArchivo.js"></script>
 
-    <script type="text/javascript">
-
-
-    </script>
-
-    <script>
-
-        var urlGuardaTipoArchivo = '@Url.Action("GuardaTipoArchivo", "MantenedorTipoArchivo")';
-        var urlEliminarTipoArchivo = '@Url.Action("EliminarTipoArchivo", "MantenedorTipoArchivo")';
-        var urlEditarTipoArchivo = '@Url.Action("EditarTipoArchivo", "MantenedorTipoArchivo")';
-
-        $(document).ready(function () {
-
-            $('.ui.selection.dropdown').dropdown();
-            $('.ui.menu .ui.dropdown').dropdown({
-                on: 'hover'
-            });
-        });
-
-    </script>
-
+    <script src="~/ScriptsVistas/LogicaCompletarVenta.js"></script>
     <style>
         html, body {
             background-color: #DDDDDE;
@@ -51,92 +29,28 @@
             font-family: 'Numans', sans-serif;
         }
     </style>
+    <script>
 
+        var urlObtenerEmpresas = '@Url.Action("ObtenerEmpresas", "CompletarVenta")';
+        var urlObtenerBodegas = '@Url.Action("ObtenerBodegas", "CompletarVenta")';
+        var urlObtenerProductos = '@Url.Action("ObtenerProductos", "CompletarVenta")';
+        var urlObtenerRlEmpBode = '@Url.Action("ObtenerRlEmpBode", "CompletarVenta")';
+        var urlAgregarProducto = '@Url.Action("AgregarProducto", "CompletarVenta")';
+        var urlInsertarDescuentoStock = '@Url.Action("InsertarDescuentoStock", "CompletarVenta")';
 
+    </script>
 </head>
-
 <body>
     <br />
-    <div style="margin-left:auto; margin-right:auto; width:50%; opacity:0.9">
-        <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
-            <table class="ui celled definition table" style="width:30%">
-                <tbody>
-
-                    <tr>
-                        <td>Botón</td>
-                        <td>
-                            <button class="ui icon red button" disabled>
-                                <i class="trash icon"></i>
-                            </button>
-
-
-                        </td>
-                        <td>
-                            <button class="ui blue icon button" disabled>
-                                <i class="edit icon"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Acción</td>
-                        <td>Elimina tipo de archivo</td>
-                        <td>Edita tipo de archivo</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="btnAgregaTipoArchivo" data-toggle="modal" data-target="#modalTipoArchivo" class="ui black right labeled icon button">
-                Agregar tipo archivo
-                <i class="checkmark icon"></i>
-            </div>
-            <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Mantenedores'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
-
-            <table class="ui celled table inverted table-striped">
-                <thead>
-                    <tr>
-                        <th style="text-align:center; width:150px"></th>
-                        <th style="text-align:center">ID</th>
-                        <th style="text-align:center">TipoArchivo</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        foreach (var archivo in Model.ListaTipoArchivo)
-                        {
-                            <tr>
-                                <td>
-                                    <button class="ui icon red button" value="@archivo.Id" data-toggle="modal" data-target="#modalEliminarTipoArchivo" onclick="PreparaEliminaTipoArchivo(this.value, this);">
-                                        <i class="trash icon"></i>
-                                    </button>
-                                    <button class="ui icon blue button" value="@archivo.Id" data-toggle="modal" data-target="#modalTipoArchivo" onclick="PrepararEditarTipoArchivo(this.value, this); EditarTipoArchivo();">
-
-                                        <i class="edit icon"></i>
-                                    </button>
-                                </td>
-                                <td>@archivo.Id</td>
-                                <td>@archivo.Descripcion</td>
-                            </tr>
-
-                        }
-
-                    }
-
-                </tbody>
-
-            </table>
-        </div>
-       
-    </div>
-    <br />
-    <div class="modal fade" id="modalTipoArchivo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 95%; opacity:0.9; margin-top: 5% ">
-        <div class="modal-dialog" role="document">
+    <div @*class="modal fade"*@ id="modalUsuariosFarmacia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 95%; opacity:0.9">
+        <div class="modal-dialog-lg" role="document">
             <div class="modal-content">
                 <div style="height:5px"></div>
                 <div>
 
                     <h3 style="color:black" class="ui header">
                         <img class="bordered rounded" src="~/Recursos/Imagenes/LogoBackline.png" width="50" alt="">
-                        Mantenedor de tipo de archivos
+                        Completar ventas sin descuento de stock.
                     </h3>
                 </div>
                 <div class="modal-body">
@@ -149,10 +63,86 @@
                             <div class="ui divider"></div>
                             <div class="ui form">
                                 <form>
-                                    <div id="divTxtTipoArchivo" class="field">
-                                        <label>Tipo de archivo:</label>
-                                        <input type="text" id="txtTipoArchivo" placeholder="Ingrese la descripción del archivo">
+                                    <div class="two fields">
+                                        <div id="divcmbEmpresa" class="field">
+                                            <label>Empresa</label>
+                                            <select id="cmbEmpresa" class="ui search selection dropdown" onchange="ObtenerBodegas();">
+                                            </select>
+                                        </div>
+                                        <div id="divcmbBodega" class="field">
+                                            <label>Bodega</label>
+                                            <select id="cmbBodega" class="ui search selection dropdown" onchange="ObtenerProductos();">
+                                            </select>
+                                        </div>
+                                        <div id="divtxtIdBoleta" class="field">
+                                            <label>ID Boleta:</label>
+                                            <input type="number" id="txtIdBoleta" placeholder="Ingrese Id de la boleta">
+
+                                        </div>
                                     </div>
+                                    <div class="two fields">
+                                        <div id="divcmbProducto" class="field">
+                                            <label>Producto</label>
+                                            <select id="cmbProducto" class="ui search selection dropdown" onchange="ObtenerRlEmpBode();">
+                                            </select>
+                                        </div>
+                                        <div id="divcmbLote" class="field">
+                                            <label>Lote</label>
+                                            <select id="cmbLote" class="ui search selection dropdown">
+                                            </select>
+                                        </div>
+                                        <div id="divtxtStock" class="field">
+                                            <label>Stock</label>
+                                            <input type="number" id="txtStock" placeholder="" readonly>
+
+                                        </div>
+                                        <div id="divtxtValorVenta" class="field">
+                                            <label>Valor venta</label>
+                                            <input type="number" id="txtValorVenta" placeholder="" readonly>
+
+                                        </div>
+                                        <div id="divtxtFechaVencimientoLote" class="field">
+                                            <label>Fecha Vencimiento Lote</label>
+                                            <input type="date" id="txtFechaVencimientoLote" placeholder="" readonly>
+
+                                        </div>
+                                        <div id="divtxtCantidad" class="field">
+                                            <label>Stock a descontar</label>
+                                            <input type="number" id="txtCantidad" placeholder="">
+
+                                        </div>
+                                        <button id="btnAgregarProd" class="ui right labeled blue icon button" onclick="AgregarProducto(); return false;">
+                                            <i class="plus icon"></i><font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">
+                                                    Agregar
+                                                </font>
+                                            </font>
+                                        </button>
+
+                                    </div>
+                                    <table id="grdDatos" class="ui celled table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Id Producto</th>
+                                                <th>Descripción producto</th>
+                                                <th>Lote</th>
+                                                <th>Fecha Vencimiento</th>
+                                                <th>Valor venta</th>
+                                                <th>Stock a descontar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
                                 </form>
                             </div>
                         </div>
@@ -166,7 +156,7 @@
                             <div class="header">
                                 Éxito!!
                             </div>
-                            <p>El tipo de archivo fue guardado con éxito.</p>
+                            <p>El ajuste fue guardado con éxito.</p>
                         </div>
                     </div>
                     <div class="actions">
@@ -187,14 +177,16 @@
                             <ul id="listMessajeErrorAgregar" class="list"></ul>
                         </div>
                     </div>
-                    <button id="btnGuardaTipoArchivo" class="ui right labeled blue icon button" onclick="GuardaTipoArchivo();">
+                    <br />
+
+                    <button id="btnGuardaFicha" class="ui right labeled blue icon button" onclick="GuardarDescuentoStock();">
                         <i class="check circle icon"></i><font style="vertical-align: inherit;">
                             <font style="vertical-align: inherit;">
-                                Guardar tipo de archivo
+                                Guardar
                             </font>
                         </font>
                     </button>
-                    <button class="ui right labeled red icon button" onclick="window.location.replace('/MantenedorTipoArchivo')">
+                    <button class="ui right labeled red icon button" onclick="window.location.replace('/Home')">
                         <i class="left arrow icon"></i><font style="vertical-align: inherit;">
                             <font style="vertical-align: inherit;">
                                 Volver
@@ -205,42 +197,5 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modalEliminarTipoArchivo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLongTitle">Eliminar tipo de archivo</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="ui icon warning message">
-                        <i class="trash icon"></i>
-                        <div class="content">
-                            <div class="header">
-                                ¿Desea eliminar este Tipo de archivo?
-                            </div>
-                            <p>Esta tipo de archivo será eliminado de forma lógica desde la base de datos</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div id="btnEliminarTipoArchivo" onclick="EliminarTipoArchivo();" class="ui red right labeled icon button">
-                        Eliminar Tipo archivo
-                        <i class="checkmark icon"></i>
-                    </div>
-                    <div id="btnCancelar" data-dismiss="modal" class="ui right labeled icon button">
-                        Cancelar
-                        <i class="cancel icon"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 </body>
-
 </html>
-<input type="hidden" id="hidTipoArchivo" value="0" />
