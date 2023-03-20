@@ -4,7 +4,7 @@
     border-color: black;
     display: flex;
     flex-direction: column;
-    width: 320px;
+    width: 330px;
     padding: 1rem;
     background: rgb(41,39,39);
     background: linear-gradient(90deg, rgba(41,39,39,1) 0%, rgba(136,134,146,0.8524452017134979) 33%, rgba(145,150,161,0.7011846975118172) 100%);

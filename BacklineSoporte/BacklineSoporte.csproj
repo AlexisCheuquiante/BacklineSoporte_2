@@ -189,6 +189,7 @@
     <Content Include="CSS\demo.css" />
     <Content Include="CSS\DesarrolloCSS.css" />
     <Content Include="CSS\EstiloLogin.css" />
+    <Content Include="CSS\FondoPantalla.css" />
     <Content Include="CSS\fotorama.css" />
     <Content Include="CSS\jquery.easy-gallery.css" />
     <Content Include="CSS\slippry.css" />
@@ -220,12 +221,19 @@
     <Content Include="Recursos\Imagenes\FichaCliente.png" />
     <Content Include="Recursos\Imagenes\FondoFinal.png" />
     <Content Include="Recursos\Imagenes\FondoNuevoSoporte.jpeg" />
+    <Content Include="Recursos\Imagenes\IconoAgenda.png" />
+    <Content Include="Recursos\Imagenes\IconoCobro.png" />
+    <Content Include="Recursos\Imagenes\IconoDesarrollo.png" />
+    <Content Include="Recursos\Imagenes\IconoFarmacia.png" />
+    <Content Include="Recursos\Imagenes\IconoFichaCliente.png" />
+    <Content Include="Recursos\Imagenes\IconoMantenedores.png" />
     <Content Include="Recursos\Imagenes\IconoSoporte.png" />
     <Content Include="Recursos\Imagenes\Imagen info.jpg" />
     <Content Include="Recursos\Imagenes\informacion.jpg" />
     <Content Include="Recursos\Imagenes\Informaciones.jpg" />
     <Content Include="Recursos\Imagenes\LogoBackline.png" />
     <Content Include="Recursos\Imagenes\Mantenedores.jpg" />
+    <Content Include="Recursos\Imagenes\Requerimientos.png" />
     <Content Include="Recursos\Imagenes\Solicitud.jpg" />
     <Content Include="Recursos\Imagenes\wall.jpg" />
     <Content Include="ScriptsVistas\LogicaAgenda.js" />
