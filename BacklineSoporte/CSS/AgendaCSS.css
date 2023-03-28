@@ -4,8 +4,8 @@
     border-color: black;
     display: flex;
     flex-direction: column;
-    width: 330px;
-    padding: 1rem;
+    width: 280px;
+    padding: 0.7rem;
     background: rgb(41,39,39);
     background: linear-gradient(90deg, rgba(41,39,39,1) 0%, rgba(136,134,146,0.8524452017134979) 33%, rgba(145,150,161,0.7011846975118172) 100%);
 }
@@ -31,8 +31,12 @@ h3 {
     background-color:aliceblue;
     
 }
+.ui card{
+    margin-bottom:0.1rem;
+}
 .ui.card.realizada {
-    background-color: #8BFF92
+    background-color: #8BFF92;
+    margin-bottom:0.1rem;
 }
 .container-columns {
     display: flex;

@@ -33,10 +33,12 @@
     </style>
 
     <script>
-       var urlObtenerEntidad = '@Url.Action("ObtenerEntidad", "FichaCliente")';
+        var urlObtenerEntidad = '@Url.Action("ObtenerEntidad", "FichaCliente")';
+         var urlObtenerDetalleCotizacion = '@Url.Action("ObtenerDetalleCotizacion", "FichaCliente")';
        var urlGuardarFicha = '@Url.Action("GuardarFicha", "FichaCliente")';
        var urlObtenerRegion = '@Url.Action("ObtenerRegion", "FichaCliente")';
-       var urlObtenerEstadoFicha = '@Url.Action("ObtenerEstadoFicha", "FichaCliente")';
+        var urlObtenerEstadoFicha = '@Url.Action("ObtenerEstadoFicha", "FichaCliente")';
+         var urlObtenerMotivoContacto = '@Url.Action("ObtenerMotivoContacto", "FichaCliente")';
        var urlObtenerTipoContratacion = '@Url.Action("ObtenerTipoContratacion", "FichaCliente")';
        var urlObtenerProveedor = '@Url.Action("ObtenerProveedor", "FichaCliente")';
        var urlAgregarEstablecimiento = '@Url.Action("AgregarEstablecimiento", "FichaCliente")';
@@ -69,43 +71,7 @@
    
     <div style="margin-left:auto; margin-right:auto; width:95%; opacity:0.9">
         <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
-            <table class="ui celled definition table" style="width:30%;">
-                <tbody>
-
-                    <tr>
-                        <td>Botón</td>
-                        <td>
-                            <button class="ui icon red button" disabled>
-                                <i class="trash icon"></i>
-                            </button>
-
-
-                        </td>
-                        <td>
-                            <button class="ui green icon button" disabled>
-                                <i class="edit icon"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="ui blue icon button" disabled>
-                                <i class="file pdf icon"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="ui orange icon button" disabled>
-                                <i class="industry icon"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Acción</td>
-                        <td>Elimina ficha</td>
-                        <td>Edita ficha</td>
-                        <td>Adjuntar PDF</td>
-                        <td>Edita establecimientos</td>
-                    </tr>
-                </tbody>
-            </table>
+           
             <div id="btnAgregaFicha" data-toggle="modal" data-target="#modalFichaCliente" class="ui blue right labeled icon button">
                 Agregar Ficha
                 <i class="checkmark icon"></i>
@@ -130,57 +96,70 @@
                     @{
                         foreach (var Ficha in Model.ListaFichaCliente)
                         {
-                            <tr>
-                                <td>
-                                    <button class="ui icon red button" value="@Ficha.Id" data-toggle="modal" data-target="#modalEliminarFicha" onclick="PreparaEliminaFicha(this.value, this);">
-                                        <i class="trash icon"></i>
-                                    </button>
-                                    <button class="ui icon green button" value="@Ficha.Id" data-toggle="modal" data-target="#modalFichaCliente" onclick="PrepararEditarFicha(this.value, this); EditarFicha();">
-                                        <i class="edit icon"></i>
-                                    </button>
-                                    <button class="ui icon blue button" value="@Ficha.Id" data-toggle="modal" data-target="#modalAnexarArchivos" onclick="PreparaAnexar(this.value, this);">
-                                        <i class="file pdf icon"></i>
-                                    </button>
-                                    <button class="ui icon orange button" value="@Ficha.Id" onclick="MuestraEstablecimientos(this.value, this);">
-                                        <i class="industry icon"></i>
-                                    </button>
-                                </td>
-                                <td>@Ficha.Id</td>
-                                <td>@Ficha.Razon_Social.ToUpper()</td>
-                                <td>@Ficha.Comuna</td>
-                                @if (Ficha.Tipo_Contratacion_Id == 1)
-                                {
-                                    <td>Licitación</td>
-                                }
-                                else
-                                {
-                                    <td>Trato directo</td>
-                                }
-                                <td>@Ficha.Numero_Oc</td>
-                                <td>@Ficha.Fecha_Termino_Oc.ToShortDateString()</td>
-                                @if (Ficha.Fraccionamiento == true)
-                                {
-                                    <td>Si</td>
+                                        <tr>
+                                            <td>
+                                                <button class="ui medium vertical animated red button" tabindex="0" value="@Ficha.Id" data-toggle="modal" data-target="#modalEliminarFicha" onclick="PreparaEliminaFicha(this.value, this);">
+                                                    <div class="hidden content">Eliminar</div>
+                                                    <div class="visible content">
+                                                        <i class="trash icon"></i>
+                                                    </div>
+                                                </button>
+                                                <button class="ui medium vertical animated green button" tabindex="0" value="@Ficha.Id" data-toggle="modal" data-target="#modalFichaCliente" onclick="PrepararEditarFicha(this.value, this); EditarFicha();">
+                                                    <div class="hidden content">Editar</div>
+                                                    <div class="visible content">
+                                                        <i class="edit icon"></i>
+                                                    </div>
+                                                </button>
 
-                                }
-                                else
-                                {
-                                    <td>No</td>
+                                                <button class="ui medium vertical animated blue button" tabindex="0" value="@Ficha.Id" data-toggle="modal" data-target="#modalAnexarArchivos" onclick="PreparaAnexar(this.value, this);">
+                                                    <div class="hidden content">pdf</div>
+                                                    <div class="visible content">
+                                                        <i class="file pdf icon"></i>
+                                                    </div>
+                                                </button>
+                                                <button class="ui medium vertical animated orange button" style="width:200px;margin-top:2px;" tabindex="0" value="@Ficha.Id" onclick="MuestraEstablecimientos(this.value, this);">
+                                                    <div class="hidden content" >Editar establecimiento</div>
+                                                    <div class="visible content">
+                                                        <i class="industry icon"></i>
+                                                    </div>
+                                                </button>
+                                            </td>
+                                            <td>@Ficha.Id</td>
+                                            <td>@Ficha.Razon_Social.ToUpper()</td>
+                                            <td>@Ficha.Comuna</td>
+                                            @if (Ficha.Tipo_Contratacion_Id == 1)
+                                            {
+                                                <td>Licitación</td>
+                                            }
+                                            else
+                                            {
+                                                <td>Trato directo</td>
+                                            }
+                                            <td>@Ficha.Numero_Oc</td>
+                                            <td>@Ficha.Fecha_Termino_Oc.ToShortDateString()</td>
+                                            @if (Ficha.Fraccionamiento == true)
+                                            {
+                                                <td>Si</td>
 
-                                }
+                                            }
+                                            else
+                                            {
+                                                <td>No</td>
 
-                                @if (Ficha.Venta_Simple == true)
+                                            }
 
-                                {
-                                    <td>Si</td>
+                                            @if (Ficha.Venta_Simple == true)
 
-                                }
-                                else
-                                {
-                                    <td>No</td>
+                                            {
+                                                <td>Si</td>
 
-                                }
-                            </tr>
+                                            }
+                                            else
+                                            {
+                                                <td>No</td>
+
+                                            }
+                                        </tr>
                         }
                     }
                 </tbody>
@@ -295,173 +274,190 @@
 
                                                 </div>
                                             </div>
-                                            <h4 class="ui dividing red header">Implementación</h4>
-                                            <br />
                                             <div class="two fields">
-                                                <div id="divcmbUF_PesoIM" class="field">
-                                                    <label>UF/$</label>
-                                                    <div id="cmbUF_PesoIM" class="ui search selection dropdown">
-                                                        <input type="hidden" id="idUF_PesoIM" name="idUF_PesoIM">
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="default text">Seleccione</div>
-                                                        <div id="cmbcmbUF_PesoIMMenu" class="menu">
-                                                            <div class="item" data-value="1">UF</div>
-                                                            <div class="item" data-value="2">$</div>
-                                                        </div>
-                                                    </div>
+                                                <div id="divcmbDetalleCotizacion" class="field">
+                                                    <label>Detalle de la cotización:</label>
+                                                    <select id="cmbDetalleCotizacion" name="cmbDetalleCotizacion" class="ui search selection dropdown">
+                                                    </select>
                                                 </div>
-                                                <div id="divtxtValorIM" class="field">
-                                                    <label>Valor</label>
-                                                    <input type="text" id="txtValorIM" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
 
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divTxtObservacionCotizacion" class="field" style="width:100%">
+                                                    <label>Observaciones:</label>
+                                                    <textarea placeholder="Detalle aquí..." rows="5" id="txtObservacionCotizacion" style="text-transform:uppercase;"></textarea>
                                                 </div>
                                             </div>
-                                            <h4 class="ui dividing red header">Adaptación</h4>
-                                            <br />
-                                            <div class="two fields">
-                                                <div id="divcmbUF_PesoAD" class="field">
-                                                    <label>UF/$</label>
-                                                    <div id="cmbUF_PesoAD" class="ui search selection dropdown">
-                                                        <input type="hidden" id="idUF_PesoAD" name="idUF_PesoAD">
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="default text">Seleccione</div>
-                                                        <div id="cmbcmbUF_PesoADMenu" class="menu">
-                                                            <div class="item" data-value="1">UF</div>
-                                                            <div class="item" data-value="2">$</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="divtxtValorAD" class="field">
-                                                    <label>Valor</label>
-                                                    <input type="text" id="txtValorAD" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
 
-                                                </div>
-                                            </div>
-                                            <h4 class="ui dividing red header">Tarifa uso</h4>
-                                            <br />
-                                            <div class="two fields">
-                                                <div id="divcmbUF_PesoTA" class="field">
-                                                    <label>UF/$</label>
-                                                    <div id="cmbUF_PesoTA" class="ui search selection dropdown">
-                                                        <input type="hidden" id="idUF_PesoTA" name="idUF_PesoTA">
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="default text">Seleccione</div>
-                                                        <div id="cmbcmbUF_PesoTAMenu" class="menu">
-                                                            <div class="item" data-value="1">UF</div>
-                                                            <div class="item" data-value="2">$</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="divTxtValorTA" class="field">
-                                                    <label>Valor</label>
-                                                    <input type="text" id="TxtValorTA" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
 
-                                                </div>
-                                            </div>
-                                            <h4 class="ui dividing red header">Usuario</h4>
-                                            <br />
-                                            <div class="two fields">
-                                                <div id="divcmbUF_PesoUS" class="field">
-                                                    <label>UF/$</label>
-                                                    <div id="cmbUF_PesoUS" class="ui search selection dropdown">
-                                                        <input type="hidden" id="idUF_PesoUS" name="idUF_PesoUS">
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="default text">Seleccione</div>
-                                                        <div id="cmbUF_PesoUSMenu" class="menu">
-                                                            <div class="item" data-value="1">UF</div>
-                                                            <div class="item" data-value="2">$</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="divTxtValorUS" class="field">
-                                                    <label>Valor</label>
-                                                    <input type="text" id="TxtValorUS" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
 
-                                                </div>
-                                            </div>
-                                            <h4 class="ui dividing red header">Fraccionamiento</h4>
-                                            <br />
-                                            <div class="two fields">
-                                                <div id="divcmbUF_PesoFRA" class="field">
-                                                    <label>UF/$</label>
-                                                    <div id="cmbUF_PesoFRA" class="ui search selection dropdown">
-                                                        <input type="hidden" id="idUF_PesoFRA" name="idUF_PesoFRA">
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="default text">Seleccione</div>
-                                                        <div id="cmbcmbUF_PesoFRAMenu" class="menu">
-                                                            <div class="item" data-value="1">UF</div>
-                                                            <div class="item" data-value="2">$</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="divTxtValorFRA" class="field">
-                                                    <label>Valor</label>
-                                                    <input type="text" id="TxtValorFRA" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
-                                                </div>
-                                            </div>
-                                            <h4 class="ui dividing red header">Integración</h4>
-                                            <br />
-                                            <div class="two fields">
-                                                <div id="divcmbUF_PesoINT" class="field">
-                                                    <label>UF/$</label>
-                                                    <div id="cmbUF_PesoINT" class="ui search selection dropdown">
-                                                        <input type="hidden" id="idUF_PesoINT" name="idUF_PesoINT">
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="default text">Seleccione</div>
-                                                        <div id="cmbcmbUF_PesoINTMenu" class="menu">
-                                                            <div class="item" data-value="1">UF</div>
-                                                            <div class="item" data-value="2">$</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="divTxtValorINT" class="field">
-                                                    <label>Valor</label>
-                                                    <input type="text" id="TxtValorINT" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+                                            @*<h4 class="ui dividing red header">Implementación</h4>
+        <br />
+        <div class="two fields">
+            <div id="divcmbUF_PesoIM" class="field">
+                <label>UF/$</label>
+                <div id="cmbUF_PesoIM" class="ui search selection dropdown">
+                    <input type="hidden" id="idUF_PesoIM" name="idUF_PesoIM">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Seleccione</div>
+                    <div id="cmbcmbUF_PesoIMMenu" class="menu">
+                        <div class="item" data-value="1">UF</div>
+                        <div class="item" data-value="2">$</div>
+                    </div>
+                </div>
+            </div>
+            <div id="divtxtValorIM" class="field">
+                <label>Valor</label>
+                <input type="text" id="txtValorIM" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
 
-                                                </div>
-                                            </div>
-                                            <h4 class="ui dividing red header">Boleta electrónica</h4>
-                                            <br />
-                                            <div class="two fields">
-                                                <div id="divcmbUF_PesoBE" class="field">
-                                                    <label>UF/$</label>
-                                                    <div id="cmbUF_PesoBE" class="ui search selection dropdown">
-                                                        <input type="hidden" id="idUF_PesoBE" name="idUF_PesoBE">
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="default text">Seleccione</div>
-                                                        <div id="cmbcmbUF_PesoBEMenu" class="menu">
-                                                            <div class="item" data-value="1">UF</div>
-                                                            <div class="item" data-value="2">$</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="divTxtValorBE" class="field">
-                                                    <label>Valor</label>
-                                                    <input type="text" id="TxtValorBE" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+            </div>
+        </div>
+        <h4 class="ui dividing red header">Adaptación</h4>
+        <br />
+        <div class="two fields">
+            <div id="divcmbUF_PesoAD" class="field">
+                <label>UF/$</label>
+                <div id="cmbUF_PesoAD" class="ui search selection dropdown">
+                    <input type="hidden" id="idUF_PesoAD" name="idUF_PesoAD">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Seleccione</div>
+                    <div id="cmbcmbUF_PesoADMenu" class="menu">
+                        <div class="item" data-value="1">UF</div>
+                        <div class="item" data-value="2">$</div>
+                    </div>
+                </div>
+            </div>
+            <div id="divtxtValorAD" class="field">
+                <label>Valor</label>
+                <input type="text" id="txtValorAD" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
 
-                                                </div>
-                                            </div>
-                                            <h4 class="ui dividing red header">Punto de venta simple</h4>
-                                            <br />
-                                            <div class="two fields">
-                                                <div id="divcmbUF_PesoPVS" class="field">
-                                                    <label>UF/$</label>
-                                                    <div id="cmbUF_PesoPVS" class="ui search selection dropdown">
-                                                        <input type="hidden" id="idUF_PesoPVS" name="idUF_PesoPVS">
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="default text">Seleccione</div>
-                                                        <div id="cmbcmbUF_PesoPVSMenu" class="menu">
-                                                            <div class="item" data-value="1">UF</div>
-                                                            <div class="item" data-value="2">$</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="divTxtValorptv" class="field">
-                                                    <label>Valor</label>
-                                                    <input type="text" id="TxtValorptv" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+            </div>
+        </div>
+        <h4 class="ui dividing red header">Tarifa uso</h4>
+        <br />
+        <div class="two fields">
+            <div id="divcmbUF_PesoTA" class="field">
+                <label>UF/$</label>
+                <div id="cmbUF_PesoTA" class="ui search selection dropdown">
+                    <input type="hidden" id="idUF_PesoTA" name="idUF_PesoTA">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Seleccione</div>
+                    <div id="cmbcmbUF_PesoTAMenu" class="menu">
+                        <div class="item" data-value="1">UF</div>
+                        <div class="item" data-value="2">$</div>
+                    </div>
+                </div>
+            </div>
+            <div id="divTxtValorTA" class="field">
+                <label>Valor</label>
+                <input type="text" id="TxtValorTA" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
 
-                                                </div>
-                                            </div>
+            </div>
+        </div>
+        <h4 class="ui dividing red header">Usuario</h4>
+        <br />
+        <div class="two fields">
+            <div id="divcmbUF_PesoUS" class="field">
+                <label>UF/$</label>
+                <div id="cmbUF_PesoUS" class="ui search selection dropdown">
+                    <input type="hidden" id="idUF_PesoUS" name="idUF_PesoUS">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Seleccione</div>
+                    <div id="cmbUF_PesoUSMenu" class="menu">
+                        <div class="item" data-value="1">UF</div>
+                        <div class="item" data-value="2">$</div>
+                    </div>
+                </div>
+            </div>
+            <div id="divTxtValorUS" class="field">
+                <label>Valor</label>
+                <input type="text" id="TxtValorUS" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+
+            </div>
+        </div>
+        <h4 class="ui dividing red header">Fraccionamiento</h4>
+        <br />
+        <div class="two fields">
+            <div id="divcmbUF_PesoFRA" class="field">
+                <label>UF/$</label>
+                <div id="cmbUF_PesoFRA" class="ui search selection dropdown">
+                    <input type="hidden" id="idUF_PesoFRA" name="idUF_PesoFRA">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Seleccione</div>
+                    <div id="cmbcmbUF_PesoFRAMenu" class="menu">
+                        <div class="item" data-value="1">UF</div>
+                        <div class="item" data-value="2">$</div>
+                    </div>
+                </div>
+            </div>
+            <div id="divTxtValorFRA" class="field">
+                <label>Valor</label>
+                <input type="text" id="TxtValorFRA" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+            </div>
+        </div>
+        <h4 class="ui dividing red header">Integración</h4>
+        <br />
+        <div class="two fields">
+            <div id="divcmbUF_PesoINT" class="field">
+                <label>UF/$</label>
+                <div id="cmbUF_PesoINT" class="ui search selection dropdown">
+                    <input type="hidden" id="idUF_PesoINT" name="idUF_PesoINT">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Seleccione</div>
+                    <div id="cmbcmbUF_PesoINTMenu" class="menu">
+                        <div class="item" data-value="1">UF</div>
+                        <div class="item" data-value="2">$</div>
+                    </div>
+                </div>
+            </div>
+            <div id="divTxtValorINT" class="field">
+                <label>Valor</label>
+                <input type="text" id="TxtValorINT" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+
+            </div>
+        </div>
+        <h4 class="ui dividing red header">Boleta electrónica</h4>
+        <br />
+        <div class="two fields">
+            <div id="divcmbUF_PesoBE" class="field">
+                <label>UF/$</label>
+                <div id="cmbUF_PesoBE" class="ui search selection dropdown">
+                    <input type="hidden" id="idUF_PesoBE" name="idUF_PesoBE">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Seleccione</div>
+                    <div id="cmbcmbUF_PesoBEMenu" class="menu">
+                        <div class="item" data-value="1">UF</div>
+                        <div class="item" data-value="2">$</div>
+                    </div>
+                </div>
+            </div>
+            <div id="divTxtValorBE" class="field">
+                <label>Valor</label>
+                <input type="text" id="TxtValorBE" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+
+            </div>
+        </div>
+        <h4 class="ui dividing red header">Punto de venta simple</h4>
+        <br />
+        <div class="two fields">
+            <div id="divcmbUF_PesoPVS" class="field">
+                <label>UF/$</label>
+                <div id="cmbUF_PesoPVS" class="ui search selection dropdown">
+                    <input type="hidden" id="idUF_PesoPVS" name="idUF_PesoPVS">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Seleccione</div>
+                    <div id="cmbcmbUF_PesoPVSMenu" class="menu">
+                        <div class="item" data-value="1">UF</div>
+                        <div class="item" data-value="2">$</div>
+                    </div>
+                </div>
+            </div>
+            <div id="divTxtValorptv" class="field">
+                <label>Valor</label>
+                <input type="text" id="TxtValorptv" style="text-transform:uppercase;" placeholder="Ingrese el valor" autocomplete="off">
+
+            </div>
+        </div>*@
                                         </div>
 
                                         <div class="title">
@@ -755,6 +751,47 @@
 
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="title">
+                                            <i class="dropdown icon"></i>
+                                            Último contacto
+                                        </div>
+                                        <div class="content">
+                                            
+                                            <div class="two fields">
+                                                <div id="divtxtFechaContacto" class="field">
+                                                    <label>Fecha contacto:</label>
+                                                    <input type="date" id="txtFechaContacto" >
+
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divcmbMotivo" class="field">
+                                                    <label>Motivo del contacto:</label>
+                                                    <select id="cmbMotivo" name="cmbMotivo" class="ui search selection dropdown">
+                                                    </select>
+                                                </div>
+                                                <div id="divcmbBAE" class="field">
+                                                    <label>Estado de contacto:</label>
+                                                    <div id="cmbEstadoContacto" class="ui search selection dropdown">
+                                                        <input type="hidden" id="idEstadoContacto" name="idEstadoContacto">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Seleccione</div>
+                                                        <div id="cmbEstadoContactoMenu" class="menu">
+                                                            <div class="item" data-value="true">En trámite</div>
+                                                            <div class="item" data-value="false">Terminado</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="two fields">
+                                                <div id="divTxtDetalleContacto" class="field" style="width:100%">
+                                                    <label>Detalle contacto:</label>
+                                                    <textarea placeholder="Detalle aquí..." rows="5" id="txtDetalleContacto" style="text-transform:uppercase;"></textarea>
+                                                </div>
+                                            </div>
+                                            
                                         </div>
 
                                     </div>

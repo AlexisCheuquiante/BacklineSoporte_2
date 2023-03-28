@@ -62,6 +62,7 @@
     <Compile Include="ComentarioDAL.cs" />
     <Compile Include="CreacionFarmaciaDAL.cs" />
     <Compile Include="DesarrollosDAL.cs" />
+    <Compile Include="DetalleCotizacionDAL.cs" />
     <Compile Include="DocumentoConsultaDAL.cs" />
     <Compile Include="EmpresaDAL.cs" />
     <Compile Include="EntidadDAL.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="InformacionDAL.cs" />
     <Compile Include="ModalidadTareaDAL.cs" />
     <Compile Include="ModuloDAL.cs" />
+    <Compile Include="MotivoContactoDAL.cs" />
     <Compile Include="PrioridadDAL.cs" />
     <Compile Include="PrioridadTareaDAL.cs" />
     <Compile Include="ProductoDAL.cs" />

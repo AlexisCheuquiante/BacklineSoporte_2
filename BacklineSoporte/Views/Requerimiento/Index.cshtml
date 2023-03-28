@@ -62,18 +62,7 @@
     <div style="margin-left:auto; margin-right:auto; width:95%; opacity:0.9">
         <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
             <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
-                <div class="ui icon warning message">
-                    <i class="search icon"></i>
-                    <div class="content">
-                        <div class="header">
-                            Filtro
-                        </div>
-                        <ul class="list">
-                            <li>Para buscar debe siempre indicar un rango de fechas.</li>
-                            <li>Además del Rango de fechas, puede ocupar cualquiera de los demás filtros existentes.</li>
-                        </ul>
-                    </div>
-                </div>
+                
                 <div id="modalFiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 100%; opacity:1">
                     <div class="modal-dialog-xl" role="document">
                         <div class="modal-content">
@@ -120,33 +109,7 @@
                                                 </font>
                                             </button>
                                             <div style="height:5px"></div>
-                                            <div class="fields" style="width:100%">
-                                                <table class="ui celled definition table" style="width:30%">
-                                                    <tbody>
-
-                                                        <tr>
-                                                            <td>Botón</td>
-                                                            <td>
-                                                                <button class="ui icon red button" disabled>
-                                                                    <i class="trash icon"></i>
-                                                                </button>
-
-
-                                                            </td>
-                                                            <td>
-                                                                <button class="ui blue icon button" disabled>
-                                                                    <i class="edit icon"></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Acción</td>
-                                                            <td>Elimina requerimiento</td>
-                                                            <td>Edita requerimiento</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                       
                                         </form>
                                     </div>
                                     <div id="divExito" class="ui icon hidden positive message">
@@ -203,52 +166,62 @@
 
                     @foreach (var Requerimiento in Model.ListaRequerimiento)
                     {
-                        <tr>
-                            <td>
-                                <button class="ui icon red button" value="@Requerimiento.Id" data-toggle="modal" data-target="#modalEliminarRequerimiento" onclick="PreparaEliminaRequerimiento(this.value, this);">
+                    <tr>
+                        <td style="display:flex;">
+                            <button class="ui mini vertical animated red button" tabindex="0" value="@Requerimiento.Id" data-toggle="modal" data-target="#modalEliminarRequerimiento" onclick="PreparaEliminaRequerimiento(this.value, this);">
+                                <div class="hidden content">Eliminar</div>
+                                <div class="visible content">
                                     <i class="trash icon"></i>
-                                </button>
-                                <button class="ui icon blue button" value="@Requerimiento.Id" data-toggle="modal" data-target="#modalRequerimientos" onclick="PrepararEditarRequerimiento(this.value, this); EditarRequerimiento();">
-
+                                </div>
+                            </button>
+                            <button class="ui mini vertical animated blue button" value="@Requerimiento.Id" data-toggle="modal" data-target="#modalRequerimientos" onclick="PrepararEditarRequerimiento(this.value, this); EditarRequerimiento();">
+                                <div class="hidden content"> Editar</div>
+                                <div class="visible content">
                                     <i class="edit icon"></i>
-                                </button>
-                            </td>
-                            <td>@Requerimiento.Id</td>
-                            <td>@Requerimiento.FechaIngreso.ToShortDateString()</td>
-                            <td>@Requerimiento.SoftwareStr</td>
-                            <td>@Requerimiento.NombreEmpresa</td>
-                            <td>@Requerimiento.NombreSolicitante</td>
-                            <td>@Requerimiento.Modulo</td>
-                            <td>@Requerimiento.Funcionalidad</td>
-                            <td>@Requerimiento.FechaMostrarSolucion</td>
-                            <td>@Requerimiento.Prioridad</td>
-                            @if (Requerimiento.Clasificacion == 1)
-                            {
-                                <td>Requerimiento</td>
-                            }
-                            @if (Requerimiento.Clasificacion == 2)
-                            {
-                                <td>Soporte</td>
-                            }
-                            <td>@Requerimiento.NombreResponsable</td>
+                                </div>
 
-                            @if (Requerimiento.Estado == 1 || Requerimiento.Estado == 2 || Requerimiento.Estado == 6)
-                            {
-                                <td style="word-wrap: break-word; background-color: orange">@Requerimiento.Estado_Reque</td>
-                            }
-                            @if (Requerimiento.Estado == 3)
-                            {
-                                <td style="word-wrap: break-word; background-color: green">@Requerimiento.Estado_Reque</td>
-                            }
-                            @if (Requerimiento.Estado == 4)
-                            {
-                                <td style="word-wrap: break-word; background-color: orangered">@Requerimiento.Estado_Reque</td>
-                            }
-                            @if (Requerimiento.Estado == 5)
-                            {
-                                <td style="word-wrap: break-word; background-color: red">@Requerimiento.Estado_Reque</td>
-                            }
-                        </tr>
+                            </button>
+                        </td>
+                        <td>@Requerimiento.Id</td>
+                        <td>@Requerimiento.FechaIngreso.ToShortDateString()</td>
+                        <td>@Requerimiento.SoftwareStr</td>
+                        <td>@Requerimiento.NombreEmpresa</td>
+                        <td>@Requerimiento.NombreSolicitante</td>
+                        <td>@Requerimiento.Modulo</td>
+                        <td>@Requerimiento.Funcionalidad</td>
+                        <td>@Requerimiento.FechaMostrarSolucion</td>
+                        <td>@Requerimiento.Prioridad</td>
+                        @if (Requerimiento.Clasificacion == 1)
+                        {
+                            <td>Requerimiento</td>
+                        }
+                        @if (Requerimiento.Clasificacion == 2)
+                        {
+                            <td>Soporte</td>
+                        }
+                        <td>@Requerimiento.NombreResponsable</td>
+
+                        @if (Requerimiento.Estado == 1 || Requerimiento.Estado == 2 || Requerimiento.Estado == 6)
+                        {
+                            <td style="word-wrap: break-word; background-color: orange">@Requerimiento.Estado_Reque</td>
+                        }
+                        @if (Requerimiento.Estado == 3)
+                        {
+                            <td style="word-wrap: break-word; background-color: green">@Requerimiento.Estado_Reque</td>
+                        }
+                        @if (Requerimiento.Estado == 4)
+                        {
+                            <td style="word-wrap: break-word; background-color: orangered">@Requerimiento.Estado_Reque</td>
+                        }
+                        @if (Requerimiento.Estado == 5)
+                        {
+                            <td style="word-wrap: break-word; background-color: red">@Requerimiento.Estado_Reque</td>
+                        }
+                        @if (Requerimiento.Estado == 7)
+                        {
+                            <td style="word-wrap: break-word; background-color: lawngreen;">@Requerimiento.Estado_Reque</td>
+                        }
+                    </tr>
                     }
 
                 </tbody>

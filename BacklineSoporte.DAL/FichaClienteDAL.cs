@@ -40,22 +40,24 @@ namespace BacklineSoporte.DAL
                 int CORREO = reader.GetOrdinal("CORREO");
                 int TELEFONO = reader.GetOrdinal("TELEFONO");
                 int FECHA_VIGENCIA = reader.GetOrdinal("FECHA_VIGENCIA");
-                int IMPLEMENTACION_UF_PESO = reader.GetOrdinal("IMPLEMENTACION_UF_PESO");
-                int IMPLEMENTACION_VALOR = reader.GetOrdinal("IMPLEMENTACION_VALOR");
-                int ADAPTACION_UF_PESO = reader.GetOrdinal("ADAPTACION_UF_PESO");
-                int ADAPTACION_VALOR = reader.GetOrdinal("ADAPTACION_VALOR");
-                int TARIFA_USO_UF_PESO = reader.GetOrdinal("TARIFA_USO_UF_PESO");
-                int TARIFA_USO_VALOR = reader.GetOrdinal("TARIFA_USO_VALOR");
-                int USUARIO_UF_PESO = reader.GetOrdinal("USUARIO_UF_PESO");
-                int USUARIO_VALOR = reader.GetOrdinal("USUARIO_VALOR");
-                int FRACCIONAMIENTO_UF_PESO = reader.GetOrdinal("FRACCIONAMIENTO_UF_PESO");
-                int FRACCIONAMIENTO_VALOR = reader.GetOrdinal("FRACCIONAMIENTO_VALOR");
-                int INTEGRACION_UF_PESO = reader.GetOrdinal("INTEGRACION_UF_PESO");
-                int INTEGRACION_VALOR = reader.GetOrdinal("INTEGRACION_VALOR");
-                int BOLETA_ELECTRONICA_UF_PESO = reader.GetOrdinal("BOLETA_ELECTRONICA_UF_PESO");
-                int BOLETA_ELECTRONICA_VALOR = reader.GetOrdinal("BOLETA_ELECTRONICA_VALOR");
-                int PUNTO_VENT_SIMPLE_UF_PESO = reader.GetOrdinal("PUNTO_VENT_SIMPLE_UF_PESO");
-                int PUNTO_VENT_SIMPLE_VALOR = reader.GetOrdinal("PUNTO_VENT_SIMPLE_VALOR");
+                int DETALLE_COTIZACION_ID = reader.GetOrdinal("DETALLE_COTIZACION_ID");
+                int OBSERVACION_COTIZACION = reader.GetOrdinal("OBSERVACION_COTIZACION");
+                //int IMPLEMENTACION_UF_PESO = reader.GetOrdinal("IMPLEMENTACION_UF_PESO");
+                //int IMPLEMENTACION_VALOR = reader.GetOrdinal("IMPLEMENTACION_VALOR");
+                //int ADAPTACION_UF_PESO = reader.GetOrdinal("ADAPTACION_UF_PESO");
+                //int ADAPTACION_VALOR = reader.GetOrdinal("ADAPTACION_VALOR");
+                //int TARIFA_USO_UF_PESO = reader.GetOrdinal("TARIFA_USO_UF_PESO");
+                //int TARIFA_USO_VALOR = reader.GetOrdinal("TARIFA_USO_VALOR");
+                //int USUARIO_UF_PESO = reader.GetOrdinal("USUARIO_UF_PESO");
+                //int USUARIO_VALOR = reader.GetOrdinal("USUARIO_VALOR");
+                //int FRACCIONAMIENTO_UF_PESO = reader.GetOrdinal("FRACCIONAMIENTO_UF_PESO");
+                //int FRACCIONAMIENTO_VALOR = reader.GetOrdinal("FRACCIONAMIENTO_VALOR");
+                //int INTEGRACION_UF_PESO = reader.GetOrdinal("INTEGRACION_UF_PESO");
+                //int INTEGRACION_VALOR = reader.GetOrdinal("INTEGRACION_VALOR");
+                //int BOLETA_ELECTRONICA_UF_PESO = reader.GetOrdinal("BOLETA_ELECTRONICA_UF_PESO");
+                //int BOLETA_ELECTRONICA_VALOR = reader.GetOrdinal("BOLETA_ELECTRONICA_VALOR");
+                //int PUNTO_VENT_SIMPLE_UF_PESO = reader.GetOrdinal("PUNTO_VENT_SIMPLE_UF_PESO");
+                //int PUNTO_VENT_SIMPLE_VALOR = reader.GetOrdinal("PUNTO_VENT_SIMPLE_VALOR");
                 //TERCERA PARTE
                 int PROV_BE_ID = reader.GetOrdinal("PROV_BE_ID");
                 int NUMERO_CONTRATACION = reader.GetOrdinal("NUMERO_CONTRATACION");
@@ -93,6 +95,11 @@ namespace BacklineSoporte.DAL
                 int FACTURACION_CARGO = reader.GetOrdinal("FACTURACION_CARGO");
                 int FACTURACION_CORREO = reader.GetOrdinal("FACTURACION_CORREO");
                 int FACTURACION_TELEFONO = reader.GetOrdinal("FACTURACION_TELEFONO");
+                //Quinta Parte
+                int FECHA_CONTACTO = reader.GetOrdinal("FECHA_CONTACTO");
+                int MOTIVO_CONTACTO_ID = reader.GetOrdinal("MOTIVO_CONTACTO_ID");
+                int DETALLE_CONTACTO = reader.GetOrdinal("DETALLE_CONTACTO");
+                int ESTADO_CONTACTO = reader.GetOrdinal("ESTADO_CONTACTO");
 
 
                 while (reader.Read())
@@ -116,22 +123,25 @@ namespace BacklineSoporte.DAL
                     fichaCliente.CorreoCoti = (string)(reader.IsDBNull(CORREO) == false ? reader.GetValue(CORREO) : "");
                     fichaCliente.TelefonoCoti = (int)(reader.IsDBNull(TELEFONO) == false ? reader.GetValue(TELEFONO) : 0);
                     fichaCliente.FechaVigenciaCoti = (DateTime)(!reader.IsDBNull(FECHA_VIGENCIA) ? reader.GetValue(FECHA_VIGENCIA) : DateTime.MinValue);
-                    fichaCliente.Implementacion_UF_Peso = (int)(reader.IsDBNull(IMPLEMENTACION_UF_PESO) == false ? reader.GetValue(IMPLEMENTACION_UF_PESO) : 0);
-                    fichaCliente.Implementacion_Valor = (int)(reader.IsDBNull(IMPLEMENTACION_VALOR) == false ? reader.GetValue(IMPLEMENTACION_VALOR) : 0);
-                    fichaCliente.Adaptacion_UF_Peso = (int)(reader.IsDBNull(ADAPTACION_UF_PESO) == false ? reader.GetValue(ADAPTACION_UF_PESO) : 0);
-                    fichaCliente.Adaptacion_Valor = (int)(reader.IsDBNull(ADAPTACION_VALOR) == false ? reader.GetValue(ADAPTACION_VALOR) : 0);
-                    fichaCliente.Tarifa_Uso_UF_Peso = (int)(reader.IsDBNull(TARIFA_USO_UF_PESO) == false ? reader.GetValue(TARIFA_USO_UF_PESO) : 0);
-                    fichaCliente.Tarifa_Uso_Valor = (int)(reader.IsDBNull(TARIFA_USO_VALOR) == false ? reader.GetValue(TARIFA_USO_VALOR) : 0);
-                    fichaCliente.Usuario_UF_peso = (int)(reader.IsDBNull(USUARIO_UF_PESO) == false ? reader.GetValue(USUARIO_UF_PESO) : 0);
-                    fichaCliente.Usuario_Valor = (int)(reader.IsDBNull(USUARIO_VALOR) == false ? reader.GetValue(USUARIO_VALOR) : 0);
-                    fichaCliente.Fraccionamiento_UF_Peso = (int)(reader.IsDBNull(FRACCIONAMIENTO_UF_PESO) == false ? reader.GetValue(FRACCIONAMIENTO_UF_PESO) : 0);
-                    fichaCliente.Fraccionamiento_Valor = (int)(reader.IsDBNull(FRACCIONAMIENTO_VALOR) == false ? reader.GetValue(FRACCIONAMIENTO_VALOR) : 0);
-                    fichaCliente.Integracion_UF_Peso = (int)(reader.IsDBNull(INTEGRACION_UF_PESO) == false ? reader.GetValue(INTEGRACION_UF_PESO) : 0);
-                    fichaCliente.Integracion_Valor = (int)(reader.IsDBNull(INTEGRACION_VALOR) == false ? reader.GetValue(INTEGRACION_VALOR) : 0);
-                    fichaCliente.Boleta_electronica_UF_Peso = (int)(reader.IsDBNull(BOLETA_ELECTRONICA_UF_PESO) == false ? reader.GetValue(BOLETA_ELECTRONICA_UF_PESO) : 0);
-                    fichaCliente.Boleta_electronica_Valor = (int)(reader.IsDBNull(BOLETA_ELECTRONICA_VALOR) == false ? reader.GetValue(BOLETA_ELECTRONICA_VALOR) : 0);
-                    fichaCliente.Punto_Venta_Simple_UF_Peso = (int)(reader.IsDBNull(PUNTO_VENT_SIMPLE_UF_PESO) == false ? reader.GetValue(PUNTO_VENT_SIMPLE_UF_PESO) : 0);
-                    fichaCliente.Punto_Venta_Simple_Valor = (int)(reader.IsDBNull(PUNTO_VENT_SIMPLE_VALOR) == false ? reader.GetValue(PUNTO_VENT_SIMPLE_VALOR) : 0);
+                    fichaCliente.Detalle_Cotizacion_Id = (int)(reader.IsDBNull(DETALLE_COTIZACION_ID) == false ? reader.GetValue(DETALLE_COTIZACION_ID) : 0);
+                    fichaCliente.Observacion_cotizacion = (string)(reader.IsDBNull(OBSERVACION_COTIZACION) == false ? reader.GetValue(OBSERVACION_COTIZACION) : "");
+
+                    //fichaCliente.Implementacion_UF_Peso = (int)(reader.IsDBNull(IMPLEMENTACION_UF_PESO) == false ? reader.GetValue(IMPLEMENTACION_UF_PESO) : 0);
+                    //fichaCliente.Implementacion_Valor = (int)(reader.IsDBNull(IMPLEMENTACION_VALOR) == false ? reader.GetValue(IMPLEMENTACION_VALOR) : 0);
+                    //fichaCliente.Adaptacion_UF_Peso = (int)(reader.IsDBNull(ADAPTACION_UF_PESO) == false ? reader.GetValue(ADAPTACION_UF_PESO) : 0);
+                    //fichaCliente.Adaptacion_Valor = (int)(reader.IsDBNull(ADAPTACION_VALOR) == false ? reader.GetValue(ADAPTACION_VALOR) : 0);
+                    //fichaCliente.Tarifa_Uso_UF_Peso = (int)(reader.IsDBNull(TARIFA_USO_UF_PESO) == false ? reader.GetValue(TARIFA_USO_UF_PESO) : 0);
+                    //fichaCliente.Tarifa_Uso_Valor = (int)(reader.IsDBNull(TARIFA_USO_VALOR) == false ? reader.GetValue(TARIFA_USO_VALOR) : 0);
+                    //fichaCliente.Usuario_UF_peso = (int)(reader.IsDBNull(USUARIO_UF_PESO) == false ? reader.GetValue(USUARIO_UF_PESO) : 0);
+                    //fichaCliente.Usuario_Valor = (int)(reader.IsDBNull(USUARIO_VALOR) == false ? reader.GetValue(USUARIO_VALOR) : 0);
+                    //fichaCliente.Fraccionamiento_UF_Peso = (int)(reader.IsDBNull(FRACCIONAMIENTO_UF_PESO) == false ? reader.GetValue(FRACCIONAMIENTO_UF_PESO) : 0);
+                    //fichaCliente.Fraccionamiento_Valor = (int)(reader.IsDBNull(FRACCIONAMIENTO_VALOR) == false ? reader.GetValue(FRACCIONAMIENTO_VALOR) : 0);
+                    //fichaCliente.Integracion_UF_Peso = (int)(reader.IsDBNull(INTEGRACION_UF_PESO) == false ? reader.GetValue(INTEGRACION_UF_PESO) : 0);
+                    //fichaCliente.Integracion_Valor = (int)(reader.IsDBNull(INTEGRACION_VALOR) == false ? reader.GetValue(INTEGRACION_VALOR) : 0);
+                    //fichaCliente.Boleta_electronica_UF_Peso = (int)(reader.IsDBNull(BOLETA_ELECTRONICA_UF_PESO) == false ? reader.GetValue(BOLETA_ELECTRONICA_UF_PESO) : 0);
+                    //fichaCliente.Boleta_electronica_Valor = (int)(reader.IsDBNull(BOLETA_ELECTRONICA_VALOR) == false ? reader.GetValue(BOLETA_ELECTRONICA_VALOR) : 0);
+                    //fichaCliente.Punto_Venta_Simple_UF_Peso = (int)(reader.IsDBNull(PUNTO_VENT_SIMPLE_UF_PESO) == false ? reader.GetValue(PUNTO_VENT_SIMPLE_UF_PESO) : 0);
+                    //fichaCliente.Punto_Venta_Simple_Valor = (int)(reader.IsDBNull(PUNTO_VENT_SIMPLE_VALOR) == false ? reader.GetValue(PUNTO_VENT_SIMPLE_VALOR) : 0);
 
                     //TERCERA PARTE
                     fichaCliente.Prov_Be_Id = (int)(reader.IsDBNull(PROV_BE_ID) == false ? reader.GetValue(PROV_BE_ID) : -1);
@@ -169,6 +179,15 @@ namespace BacklineSoporte.DAL
                     fichaCliente.Facturacion_Cargo = (string)(reader.IsDBNull(FACTURACION_CARGO) == false ? reader.GetValue(FACTURACION_CARGO) : "");
                     fichaCliente.Facturacion_Correo = (string)(reader.IsDBNull(FACTURACION_CORREO) == false ? reader.GetValue(FACTURACION_CORREO) : "");
                     fichaCliente.Facturacion_Telefono = (int)(reader.IsDBNull(FACTURACION_TELEFONO) == false ? reader.GetValue(FACTURACION_TELEFONO) : 0);
+
+                    //Quinta Parte
+                    fichaCliente.FechaContacto = (DateTime)(!reader.IsDBNull(FECHA_CONTACTO) ? reader.GetValue(FECHA_CONTACTO) : DateTime.MinValue);
+                    fichaCliente.Motivo_Contacto_Id = (int)(reader.IsDBNull(MOTIVO_CONTACTO_ID) == false ? reader.GetValue(MOTIVO_CONTACTO_ID) : 0);
+                    fichaCliente.Detalle_Contacto = (string)(reader.IsDBNull(DETALLE_CONTACTO) == false ? reader.GetValue(DETALLE_CONTACTO) : "");
+                    fichaCliente.Estado_Contacto = (bool)(reader.IsDBNull(ESTADO_CONTACTO) == false ? reader.GetValue(ESTADO_CONTACTO) : false);
+
+
+
 
                     listaRetorno.Add(fichaCliente);
                 }
@@ -214,22 +233,25 @@ namespace BacklineSoporte.DAL
             db.AddInParameter(dbCommand, "CORREO", DbType.String, segundaParte.CorreoCoti != "" ? segundaParte.CorreoCoti : (object)null);
             db.AddInParameter(dbCommand, "TELEFONO", DbType.Int32, segundaParte.TelefonoCoti != 0 ? segundaParte.TelefonoCoti : (object)null);
             db.AddInParameter(dbCommand, "FECHA_VIGENCIA", DbType.DateTime, segundaParte.FechaVigenciaCoti != DateTime.MinValue ? segundaParte.FechaVigenciaCoti : (object)null);
-            db.AddInParameter(dbCommand, "IMPLEMENTACION_UF_PESO", DbType.Int32, segundaParte.Implementacion_UF_Peso != 0 ? segundaParte.Implementacion_UF_Peso : (object)null);
-            db.AddInParameter(dbCommand, "IMPLEMENTACION_VALOR", DbType.Int32, segundaParte.Implementacion_Valor != 0 ? segundaParte.Implementacion_Valor : (object)null);
-            db.AddInParameter(dbCommand, "ADAPTACION_UF_PESO", DbType.Int32, segundaParte.Adaptacion_UF_Peso != 0 ? segundaParte.Adaptacion_UF_Peso : (object)null);
-            db.AddInParameter(dbCommand, "ADAPTACION_VALOR", DbType.Int32, segundaParte.Adaptacion_Valor != 0 ? segundaParte.Adaptacion_Valor : (object)null);
-            db.AddInParameter(dbCommand, "TARIFA_USO_UF_PESO", DbType.Int32, segundaParte.Tarifa_Uso_UF_Peso != 0 ? segundaParte.Tarifa_Uso_UF_Peso : (object)null);
-            db.AddInParameter(dbCommand, "TARIFA_USO_VALOR", DbType.Int32, segundaParte.Tarifa_Uso_Valor != 0 ? segundaParte.Tarifa_Uso_Valor : (object)null);
-            db.AddInParameter(dbCommand, "USUARIO_UF_PESO", DbType.Int32, segundaParte.Usuario_UF_peso != 0 ? segundaParte.Usuario_UF_peso : (object)null);
-            db.AddInParameter(dbCommand, "USUARIO_VALOR", DbType.Int32, segundaParte.Usuario_Valor != 0 ? segundaParte.Usuario_Valor : (object)null);
-            db.AddInParameter(dbCommand, "FRACCIONAMIENTO_UF_PESO", DbType.Int32, segundaParte.Fraccionamiento_UF_Peso != 0 ? segundaParte.Fraccionamiento_UF_Peso : (object)null);
-            db.AddInParameter(dbCommand, "FRACCIONAMIENTO_VALOR", DbType.Int32, segundaParte.Fraccionamiento_Valor != 0 ? segundaParte.Fraccionamiento_Valor : (object)null);
-            db.AddInParameter(dbCommand, "INTEGRACION_UF_PESO", DbType.Int32, segundaParte.Integracion_UF_Peso != 0 ? segundaParte.Integracion_UF_Peso : (object)null);
-            db.AddInParameter(dbCommand, "INTEGRACION_VALOR", DbType.Int32, segundaParte.Integracion_Valor != 0 ? segundaParte.Integracion_Valor : (object)null);
-            db.AddInParameter(dbCommand, "BOLETA_ELECTRONICA_UF_PESO", DbType.Int32, segundaParte.Boleta_electronica_UF_Peso != 0 ? segundaParte.Boleta_electronica_UF_Peso : (object)null);
-            db.AddInParameter(dbCommand, "BOLETA_ELECTRONICA_VALOR", DbType.Int32, segundaParte.Boleta_electronica_Valor != 0 ? segundaParte.Boleta_electronica_Valor : (object)null);
-            db.AddInParameter(dbCommand, "PUNTO_VENT_SIMPLE_UF_PESO", DbType.Int32, segundaParte.Punto_Venta_Simple_UF_Peso != 0 ? segundaParte.Punto_Venta_Simple_UF_Peso : (object)null);
-            db.AddInParameter(dbCommand, "PUNTO_VENT_SIMPLE_VALOR", DbType.Int32, segundaParte.Punto_Venta_Simple_Valor != 0 ? segundaParte.Punto_Venta_Simple_Valor : (object)null);
+            db.AddInParameter(dbCommand, "OBSERVACION_COTIZACION", DbType.String, segundaParte.Observacion_cotizacion != "" ? segundaParte.Observacion_cotizacion.ToUpper() : (object)null);
+            db.AddInParameter(dbCommand, "DETALLE_COTIZACION_ID", DbType.Int32, segundaParte.Detalle_Cotizacion_Id != 0 ? segundaParte.Detalle_Cotizacion_Id : (object)null);
+
+            //db.AddInParameter(dbCommand, "IMPLEMENTACION_UF_PESO", DbType.Int32, segundaParte.Implementacion_UF_Peso != 0 ? segundaParte.Implementacion_UF_Peso : (object)null);
+            //db.AddInParameter(dbCommand, "IMPLEMENTACION_VALOR", DbType.Int32, segundaParte.Implementacion_Valor != 0 ? segundaParte.Implementacion_Valor : (object)null);
+            //db.AddInParameter(dbCommand, "ADAPTACION_UF_PESO", DbType.Int32, segundaParte.Adaptacion_UF_Peso != 0 ? segundaParte.Adaptacion_UF_Peso : (object)null);
+            //db.AddInParameter(dbCommand, "ADAPTACION_VALOR", DbType.Int32, segundaParte.Adaptacion_Valor != 0 ? segundaParte.Adaptacion_Valor : (object)null);
+            //db.AddInParameter(dbCommand, "TARIFA_USO_UF_PESO", DbType.Int32, segundaParte.Tarifa_Uso_UF_Peso != 0 ? segundaParte.Tarifa_Uso_UF_Peso : (object)null);
+            //db.AddInParameter(dbCommand, "TARIFA_USO_VALOR", DbType.Int32, segundaParte.Tarifa_Uso_Valor != 0 ? segundaParte.Tarifa_Uso_Valor : (object)null);
+            //db.AddInParameter(dbCommand, "USUARIO_UF_PESO", DbType.Int32, segundaParte.Usuario_UF_peso != 0 ? segundaParte.Usuario_UF_peso : (object)null);
+            //db.AddInParameter(dbCommand, "USUARIO_VALOR", DbType.Int32, segundaParte.Usuario_Valor != 0 ? segundaParte.Usuario_Valor : (object)null);
+            //db.AddInParameter(dbCommand, "FRACCIONAMIENTO_UF_PESO", DbType.Int32, segundaParte.Fraccionamiento_UF_Peso != 0 ? segundaParte.Fraccionamiento_UF_Peso : (object)null);
+            //db.AddInParameter(dbCommand, "FRACCIONAMIENTO_VALOR", DbType.Int32, segundaParte.Fraccionamiento_Valor != 0 ? segundaParte.Fraccionamiento_Valor : (object)null);
+            //db.AddInParameter(dbCommand, "INTEGRACION_UF_PESO", DbType.Int32, segundaParte.Integracion_UF_Peso != 0 ? segundaParte.Integracion_UF_Peso : (object)null);
+            //db.AddInParameter(dbCommand, "INTEGRACION_VALOR", DbType.Int32, segundaParte.Integracion_Valor != 0 ? segundaParte.Integracion_Valor : (object)null);
+            //db.AddInParameter(dbCommand, "BOLETA_ELECTRONICA_UF_PESO", DbType.Int32, segundaParte.Boleta_electronica_UF_Peso != 0 ? segundaParte.Boleta_electronica_UF_Peso : (object)null);
+            //db.AddInParameter(dbCommand, "BOLETA_ELECTRONICA_VALOR", DbType.Int32, segundaParte.Boleta_electronica_Valor != 0 ? segundaParte.Boleta_electronica_Valor : (object)null);
+            //db.AddInParameter(dbCommand, "PUNTO_VENT_SIMPLE_UF_PESO", DbType.Int32, segundaParte.Punto_Venta_Simple_UF_Peso != 0 ? segundaParte.Punto_Venta_Simple_UF_Peso : (object)null);
+            //db.AddInParameter(dbCommand, "PUNTO_VENT_SIMPLE_VALOR", DbType.Int32, segundaParte.Punto_Venta_Simple_Valor != 0 ? segundaParte.Punto_Venta_Simple_Valor : (object)null);
 
             db.ExecuteNonQuery(dbCommand);
 
@@ -295,6 +317,28 @@ namespace BacklineSoporte.DAL
 
             return cuartaParte;
         }
+
+
+        public static BacklineSoporte.Entity.FichaCliente InsertarUltimoContacto(BacklineSoporte.Entity.FichaCliente quintaParte)
+        {
+            Database db = DatabaseFactory.CreateDatabase("baseDatosBacklineSoporte");
+            DbCommand dbCommand = db.GetStoredProcCommand("SP_ULT_ULTIMO_CONTACTO_INS");
+
+            db.AddInParameter(dbCommand, "FICHA_CLIENTE_ID", DbType.Int32, quintaParte.Id);
+            db.AddInParameter(dbCommand, "EDITADA", DbType.Byte, quintaParte.Editar == true ? 1 : 0);
+            db.AddInParameter(dbCommand, "FECHA_CONTACTO", DbType.DateTime, quintaParte.FechaContacto != DateTime.MinValue ? quintaParte.FechaContacto : (object)null);
+            db.AddInParameter(dbCommand, "MOTIVO_CONTACTO_ID", DbType.Int32, quintaParte.Motivo_Contacto_Id != 0 ? quintaParte.Motivo_Contacto_Id : (object)null);
+            db.AddInParameter(dbCommand, "DETALLE_CONTACTO", DbType.String, quintaParte.Detalle_Contacto != null ? quintaParte.Detalle_Contacto.ToUpper() : (object)null);
+            db.AddInParameter(dbCommand, "ESTADO_CONTACTO", DbType.Byte, quintaParte.Estado_Contacto == true ? 1 : 0);
+
+
+            db.ExecuteNonQuery(dbCommand);
+
+            return quintaParte;
+        }
+
+
+
 
         public static void EliminarFicha(int idFicha)
         {

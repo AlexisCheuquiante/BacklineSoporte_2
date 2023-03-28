@@ -46,6 +46,7 @@
     <Compile Include="Bodega.cs" />
     <Compile Include="Comentario.cs" />
     <Compile Include="Desarrollo.cs" />
+    <Compile Include="DetalleCotizacion.cs" />
     <Compile Include="DocumentoConsulta.cs" />
     <Compile Include="Empresa.cs" />
     <Compile Include="Entidad.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Informacion.cs" />
     <Compile Include="ModalidadTarea.cs" />
     <Compile Include="Modulo.cs" />
+    <Compile Include="MotivoContacto.cs" />
     <Compile Include="Prioridad.cs" />
     <Compile Include="PrioridadTarea.cs" />
     <Compile Include="Producto.cs" />

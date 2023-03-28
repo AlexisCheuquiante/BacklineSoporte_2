@@ -31,6 +31,15 @@ namespace BacklineSoporte.Controllers
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        public JsonResult ObtenerDetalleCotizacion(Entity.Filtro entity)
+        {
+            var lista = DAL.DetalleCotizacionDAL.ObtenerDetalleCotizacion(entity);
+
+            if (lista == null || lista.Count == 0)
+                return new JsonResult() { ContentEncoding = Encoding.Default, Data = "Error", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
 
         public JsonResult ObtenerRegion(Entity.Filtro entity)
         {
@@ -51,7 +60,15 @@ namespace BacklineSoporte.Controllers
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        public JsonResult ObtenerMotivoContacto(Entity.Filtro entity)
+        {
+            var lista = DAL.MotivoContactoDAL.ObtenerMotivoContacto(entity);
 
+            if (lista == null || lista.Count == 0)
+                return new JsonResult() { ContentEncoding = Encoding.Default, Data = "Error", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public JsonResult ObtenerTipoContratacion(Entity.Filtro entity)
         {
             var lista = DAL.TipoContratacionDAL.ObtenerTipoContratacion(entity);
@@ -101,7 +118,7 @@ namespace BacklineSoporte.Controllers
 
                 BacklineSoporte.DAL.FichaClienteDAL.InsertarDatosContratacion(fichaCliente);
 
-
+                BacklineSoporte.DAL.FichaClienteDAL.InsertarUltimoContacto(fichaCliente);
                 List<Entity.Establecimiento> listadoEstablecimientos = Session["ListaEstablecimientos"] as List<Entity.Establecimiento>;
                 foreach (var establecimiento in listadoEstablecimientos)
                 {
@@ -111,6 +128,7 @@ namespace BacklineSoporte.Controllers
                 Session["ListaEstablecimientos"] = new List<Entity.Establecimiento>(); ;
 
                 BacklineSoporte.DAL.FichaClienteDAL.InsertarDatosContacto(fichaCliente);
+                
 
                 return new JsonResult() { ContentEncoding = Encoding.Default, Data = "exito", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }

@@ -8,6 +8,8 @@ $(document).ready(function () {
     ObtenerTipoContratacion();
     ObtenerProveedor();
     ObtenerTipoArchivo();
+    ObtenerMotivoContacto();
+    ObtenerDetalleCotizacion();
 
 
 });
@@ -36,6 +38,57 @@ function ObtenerEntidad() {
     });
 
 }
+
+function ObtenerDetalleCotizacion() {
+
+    $.ajax({
+        url: window.urlObtenerDetalleCotizacion,
+        type: 'POST',
+        success: function (data) {
+            $('#cmbDetalleCotizacion').dropdown('clear');
+            $('#cmbDetalleCotizacion').empty();
+            $('#cmbDetalleCotizacion').append('<option value="-1">[Seleccione entidad]</option>');
+            $.each(data,
+                function (value, item) {
+
+                    var texto = '<option value="' + item.Id + '">' + item.Detalle_Cotizacion + '</option>';
+                    $('#cmbDetalleCotizacion').append(texto);
+                }
+            );
+
+        },
+        error: function () {
+            alert('Error al cargar las entidades existentes');
+        }
+    });
+
+}
+
+function ObtenerMotivoContacto() {
+
+    $.ajax({
+        url: window.urlObtenerMotivoContacto,
+        type: 'POST',
+        success: function (data) {
+            $('#cmbMotivo').dropdown('clear');
+            $('#cmbMotivo').empty();
+            $('#cmbMotivo').append('<option value="-1">[Seleccione motivo]</option>');
+            $.each(data,
+                function (value, item) {
+
+                    var texto = '<option value="' + item.Id + '">' + item.Motivo_Contacto + '</option>';
+                    $('#cmbMotivo').append(texto);
+                }
+            );
+
+        },
+        error: function () {
+            alert('Error al cargar las entidades existentes');
+        }
+    });
+
+}
+
 function ObtenerRegion() {
 
     $.ajax({
@@ -158,22 +211,27 @@ function GuardarFicha() {
         CorreoCoti: $('#txtCorreoCoti').val(),
         TelefonoCoti: $('#txtTeléfonoCoti').val(),
         FechaVigenciaCoti: $('#txtFechaVigenciaCoti').val(),
-        Implementacion_UF_Peso: $('#idUF_PesoIM').val(),
-        Implementacion_Valor: $('#txtValorIM').val(),
-        Adaptacion_UF_Peso: $('#idUF_PesoAD').val(),
-        Adaptacion_Valor: $('#txtValorAD').val(),
-        Tarifa_Uso_UF_Peso: $('#idUF_PesoTA').val(),
-        Tarifa_Uso_Valor: $('#TxtValorTA').val(),
-        Usuario_UF_peso: $('#idUF_PesoUS').val(),
-        Usuario_Valor: $('#TxtValorUS').val(),
-        Fraccionamiento_UF_Peso: $('#idUF_PesoFRA').val(),
-        Fraccionamiento_Valor: $('#TxtValorFRA').val(),
-        Integracion_UF_Peso: $('#idUF_PesoINT').val(),
-        Integracion_Valor: $('#TxtValorINT').val(),
-        Boleta_electronica_UF_Peso: $('#idUF_PesoBE').val(),
-        Boleta_electronica_Valor: $('#TxtValorBE').val(),
-        Punto_Venta_Simple_UF_Peso: $('#idUF_PesoPVS').val(),
-        Punto_Venta_Simple_Valor: $('#TxtValorptv').val(),
+        Detalle_Cotizacion_Id: $('#cmbDetalleCotizacion').val(),
+        Observacion_cotizacion: $('#txtObservacionCotizacion').val(),
+
+        //Implementacion_UF_Peso: $('#idUF_PesoIM').val(),
+        //Implementacion_Valor: $('#txtValorIM').val(),
+        //Adaptacion_UF_Peso: $('#idUF_PesoAD').val(),
+        //Adaptacion_Valor: $('#txtValorAD').val(),
+        //Tarifa_Uso_UF_Peso: $('#idUF_PesoTA').val(),
+        //Tarifa_Uso_Valor: $('#TxtValorTA').val(),
+        //Usuario_UF_peso: $('#idUF_PesoUS').val(),
+        //Usuario_Valor: $('#TxtValorUS').val(),
+        //Fraccionamiento_UF_Peso: $('#idUF_PesoFRA').val(),
+        //Fraccionamiento_Valor: $('#TxtValorFRA').val(),
+        //Integracion_UF_Peso: $('#idUF_PesoINT').val(),
+        //Integracion_Valor: $('#TxtValorINT').val(),
+        //Boleta_electronica_UF_Peso: $('#idUF_PesoBE').val(),
+        //Boleta_electronica_Valor: $('#TxtValorBE').val(),
+        //Punto_Venta_Simple_UF_Peso: $('#idUF_PesoPVS').val(),
+        //Punto_Venta_Simple_Valor: $('#TxtValorptv').val(),
+
+        
         //Datos Contratación
         Numero_Contratacion: $('#TxtNumeroContra').val(),
         Tipo_Contratacion_Id: $('#cmbLicitacion').val(),
@@ -212,6 +270,12 @@ function GuardarFicha() {
         Facturacion_Cargo: $('#TxtCargoFact').val(),
         Facturacion_Correo: $('#TxtCorreoFact').val(),
         Facturacion_Telefono: $('#TxtTeléfonoFact').val(),
+
+        //Ultimo Contacto
+        FechaContacto: $('#txtFechaContacto').val(),
+        Motivo_Contacto_Id: $('#cmbMotivo').val(),
+        Estado_Contacto: $('#idEstadoContacto').val(),
+        Detalle_Contacto: $('#txtDetalleContacto').val(),
     };
     $.ajax({
         url: window.urlGuardarFicha,
@@ -600,24 +664,31 @@ function EditarFicha() {
                 $('#txtNombreCompletoCoti').val(ficha.NombreCompletoCoti),
                 $('#txtCorreoCoti').val(ficha.NombreCompletoCoti),
                 $('#txtTeléfonoCoti').val(ficha.TelefonoCoti),
-                $('#txtFechaVigenciaCoti').val(ficha.Fecha_Vigencia_Coti_Mostrar),
-                $("#cmbUF_PesoIM").dropdown('set selected', ficha.Implementacion_UF_Peso),
-                $('#txtValorIM').val(ficha.Implementacion_Valor),
-                $("#cmbUF_PesoAD").dropdown('set selected', ficha.Adaptacion_UF_Peso),
-                $('#txtValorAD').val(ficha.Adaptacion_Valor),
-                $("#cmbUF_PesoTA").dropdown('set selected', ficha.Tarifa_Uso_UF_Peso),
-                $('#TxtValorTA').val(ficha.Tarifa_Uso_Valor),
-                $("#cmbUF_PesoUS").dropdown('set selected', ficha.Usuario_UF_peso),
-                $('#TxtValorUS').val(ficha.Usuario_Valor),
-                $("#cmbUF_PesoFRA").dropdown('set selected', ficha.Fraccionamiento_UF_Peso),
-                $('#TxtValorFRA').val(ficha.Fraccionamiento_Valor),
-                $("#cmbUF_PesoINT").dropdown('set selected', ficha.Integracion_UF_Peso),
-                $('#TxtValorINT').val(ficha.Integracion_Valor),
-                $("#cmbUF_PesoBE").dropdown('set selected', ficha.Boleta_electronica_UF_Peso),
-                $('#TxtValorBE').val(ficha.Boleta_electronica_Valor),
-                $("#cmbUF_PesoPVS").dropdown('set selected', ficha.Punto_Venta_Simple_UF_Peso),
-                $('#TxtValorptv').val(ficha.Punto_Venta_Simple_Valor),
-               //Datos contratación
+                    $('#txtFechaVigenciaCoti').val(ficha.Fecha_Vigencia_Coti_Mostrar),
+                    $("#cmbDetalleCotizacion").dropdown('set selected', ficha.Detalle_Cotizacion_Id),
+                    $('#txtObservacionCotizacion').val(ficha.Observacion_cotizacion),
+
+
+
+                //$("#cmbUF_PesoIM").dropdown('set selected', ficha.Implementacion_UF_Peso),
+                //$('#txtValorIM').val(ficha.Implementacion_Valor),
+                //$("#cmbUF_PesoAD").dropdown('set selected', ficha.Adaptacion_UF_Peso),
+                //$('#txtValorAD').val(ficha.Adaptacion_Valor),
+                //$("#cmbUF_PesoTA").dropdown('set selected', ficha.Tarifa_Uso_UF_Peso),
+                //$('#TxtValorTA').val(ficha.Tarifa_Uso_Valor),
+                //$("#cmbUF_PesoUS").dropdown('set selected', ficha.Usuario_UF_peso),
+                //$('#TxtValorUS').val(ficha.Usuario_Valor),
+                //$("#cmbUF_PesoFRA").dropdown('set selected', ficha.Fraccionamiento_UF_Peso),
+                //$('#TxtValorFRA').val(ficha.Fraccionamiento_Valor),
+                //$("#cmbUF_PesoINT").dropdown('set selected', ficha.Integracion_UF_Peso),
+                //$('#TxtValorINT').val(ficha.Integracion_Valor),
+                //$("#cmbUF_PesoBE").dropdown('set selected', ficha.Boleta_electronica_UF_Peso),
+                //$('#TxtValorBE').val(ficha.Boleta_electronica_Valor),
+                //$("#cmbUF_PesoPVS").dropdown('set selected', ficha.Punto_Venta_Simple_UF_Peso),
+                //$('#TxtValorptv').val(ficha.Punto_Venta_Simple_Valor),
+
+
+                    //Datos contratación
                 $('#TxtNumeroContra').val(ficha.Numero_Contratacion),
                 $('#txtMesesDuracion').val(ficha.Meses_Duracion),
                 $('#TxtFechaIniCon').val(ficha.Fecha_Inicio_Mostrar),
@@ -651,7 +722,16 @@ function EditarFicha() {
                 $('#TxtNombreFact').val(ficha.Facturacion_Nombre),
                 $('#TxtCargoFact').val(ficha.Facturacion_Cargo),
                 $('#TxtCorreoFact').val(ficha.Facturacion_Correo),
-                $('#TxtTeléfonoFact').val(ficha.Facturacion_Telefono)
+                $('#TxtTeléfonoFact').val(ficha.Facturacion_Telefono),
+
+                //quinta parte
+                $('#txtFechaContacto').val(ficha.Fecha_Contacto_Mostrar),
+                $("#cmbMotivo").dropdown('set selected', ficha.Motivo_Contacto_Id),
+                $("#cmbEstadoContacto").dropdown('set selected', ficha.Estado_Contacto),
+                $('#txtDetalleContacto').val(ficha.Detalle_Contacto),
+
+                
+
                 //Cargo combos
                 setTimeout(() => { $('#cmbRegion').dropdown('set selected', ficha.Reg_Id); }, 2000);
                 setTimeout(() => { $('#cmbC_D').dropdown('set selected', ficha.Entidad_Id); }, 2000);

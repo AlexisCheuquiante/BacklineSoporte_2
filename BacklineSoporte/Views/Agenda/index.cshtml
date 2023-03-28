@@ -155,7 +155,7 @@
                             <button class=" right floated blue circular ui icon button" value="@tarea.Id" onclick="PrepararEditarTarea(this.value, this); EditarTarea();" data-toggle="modal" data-target="#modalAgenda">
                                 <i class="eye icon"></i>
                             </button>
-                            <div class="header">@tarea.Tipo_Tarea</div>
+                            @*<div class="header">@tarea.Tipo_Tarea</div>*@
                             <div class="description">
                                 <p>
                                     @tarea.Detalle
@@ -163,20 +163,20 @@
                             </div>
                         </div>
                         <div class="extra content">
-                            <span class="left floated like">
+                            @*<span class="left floated like">
                                 <i class="user icon"></i>
                                 @tarea.Nombre_Completo
-                            </span>
+                            </span>*@
                             <span class="left floated star">
                                 <i class="calendar alternate outline icon"></i>
                                 Fecha inicio @tarea.Fecha_Inicio_Tarea.ToString()
 
                             </span>
-                            <span class="left floated star">
+                            @*<span class="left floated star">
                                 <i class="calendar alternate outline icon"></i>
                                 Fecha termino @tarea.Fecha_Termino_Tarea.ToString()
 
-                            </span>
+                            </span>*@
                         </div>
                     </div>
 
@@ -212,7 +212,7 @@
                             <button class=" right floated blue  circular ui icon button" value="@tarea.Id" onclick="PrepararEditarTarea(this.value, this); EditarTarea();" data-toggle="modal" data-target="#modalAgenda">
                                 <i class="eye icon"></i>
                             </button>
-                            <div class="header">@tarea.Tipo_Tarea</div>
+                            @*<div class="header">@tarea.Tipo_Tarea</div>*@
                             <div class="description">
                                 <p>
                                     @tarea.Detalle
@@ -220,20 +220,20 @@
                             </div>
                         </div>
                         <div class="extra content">
-                            <span class="left floated like">
+                            @*<span class="left floated like">
                                 <i class="user icon"></i>
                                 @tarea.Nombre_Completo
-                            </span>
+                            </span>*@
                             <span class="left floated star">
                                 <i class="calendar alternate outline icon"></i>
                                 Fecha inicio @tarea.Fecha_Inicio_Tarea.ToString()
 
                             </span>
-                            <span class="left floated star">
+                            @*<span class="left floated star">
                                 <i class="calendar alternate outline icon"></i>
                                 Fecha termino @tarea.Fecha_Termino_Tarea.ToString()
 
-                            </span>
+                            </span>*@
                         </div>
                     </div>
                 }
@@ -271,28 +271,32 @@
                             <button class=" right floated blue circular ui icon button" value="@tarea.Id" onclick="PrepararEditarTarea(this.value, this); EditarTarea();" data-toggle="modal" data-target="#modalAgenda">
                                 <i class="eye icon"></i>
                             </button>
-                            <div class="header">@tarea.Tipo_Tarea</div>
-                            <div class="description">
-                                <p>
-                                    @tarea.Detalle
-                                </p>
-                            </div>
+                            @*<div class="header">@tarea.Tipo_Tarea</div>*@
+                            
+                            <div class="description" style="margin-top:5px;">
+                            <p>
+                                @tarea.Detalle
+                            </p>
+                             </div>
                         </div>
+                       
+                            
+                       
                         <div class="extra content">
-                            <span class="left floated like">
+                            @*<span class="left floated like">
                                 <i class="user icon"></i>
                                 @tarea.Nombre_Completo
-                            </span>
+                            </span>*@
                             <span class="left floated star">
                                 <i class="calendar alternate outline icon"></i>
                                 Fecha inicio @tarea.Fecha_Inicio_Tarea.ToString()
 
                             </span>
-                            <span class="left floated star">
+                            @*<span class="left floated star">
                                 <i class="calendar alternate outline icon"></i>
                                 Fecha termino @tarea.Fecha_Termino_Tarea.ToString()
 
-                            </span>
+                            </span>*@
                         </div>
                     </div>
 
@@ -328,7 +332,11 @@
                             <button class=" right floated blue circular ui icon button" value="@tarea.Id" onclick="PrepararEditarTarea(this.value, this); EditarTarea();" data-toggle="modal" data-target="#modalAgenda">
                                 <i class="eye icon"></i>
                             </button>
-                            <div class="header">@tarea.Tipo_Tarea</div>
+                           
+                            @*<div class="header">@tarea.Tipo_Tarea</div>*@
+                            
+                        </div>
+                        <div class="extra content">
                             <div class="description">
                                 <p>
                                     @tarea.Detalle
@@ -336,20 +344,20 @@
                             </div>
                         </div>
                         <div class="extra content">
-                            <span class="left floated like">
+                            @*<span class="left floated like">
                                 <i class="user icon"></i>
                                 @tarea.Nombre_Completo
-                            </span>
+                            </span>*@
                             <span class="left floated star">
                                 <i class="calendar alternate outline icon"></i>
                                 Fecha inicio @tarea.Fecha_Inicio_Tarea.ToString()
 
                             </span>
-                            <span class="left floated star">
+                            @*<span class="left floated star">
                                 <i class="calendar alternate outline icon"></i>
                                 Fecha termino @tarea.Fecha_Termino_Tarea.ToString()
 
-                            </span>
+                            </span>*@
                         </div>
                     </div>
 

@@ -25,6 +25,12 @@ namespace BacklineSoporte.Entity
         //Segunda Parte
         public int NumeroCotizacion { get; set; }
         public DateTime Fecha_Ingreso_Coti { get; set; }
+
+        public string Observacion_cotizacion { get; set; }
+        public int Detalle_Cotizacion_Id { get; set; }
+      
+
+
         public string Fecha_Ingreso_Coti_Mostrar
         {
             get
@@ -71,7 +77,7 @@ namespace BacklineSoporte.Entity
 
         public bool Afecta_Iva { get; set; }
         public int Tipo_Contratacion_Id { get; set; }
-        public string Numero_Contratacion { get; set;}
+        public string Numero_Contratacion { get; set; }
         public int Meses_Duracion { get; set; }
         public DateTime Fecha_Inicio { get; set; }
 
@@ -118,7 +124,7 @@ namespace BacklineSoporte.Entity
         public int Bruto { get; set; }
         public bool Boleta_Electronica { get; set; }
         public bool Fraccionamiento { get; set; }
-        public bool Venta_Simple { get; set;  }
+        public bool Venta_Simple { get; set; }
         public int Cant_Puntos_Venta_Simple { get; set; }
         public string Nombre_Establecimiento { get; set; }
         public bool Be_Iva { get; set; }
@@ -144,5 +150,24 @@ namespace BacklineSoporte.Entity
         public string Facturacion_Correo { get; set; }
         public int Facturacion_Telefono { get; set; }
         public bool Editar { get; set; }
+
+        //Quinta Parte
+        public DateTime FechaContacto { get; set; }
+        public string Fecha_Contacto_Mostrar
+        {
+            get
+            {
+                var dd = FechaContacto.Day.ToString("00");
+                var mm = FechaContacto.Month.ToString("00");
+                var yy = FechaContacto.Year;
+                return yy + "-" + mm + "-" + dd;
+            }
+        }
+        public int Motivo_Contacto_Id {get; set;}
+        public string Motivo_Contacto { get; set; }
+        public string Detalle_Contacto { get; set; }
+        public bool Estado_Contacto { get; set; }
+
+
     }
 }
