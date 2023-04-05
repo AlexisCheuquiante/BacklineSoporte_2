@@ -350,6 +350,7 @@
     <Content Include="Views\CompletarVenta\CompletarVenta.cshtml" />
     <Content Include="Views\Facturacion\Index.cshtml" />
     <Content Include="Views\AgendaTabla\Index.cshtml" />
+    <Content Include="Views\AgendaTabla\AgendaTabla.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

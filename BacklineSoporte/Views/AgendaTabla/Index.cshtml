@@ -1,5 +1,10 @@
 ﻿@model BacklineSoporte.Models.AgendaModel
 
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/AgendaTabla/AgendaTabla.cshtml";
+}
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,150 +20,131 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
     <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/CSS/FondoPantalla.css">
 
-    <script src="~/ScriptsVistas/LogicaRequerimiento20221213.js"></script>
+    @*<script src="~/ScriptsVistas/LogicaRequerimiento20221213.js"></script>*@
 
     <style>
-        html, body {
-            background-color: #DDDDDE;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='100%25' gradientTransform='rotate(240)'%3E%3Cstop offset='0' stop-color='%23DDDDDE'/%3E%3Cstop offset='1' stop-color='%2313A2FF'/%3E%3C/linearGradient%3E%3Cpattern patternUnits='userSpaceOnUse' id='b' width='540' height='450' x='0' y='0' viewBox='0 0 1080 900'%3E%3Cg fill-opacity='0.1'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='100%25' height='100%25'/%3E%3Crect x='0' y='0' fill='url(%23b)' width='100%25' height='100%25'/%3E%3C/svg%3E");
-            background-attachment: fixed;
-            background-size: contain;
-            font-family: 'Numans', sans-serif;
-        }
     </style>
 
     <script>
 
-        var urlObtenerModulos = '@Url.Action("ObtenerModulos", "Requerimiento")';
-        
+        @*var urlObtenerModulos = '@Url.Action("ObtenerModulos", "Requerimiento")';*@
+
         $(document).ready(function () {
 
             $('.ui.selection.dropdown').dropdown();
             $('.ui.menu .ui.dropdown').dropdown({
                 on: 'hover'
             });
+            $('.ui.accordion')
+                .accordion()
+                ;
         });
 
     </script>
 </head>
 <body>
+    <br />
     <div style="margin-left:auto; margin-right:auto; width:95%; opacity:0.9">
         <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
-            
-
-            @*<div id="modalFiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 100%; opacity:1">
-                    <div class="modal-dialog-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="ui info message">
-                                    <div class="ui form">
-                                        <form>
-                                            <div class="fields" style="width:100%">
-                                                <div id="divtxtFiltroFechaDesde" class="field" style="width:15%">
-                                                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de desde</font></font></label>
-                                                    <input id="txtFiltroFechaDesde" type="date" placeholder="" value=@Session["FiltroInformeDesde"]>
+            <div class="ui styled fluid accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Filtros
+                </div>
+                <div class="content">
+                    <div id="modalFiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 100%; opacity:1">
+                        <div class="modal-dialog-xl" role="document">
+                            
+                                <div class="modal-body">
+                                    <div class="ui info message">
+                                        <div class="ui form">
+                                            <form>
+                                                <div class="fields" style="width:100%">
+                                                    <div id="divtxtFiltroFechaDesde" class="field" style="width:15%">
+                                                        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de desde</font></font></label>
+                                                        <input id="txtFiltroFechaDesde" type="date" placeholder="" value=@Session["FiltroInformeDesde"]>
+                                                    </div>
+                                                    <div id="divtxtFiltroFechaHasta" class="field" style="width:15%">
+                                                        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de hasta</font></font></label>
+                                                        <input id="txtFiltroFechaHasta" type="date" placeholder="" value=@Session["FiltroInformeHasta"]>
+                                                    </div>
+                                                    <div id="divcmbFiltroSoftware" class="field" style="width:20%">
+                                                        <label>Tipo de tarea</label>
+                                                        <select id="cmbFiltroSoftware" name="cmbFiltroSoftware" class="ui search selection dropdown">
+                                                        </select>
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>Buscar</label>
+                                                        <button id="btnGuardarFactura" class="ui blue icon button" onclick="BusquedaFiltro();return false">
+                                                            <i class="search icon"></i><font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                   
+                                                                </font>
+                                                            </font>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div id="divtxtFiltroFechaHasta" class="field" style="width:15%">
-                                                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de hasta</font></font></label>
-                                                    <input id="txtFiltroFechaHasta" type="date" placeholder="" value=@Session["FiltroInformeHasta"]>
-                                                </div>
-                                                <div id="divcmbFiltroSoftware" class="field" style="width:20%">
-                                                    <label>Software</label>
-                                                    <select id="cmbFiltroSoftware" name="cmbFiltroSoftware" class="ui search selection dropdown">
-                                                    </select>
-                                                </div>
-                                                <div id="divcmbFiltroEmpresa" class="field" style="width:20%">
-                                                    <label>Empresa</label>
-                                                    <select id="cmbFiltroEmpresa" name="cmbFiltroEmpresa" class="ui search selection dropdown">
-                                                    </select>
-                                                </div>
-                                                <div id="divcmbFiltroResponsable" class="field" style="width:20%">
-                                                    <label>Responsable</label>
-                                                    <select id="cmbFiltroResponsable" name="cmbFiltroResponsable" class="ui search selection dropdown">
-                                                    </select>
-                                                </div>
-                                                <div id="divcmbFiltroEstado" class="field" style="width:20%">
-                                                    <label>Estado</label>
-                                                    <select id="cmbFiltroEstado" name="cmbFiltroEstado" class="ui search selection dropdown">
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div style="height:5px"></div>
-                                            <button id="btnGuardarFactura" class="ui right labeled blue icon button" onclick="BusquedaFiltro();return false">
-                                                <i class="search icon"></i><font style="vertical-align: inherit;">
-                                                    <font style="vertical-align: inherit;">
-                                                        Buscar requerimientos
-                                                    </font>
-                                                </font>
-                                            </button>
-                                            <div style="height:5px"></div>
-
-                                        </form>
-                                    </div>
-                                    <div id="divExito" class="ui icon hidden positive message">
-                                        <i class="thumbs up outline icon"></i>
-                                        <div class="content">
-                                            <div class="header">
-                                                Éxito!!
-                                            </div>
-                                            <p>La factura se a guardado con éxito.</p>
+                                            </form>
                                         </div>
-                                    </div>
-                                    <div id="divError" class="ui icon hidden negative message">
-                                        <i class="hand paper icon"></i>
-                                        <div class="content">
-                                            <div class="header">
-                                                Error!!
+                                        <div id="divExito" class="ui icon hidden positive message">
+                                            <i class="thumbs up outline icon"></i>
+                                            <div class="content">
+                                                <div class="header">
+                                                    Éxito!!
+                                                </div>
+                                                <p>La factura se a guardado con éxito.</p>
                                             </div>
-                                            <p>La factura no se a guardado con éxito.</p>
                                         </div>
-                                    </div>
+                                        <div id="divError" class="ui icon hidden negative message">
+                                            <i class="hand paper icon"></i>
+                                            <div class="content">
+                                                <div class="header">
+                                                    Error!!
+                                                </div>
+                                                <p>La factura no se a guardado con éxito.</p>
+                                            </div>
+                                        </div>
 
+                                    </div>
                                 </div>
-                            </div>
+                           
                         </div>
                     </div>
-                </div>*@
-            
-
+                </div>
+            </div>
+            <br />
             <div id="btnAgregaRequerimiento" data-toggle="modal" data-target="#modalRequerimientos" class="ui blue right labeled icon button">
-                Agregar requerimiento
+                Agregar
                 <i class="checkmark icon"></i>
             </div>
             <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Home'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
-
             <table class="ui celled striped table">
                 <thead>
                     <tr>
                         <th></th>
-                        <th>ID</th>
-                        <th>Fecha de ingreso</th>
-                        <th>Tipo Software</th>
-                        <th>Empresa</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Solicitante</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Modulo</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue ">Funcionalidad</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha de solución</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Prioridad</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Clasificación</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Responsable</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Estado</th>
+                        <th>Tipo de tarea</th>
+                        <th>Detalle</th>
+                        <th>Modalidad</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Termino</th>
+                        <th>Usuario creador</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    @foreach (var Requerimiento in Model.ListaRequerimiento)
+                    @foreach (var agenda in Model.ListaAgenda)
                     {
                         <tr>
                             <td style="display:flex;">
-                                <button class="ui mini vertical animated red button" tabindex="0" value="@Requerimiento.Id" data-toggle="modal" data-target="#modalEliminarRequerimiento" onclick="PreparaEliminaRequerimiento(this.value, this);">
+                                <button class="ui mini vertical animated red button" tabindex="0" value="@agenda.Id" data-toggle="modal" data-target="#modalEliminarRequerimiento" onclick="PreparaEliminaRequerimiento(this.value, this);">
                                     <div class="hidden content">Eliminar</div>
                                     <div class="visible content">
                                         <i class="trash icon"></i>
                                     </div>
                                 </button>
-                                <button class="ui mini vertical animated blue button" value="@Requerimiento.Id" data-toggle="modal" data-target="#modalRequerimientos" onclick="PrepararEditarRequerimiento(this.value, this); EditarRequerimiento();">
+                                <button class="ui mini vertical animated blue button" value="@agenda.Id" data-toggle="modal" data-target="#modalRequerimientos" onclick="PrepararEditarRequerimiento(this.value, this); EditarRequerimiento();">
                                     <div class="hidden content"> Editar</div>
                                     <div class="visible content">
                                         <i class="edit icon"></i>
@@ -166,45 +152,12 @@
 
                                 </button>
                             </td>
-                            <td>@Requerimiento.Id</td>
-                            <td>@Requerimiento.FechaIngreso.ToShortDateString()</td>
-                            <td>@Requerimiento.SoftwareStr</td>
-                            <td>@Requerimiento.NombreEmpresa</td>
-                            <td>@Requerimiento.NombreSolicitante</td>
-                            <td>@Requerimiento.Modulo</td>
-                            <td>@Requerimiento.Funcionalidad</td>
-                            <td>@Requerimiento.FechaMostrarSolucion</td>
-                            <td>@Requerimiento.Prioridad</td>
-                            @if (Requerimiento.Clasificacion == 1)
-                            {
-                                <td>Requerimiento</td>
-                            }
-                            @if (Requerimiento.Clasificacion == 2)
-                            {
-                                <td>Soporte</td>
-                            }
-                            <td>@Requerimiento.NombreResponsable</td>
-
-                            @if (Requerimiento.Estado == 1 || Requerimiento.Estado == 2 || Requerimiento.Estado == 6)
-                            {
-                                <td style="word-wrap: break-word; background-color: orange">@Requerimiento.Estado_Reque</td>
-                            }
-                            @if (Requerimiento.Estado == 3)
-                            {
-                                <td style="word-wrap: break-word; background-color: green">@Requerimiento.Estado_Reque</td>
-                            }
-                            @if (Requerimiento.Estado == 4)
-                            {
-                                <td style="word-wrap: break-word; background-color: orangered">@Requerimiento.Estado_Reque</td>
-                            }
-                            @if (Requerimiento.Estado == 5)
-                            {
-                                <td style="word-wrap: break-word; background-color: red">@Requerimiento.Estado_Reque</td>
-                            }
-                            @if (Requerimiento.Estado == 7)
-                            {
-                                <td style="word-wrap: break-word; background-color: lawngreen;">@Requerimiento.Estado_Reque</td>
-                            }
+                            <td>@agenda.Tipo_Tarea</td>
+                            <td>@agenda.Detalle</td>
+                            <td>@agenda.Modalidad</td>
+                            <td>@agenda.Fecha_Inicio_Tarea</td>
+                            <td>@agenda.Fecha_Termino_Tarea</td>
+                            <td>@agenda.Nombre_Completo</td>
                         </tr>
                     }
 

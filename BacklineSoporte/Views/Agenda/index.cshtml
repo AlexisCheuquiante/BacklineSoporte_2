@@ -262,22 +262,26 @@
 
                     <div class="ui card @(@tarea.Realizada?"realizada":"")">
                         <div class="content">
-                            <button class=" right floated red circular  ui icon button" value="@tarea.Id" data-toggle="modal" data-target="#modalEliminarTarea" onclick="PreparaEliminaTarea(this.value, this);">
-                                <i class="trash icon"></i>
-                            </button>
-                            <button class=" right floated purple circular ui icon button" value="@tarea.Id" data-toggle="modal" data-target="#modalFinalizarTarea" onclick="PreparaEliminaTarea(this.value, this);">
-                                <i class="check icon"></i>
-                            </button>
-                            <button class=" right floated blue circular ui icon button" value="@tarea.Id" onclick="PrepararEditarTarea(this.value, this); EditarTarea();" data-toggle="modal" data-target="#modalAgenda">
-                                <i class="eye icon"></i>
-                            </button>
+                            <div class="ui vertical buttons" style="align-content:flex-end">
+                                <button class=" right floated red circular  ui icon button" value="@tarea.Id" data-toggle="modal" data-target="#modalEliminarTarea" onclick="PreparaEliminaTarea(this.value, this);">
+                                    <i class="trash icon"></i>
+                                </button>
+                                <br />
+                                <button class=" right floated purple circular ui icon button" value="@tarea.Id" data-toggle="modal" data-target="#modalFinalizarTarea" onclick="PreparaEliminaTarea(this.value, this);">
+                                    <i class="check icon"></i>
+                                </button>
+                                <br />
+                                <button class=" right floated blue circular ui icon button" value="@tarea.Id" onclick="PrepararEditarTarea(this.value, this); EditarTarea();" data-toggle="modal" data-target="#modalAgenda">
+                                    <i class="eye icon"></i>
+                                </button>
+                            </div>
                             @*<div class="header">@tarea.Tipo_Tarea</div>*@
-                            
+
                             <div class="description" style="margin-top:5px;">
-                            <p>
-                                @tarea.Detalle
-                            </p>
-                             </div>
+                                <p>
+                                    @tarea.Detalle
+                                </p>
+                            </div>
                         </div>
                        
                             
