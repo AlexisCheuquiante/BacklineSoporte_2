@@ -241,7 +241,7 @@ namespace BacklineSoporte.Controllers
 
         public JsonResult ObtenerArchivos(int id)
         {
-            var lista = DAL.ArchivoDAL.ObtenerArchivo(new Entity.Filtro() { Id = id });
+            var lista = DAL.ArchivoDAL.ObtenerArchivo(new Entity.Filtro() { Ficha_Cliente_Id = id });
 
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };

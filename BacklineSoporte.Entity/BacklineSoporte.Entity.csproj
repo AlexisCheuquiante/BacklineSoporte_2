@@ -55,6 +55,7 @@
     <Compile Include="EstadoFicha.cs" />
     <Compile Include="EstadoRequerimiento.cs" />
     <Compile Include="Factura.cs" />
+    <Compile Include="Facturacion.cs" />
     <Compile Include="FarmaciasCreadas.cs" />
     <Compile Include="FichaCliente.cs" />
     <Compile Include="Filtro.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Prioridad.cs" />
     <Compile Include="PrioridadTarea.cs" />
     <Compile Include="Producto.cs" />
+    <Compile Include="ProductoFacturado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProveedorBE.cs" />
     <Compile Include="Regiones.cs" />

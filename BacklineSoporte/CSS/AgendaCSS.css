@@ -31,12 +31,13 @@ h3 {
     background-color:aliceblue;
     
 }
-.ui card{
-    margin-bottom:0.1rem;
+.ui card {
+    margin-bottom: 0.1rem;
 }
 .ui.card.realizada {
     background-color: #8BFF92;
-    margin-bottom:0.1rem;
+    margin-bottom: 0.1rem;
+   
 }
 .container-columns {
     display: flex;
@@ -45,6 +46,12 @@ h3 {
     align-items:start;
     
 }
+/*.content- {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    justify-content: center;
+}*/
 #CardAtrasada {
     background-color: #FF7070;
     border-bottom-color: red;

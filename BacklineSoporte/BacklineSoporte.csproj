@@ -125,6 +125,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AgendaController.cs" />
+    <Compile Include="Controllers\AgendaTablaController.cs" />
     <Compile Include="Controllers\AvisoCobroController.cs" />
     <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\CambiarContraseñaController.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Controllers\CrearFarmaciaController.cs" />
     <Compile Include="Controllers\DesarrollosController.cs" />
     <Compile Include="Controllers\EstablecimientoController.cs" />
+    <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\FichaClienteController.cs" />
     <Compile Include="Controllers\HomeClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -156,6 +158,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AgendaModel.cs" />
     <Compile Include="Models\AvisoCobroModel.cs" />
     <Compile Include="Models\BitacoraModel.cs" />
     <Compile Include="Models\ComentarioModel.cs" />
@@ -163,6 +166,7 @@
     <Compile Include="Models\CrearFarmaciaModel.cs" />
     <Compile Include="Models\DesarrollosModel.cs" />
     <Compile Include="Models\EstablecimientosModel.cs" />
+    <Compile Include="Models\FacturacionModel.cs" />
     <Compile Include="Models\FichaClienteModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\ImagenesDesarrolloModel.cs" />
@@ -247,6 +251,7 @@
     <Content Include="ScriptsVistas\LogicaCrearFarmacia.js" />
     <Content Include="ScriptsVistas\LogicaDesarrollos.js" />
     <Content Include="ScriptsVistas\LogicaEstablecimiento.js" />
+    <Content Include="ScriptsVistas\LogicaFacturacion.js" />
     <Content Include="ScriptsVistas\LogicaFichaCliente202203191652.js" />
     <Content Include="ScriptsVistas\LogicaImagenDesarrollo.js" />
     <Content Include="ScriptsVistas\LogicaInformacion.js" />
@@ -343,6 +348,8 @@
     <Content Include="Views\ImagenesDesarrollo\Index.cshtml" />
     <Content Include="Views\CompletarVenta\Index.cshtml" />
     <Content Include="Views\CompletarVenta\CompletarVenta.cshtml" />
+    <Content Include="Views\Facturacion\Index.cshtml" />
+    <Content Include="Views\AgendaTabla\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

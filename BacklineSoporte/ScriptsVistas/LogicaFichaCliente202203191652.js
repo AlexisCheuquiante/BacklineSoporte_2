@@ -508,7 +508,7 @@ function PintaArchivos(id) {
     $.ajax({
         url: window.urlObtenerArchivos,
         type: 'POST',
-        data: { id: id },
+        data: { id: idFicha },
         dataType: "json",
         success: function (resultado) {
             var tabla = "<table class='ui celled table table-striped'>";

@@ -70,6 +70,7 @@
     <Compile Include="EstadoDesarrolloDAL.cs" />
     <Compile Include="EstadoFichaDAL.cs" />
     <Compile Include="EstadoRequeDAL.cs" />
+    <Compile Include="FacturacionDAL.cs" />
     <Compile Include="FacturaDAL.cs" />
     <Compile Include="FichaClienteDAL.cs" />
     <Compile Include="ImagenDAL.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="PrioridadDAL.cs" />
     <Compile Include="PrioridadTareaDAL.cs" />
     <Compile Include="ProductoDAL.cs" />
+    <Compile Include="ProductoFacturadoDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProveedorBeDAL.cs" />
     <Compile Include="RegionDAL.cs" />

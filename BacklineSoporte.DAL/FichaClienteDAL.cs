@@ -233,7 +233,7 @@ namespace BacklineSoporte.DAL
             db.AddInParameter(dbCommand, "CORREO", DbType.String, segundaParte.CorreoCoti != "" ? segundaParte.CorreoCoti : (object)null);
             db.AddInParameter(dbCommand, "TELEFONO", DbType.Int32, segundaParte.TelefonoCoti != 0 ? segundaParte.TelefonoCoti : (object)null);
             db.AddInParameter(dbCommand, "FECHA_VIGENCIA", DbType.DateTime, segundaParte.FechaVigenciaCoti != DateTime.MinValue ? segundaParte.FechaVigenciaCoti : (object)null);
-            db.AddInParameter(dbCommand, "OBSERVACION_COTIZACION", DbType.String, segundaParte.Observacion_cotizacion != "" ? segundaParte.Observacion_cotizacion.ToUpper() : (object)null);
+            db.AddInParameter(dbCommand, "OBSERVACION_COTIZACION", DbType.String, segundaParte.Observacion_cotizacion != null ? segundaParte.Observacion_cotizacion.ToUpper() : (object)null);
             db.AddInParameter(dbCommand, "DETALLE_COTIZACION_ID", DbType.Int32, segundaParte.Detalle_Cotizacion_Id != 0 ? segundaParte.Detalle_Cotizacion_Id : (object)null);
 
             //db.AddInParameter(dbCommand, "IMPLEMENTACION_UF_PESO", DbType.Int32, segundaParte.Implementacion_UF_Peso != 0 ? segundaParte.Implementacion_UF_Peso : (object)null);
