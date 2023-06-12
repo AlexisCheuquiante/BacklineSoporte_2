@@ -14,6 +14,11 @@ namespace BacklineSoporte.Controllers
         // GET: Establecimiento
         public ActionResult Index(int id)
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             Models.EstablecimientosModel modelo = new Models.EstablecimientosModel();
             Entity.Filtro filtro = new Entity.Filtro();
             filtro.Ficha_Cliente_Id = id;

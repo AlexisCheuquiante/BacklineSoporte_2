@@ -12,6 +12,11 @@ namespace BacklineSoporte.Controllers
         // GET: MantenedorTipoArchivo
         public ActionResult Index()
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             Models.TipoArchivoModel modelo = new Models.TipoArchivoModel();
             Entity.Filtro filtro = new Entity.Filtro();
             modelo.ListaTipoArchivo = DAL.TipoArchivoDAL.ObtenerTipoArchivo(filtro);

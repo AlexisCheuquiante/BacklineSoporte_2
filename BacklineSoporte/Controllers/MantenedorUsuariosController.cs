@@ -13,6 +13,11 @@ namespace BacklineSoporte.Controllers
         // GET: MantenedorUsuarios
         public ActionResult Index(int id)
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             Models.UsuariosFarmaciaModel modelo = new Models.UsuariosFarmaciaModel();
             Entity.Filtro filtro = new Entity.Filtro();
             filtro.EmpId = id;

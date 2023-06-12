@@ -13,6 +13,11 @@ namespace BacklineSoporte.Controllers
         // GET: CompletarVenta
         public ActionResult Index()
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             return View();
         }
         public JsonResult ObtenerEmpresas()

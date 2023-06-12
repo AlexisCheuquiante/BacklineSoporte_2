@@ -12,6 +12,11 @@ namespace BacklineSoporte.Controllers
         // GET: AvisoCobro
         public ActionResult Index()
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             Models.AvisoCobroModel modelo = new Models.AvisoCobroModel();
             modelo.ListaAvisos = DAL.EmpresaDAL.ObtenerEmpresas();
             return View(modelo);

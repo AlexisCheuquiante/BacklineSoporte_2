@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/PanelControl/PanelControl.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" />
+    <title>Panel de control</title>
+    <!-- Estilos y funciones básicas de funcionamiento -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/CSS/FondoPantalla.css">
+
+    <style>
+
+        .card-img-top {
+            width: 100px;
+        }
+
+        .contenedor-imagen {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('.ui.selection.dropdown').dropdown();
+            $('.ui.menu .ui.dropdown').dropdown({
+                on: 'hover'
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="ui link cards">
+        <div class="container">
+            <div style="height:5px"></div>
+            <h3 style="color:white" class="ui center aligned header">
+                <img src="~/Recursos/Imagenes/LogoBackline.png" class="ui image">
+                Bienvenido al panel de control de soporte Backline
+            </h3>
+            <div class="row">
+                @*Completar ventas sin descuento de stock*@
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm" style="opacity:0.9">
+                        <div class="contenedor-imagen">
+                            <img class="card-img-top" src="~/Recursos/Imagenes/CompletarVenta2.png" alt="Card image cap">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Aquí podrás completar las ventas que no generaron descuento de stock.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <div id="btnMarketPlace" onclick="window.location.href = '/CompletarVenta'" class="ui right labeled icon black button">
+                                        Completar venta
+                                        <i class="hand point left icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                @*Informe consolidado por bodega*@
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm" style="opacity:0.9">
+                        <div class="contenedor-imagen">
+                            <img class="card-img-top" src="~/Recursos/Imagenes/InformeBodega.png" alt="Card image cap">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Aquí podrás obtener un informe de stock consolidado por bodega.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <div id="btnMarketPlace" onclick="window.location.href = '/Informes?limpiar=1'" class="ui right labeled icon black button">
+                                        Informes consolidados
+                                        <i class="hand point left icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

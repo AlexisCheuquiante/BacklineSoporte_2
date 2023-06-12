@@ -14,6 +14,11 @@ namespace BacklineSoporte.Controllers
         // GET: FichaCliente
         public ActionResult Index()
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             Session["ListaEstablecimientos"] = new List<Entity.Establecimiento>(); ;
             Models.FichaClienteModel modelo = new Models.FichaClienteModel();
             Entity.Filtro filtro = new Entity.Filtro();

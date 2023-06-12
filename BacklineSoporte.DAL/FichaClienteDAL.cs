@@ -95,12 +95,6 @@ namespace BacklineSoporte.DAL
                 int FACTURACION_CARGO = reader.GetOrdinal("FACTURACION_CARGO");
                 int FACTURACION_CORREO = reader.GetOrdinal("FACTURACION_CORREO");
                 int FACTURACION_TELEFONO = reader.GetOrdinal("FACTURACION_TELEFONO");
-                //Quinta Parte
-                int FECHA_CONTACTO = reader.GetOrdinal("FECHA_CONTACTO");
-                int MOTIVO_CONTACTO_ID = reader.GetOrdinal("MOTIVO_CONTACTO_ID");
-                int DETALLE_CONTACTO = reader.GetOrdinal("DETALLE_CONTACTO");
-                int ESTADO_CONTACTO = reader.GetOrdinal("ESTADO_CONTACTO");
-
 
                 while (reader.Read())
                 {
@@ -179,15 +173,6 @@ namespace BacklineSoporte.DAL
                     fichaCliente.Facturacion_Cargo = (string)(reader.IsDBNull(FACTURACION_CARGO) == false ? reader.GetValue(FACTURACION_CARGO) : "");
                     fichaCliente.Facturacion_Correo = (string)(reader.IsDBNull(FACTURACION_CORREO) == false ? reader.GetValue(FACTURACION_CORREO) : "");
                     fichaCliente.Facturacion_Telefono = (int)(reader.IsDBNull(FACTURACION_TELEFONO) == false ? reader.GetValue(FACTURACION_TELEFONO) : 0);
-
-                    //Quinta Parte
-                    fichaCliente.FechaContacto = (DateTime)(!reader.IsDBNull(FECHA_CONTACTO) ? reader.GetValue(FECHA_CONTACTO) : DateTime.MinValue);
-                    fichaCliente.Motivo_Contacto_Id = (int)(reader.IsDBNull(MOTIVO_CONTACTO_ID) == false ? reader.GetValue(MOTIVO_CONTACTO_ID) : 0);
-                    fichaCliente.Detalle_Contacto = (string)(reader.IsDBNull(DETALLE_CONTACTO) == false ? reader.GetValue(DETALLE_CONTACTO) : "");
-                    fichaCliente.Estado_Contacto = (bool)(reader.IsDBNull(ESTADO_CONTACTO) == false ? reader.GetValue(ESTADO_CONTACTO) : false);
-
-
-
 
                     listaRetorno.Add(fichaCliente);
                 }
@@ -324,19 +309,63 @@ namespace BacklineSoporte.DAL
             Database db = DatabaseFactory.CreateDatabase("baseDatosBacklineSoporte");
             DbCommand dbCommand = db.GetStoredProcCommand("SP_ULT_ULTIMO_CONTACTO_INS");
 
+            db.AddInParameter(dbCommand, "ID", DbType.Int32, quintaParte.Id_Ultimo_Contacto);
             db.AddInParameter(dbCommand, "FICHA_CLIENTE_ID", DbType.Int32, quintaParte.Id);
-            db.AddInParameter(dbCommand, "EDITADA", DbType.Byte, quintaParte.Editar == true ? 1 : 0);
             db.AddInParameter(dbCommand, "FECHA_CONTACTO", DbType.DateTime, quintaParte.FechaContacto != DateTime.MinValue ? quintaParte.FechaContacto : (object)null);
             db.AddInParameter(dbCommand, "MOTIVO_CONTACTO_ID", DbType.Int32, quintaParte.Motivo_Contacto_Id != 0 ? quintaParte.Motivo_Contacto_Id : (object)null);
-            db.AddInParameter(dbCommand, "DETALLE_CONTACTO", DbType.String, quintaParte.Detalle_Contacto != null ? quintaParte.Detalle_Contacto.ToUpper() : (object)null);
-            db.AddInParameter(dbCommand, "ESTADO_CONTACTO", DbType.Byte, quintaParte.Estado_Contacto == true ? 1 : 0);
+            db.AddInParameter(dbCommand, "DETALLE_CONTACTO", DbType.String, quintaParte.Detalle_Contacto != null ? quintaParte.Detalle_Contacto : (object)null);
+            db.AddInParameter(dbCommand, "ESTADO_CONTACTO", DbType.Int32, quintaParte.Estado_Contacto != 0 ? quintaParte.Estado_Contacto : (object)null);
+            db.AddInParameter(dbCommand, "PERSONA_CONTACTADA", DbType.String, quintaParte.Persona_Contactada != null ? quintaParte.Persona_Contactada : (object)null);
+            db.AddInParameter(dbCommand, "CORREO_CONTACTO", DbType.String, quintaParte.Correo_Contacto != null ? quintaParte.Correo_Contacto : (object)null);
 
-
-            db.ExecuteNonQuery(dbCommand);
+            quintaParte.Id_Ultimo_Contacto = int.Parse(db.ExecuteScalar(dbCommand).ToString());
 
             return quintaParte;
         }
+        public static List<Entity.FichaCliente> ObtenerUltimosContactos(Entity.Filtro filtro)
+        {
+            List<Entity.FichaCliente> listaUltimosContactos = new List<Entity.FichaCliente>();
+            Database db = DatabaseFactory.CreateDatabase("baseDatosBacklineSoporte");
+            DbCommand dbCommand = db.GetStoredProcCommand("SP_ULT_ULTIMO_CONTACTO_LEER");
 
+            db.AddInParameter(dbCommand, "ID", DbType.Int32, filtro.Id != 0 ? filtro.Id : (object)null);
+            db.AddInParameter(dbCommand, "FICHA_CLIENTE_ID", DbType.Int32, filtro.Ficha_Cliente_Id != 0 ? filtro.Ficha_Cliente_Id : (object)null);
+
+            IDataReader reader = (IDataReader)db.ExecuteReader(dbCommand);
+            try
+            {
+                int ID = reader.GetOrdinal("ID");
+                int FECHA_CONTACTO = reader.GetOrdinal("FECHA_CONTACTO");
+                int MOTIVO_CONTACTO_ID = reader.GetOrdinal("MOTIVO_CONTACTO_ID");
+                int MOTIVO_CONTACTO = reader.GetOrdinal("MOTIVO_CONTACTO");
+                int DETALLE_CONTACTO = reader.GetOrdinal("DETALLE_CONTACTO");
+                int ESTADO_CONTACTO = reader.GetOrdinal("ESTADO_CONTACTO");
+                int ESTADO = reader.GetOrdinal("ESTADO");
+                int PERSONA_CONTACTADA = reader.GetOrdinal("PERSONA_CONTACTADA");
+                int CORREO_CONTACTO = reader.GetOrdinal("CORREO_CONTACTO");
+
+                while (reader.Read())
+                {
+                    Entity.FichaCliente fichaCliente = new Entity.FichaCliente();
+                    fichaCliente.Id_Ultimo_Contacto = (int)(reader.IsDBNull(ID) == false ? reader.GetValue(ID) : 0);
+                    fichaCliente.FechaContacto = (DateTime)(!reader.IsDBNull(FECHA_CONTACTO) ? reader.GetValue(FECHA_CONTACTO) : DateTime.MinValue);
+                    fichaCliente.Motivo_Contacto_Id = (int)(reader.IsDBNull(MOTIVO_CONTACTO_ID) == false ? reader.GetValue(MOTIVO_CONTACTO_ID) : 0);
+                    fichaCliente.MotivoContactoStr = (string)(reader.IsDBNull(MOTIVO_CONTACTO) == false ? reader.GetValue(MOTIVO_CONTACTO) : "");
+                    fichaCliente.Detalle_Contacto = (string)(reader.IsDBNull(DETALLE_CONTACTO) == false ? reader.GetValue(DETALLE_CONTACTO) : "");
+                    fichaCliente.Estado_Contacto = (int)(reader.IsDBNull(ESTADO_CONTACTO) == false ? reader.GetValue(ESTADO_CONTACTO) : 0);
+                    fichaCliente.EstadoContactoStr = (string)(reader.IsDBNull(ESTADO) == false ? reader.GetValue(ESTADO) : "");
+                    fichaCliente.Persona_Contactada = (string)(reader.IsDBNull(PERSONA_CONTACTADA) == false ? reader.GetValue(PERSONA_CONTACTADA) : "");
+                    fichaCliente.Correo_Contacto = (string)(reader.IsDBNull(CORREO_CONTACTO) == false ? reader.GetValue(CORREO_CONTACTO) : "");
+
+                    listaUltimosContactos.Add(fichaCliente);
+                }
+            }
+            catch (Exception ex)
+            {
+                //DAL.errror.insertar(ex.de)
+            }
+            return listaUltimosContactos;
+        }
 
 
 

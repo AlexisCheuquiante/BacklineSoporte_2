@@ -13,6 +13,11 @@ namespace BacklineSoporte.Controllers
         // GET: Requerimiento
         public ActionResult Index(string buscar, string limpiar)
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             var text = DateTime.Now.ToString();
             Session["FechaActual"] = text;
             Models.RequerimientoModel modelo = new Models.RequerimientoModel();
@@ -197,6 +202,25 @@ namespace BacklineSoporte.Controllers
             Session["registrosEncontrados"] = historicosEncontrados;
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = "OK", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        [HttpGet]
+        public FileContentResult ExportToExcel()
+        {
+            var timestamp = Utiles.ObtenerTimeStamp();
+
+            List<Entity.Requerimiento> lista = Session["registrosEncontrados"] as List<Entity.Requerimiento>;
+
+            if (lista != null && lista.Count > 0)
+            {
+                string[] columns = { "Id", "FechaMostrar", "SoftwareStr", "NombreEmpresa", "NombreSolicitante", "Modulo", "Funcionalidad", "Fecha_Solucion_Str", "Prioridad", "Clasificacion_Str", "NombreResponsable", "Estado_Reque"};
+                byte[] filecontent = Code.ExcelExportHelper.ExportExcel(lista, "Requerimientos", true, columns);
+                return File(filecontent, Code.ExcelExportHelper.ExcelContentType, "Requerimientos_Soporte_" + "(" + timestamp + ")" + ".xlsx");
+            }
+            else
+            {
+                return null;
+            }
+
         }
     }
 }

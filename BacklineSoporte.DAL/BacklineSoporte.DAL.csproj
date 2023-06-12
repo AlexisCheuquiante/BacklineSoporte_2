@@ -68,14 +68,18 @@
     <Compile Include="EntidadDAL.cs" />
     <Compile Include="EstablecimientoDAL.cs" />
     <Compile Include="EstadoDesarrolloDAL.cs" />
+    <Compile Include="EstadoFacturaDAL.cs" />
     <Compile Include="EstadoFichaDAL.cs" />
     <Compile Include="EstadoRequeDAL.cs" />
+    <Compile Include="EstadoUltimoContactoDAL.cs" />
     <Compile Include="FacturacionDAL.cs" />
     <Compile Include="FacturaDAL.cs" />
     <Compile Include="FichaClienteDAL.cs" />
+    <Compile Include="HorasDesarrolloDAL.cs" />
     <Compile Include="ImagenDAL.cs" />
     <Compile Include="ImagenDesarrolloDAL.cs" />
     <Compile Include="InformacionDAL.cs" />
+    <Compile Include="InformesConsolidadosDAL.cs" />
     <Compile Include="ModalidadTareaDAL.cs" />
     <Compile Include="ModuloDAL.cs" />
     <Compile Include="MotivoContactoDAL.cs" />
@@ -96,6 +100,7 @@
     <Compile Include="TareaDAL.cs" />
     <Compile Include="TiempoDAL.cs" />
     <Compile Include="TipoArchivoDAL.cs" />
+    <Compile Include="TipoBusquedaDAL.cs" />
     <Compile Include="TipoContratacionDAL.cs" />
     <Compile Include="TipoDocumentoConsultaDAL.cs" />
     <Compile Include="TipoTareaDAL.cs" />

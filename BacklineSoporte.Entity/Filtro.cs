@@ -36,5 +36,9 @@ namespace BacklineSoporte.Entity
         public int Bode_Id { get; set; }
         public int Prod_Id { get; set; }
         public string Lote { get; set; }
+        public int Tipo_Tarea_Id { get; set; }
+        public int Usr_Responsable_Id { get; set; }
+        public int Desa_Id { get; set; }
+        public int TipoBusqueda_Id { get; set; }
     }
 }

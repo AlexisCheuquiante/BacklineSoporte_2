@@ -1,0 +1,206 @@
+﻿@model BacklineSoporte.Models.UltimoContactoModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/UltimoContacto/UltimoContacto.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" />
+    <title>Último contacto de cliente</title>
+    <!-- Estilos y funciones básicas de funcionamiento -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+    <script src="~/ScriptsVistas/LogicaUltimoContacto.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/CSS/FondoPantalla.css">
+
+
+
+    <style>
+    </style>
+
+    <script>
+
+        var urlObtenerEstadoUltimoContacto = '@Url.Action("ObtenerEstadoUltimoContacto", "UltimoContacto")';
+        var urlObtenerMotivoContacto = '@Url.Action("ObtenerMotivoContacto", "UltimoContacto")';
+        var urlGuardarUltimoContacto = '@Url.Action("GuardarUltimoContacto", "UltimoContacto")';
+        var urlObtenerUltimoContacto = '@Url.Action("ObtenerUltimoContacto", "UltimoContacto")';
+        
+
+        $(document).ready(function () {
+
+            $('.ui.selection.dropdown').dropdown();
+            $('.ui.menu .ui.dropdown').dropdown({
+                on: 'hover'
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <br />
+    <div style="margin-left:auto; margin-right:auto; width:95%; opacity:0.9">
+        <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
+
+            <div id="btnAgregaFicha" data-toggle="modal" data-target="#modalUltimoContacto" class="ui blue right labeled icon button">
+                Agregar nuevo contacto
+                <i class="checkmark icon"></i>
+            </div>
+            <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/FichaCliente'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
+
+            <table class="ui celled striped table">
+                <thead>
+                    <tr>
+                        <th style="width: 180px"></th>
+                        <th>Fecha de contacto</th>
+                        <th>Persona Contactada</th>
+                        <th>Correo contacto</th>
+                        <th>Detalle</th>
+                        <th>Motivo de contacto</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var lista in Model.listaUltimosContactos)
+                        {
+                            <tr>
+                                <td style="display:flex; flex-direction: row; flex-wrap: wrap; align-content: center; align-items: center; justify-content: center;">
+                                    <button class="ui medium vertical animated green button" tabindex="0" value="@lista.Id_Ultimo_Contacto" data-toggle="modal" data-target="#modalUltimoContacto" onclick="PrepararObtenerUltimoContacto(this.value, this); ObtenerUltimoContacto();">
+                                        <div class="hidden content">Editar</div>
+                                        <div class="visible content">
+                                            <i class="edit icon"></i>
+                                        </div>
+                                    </button>
+                                    @*<button class="ui medium vertical animated red button" tabindex="0" value="@lista.Id_Ultimo_Contacto" data-toggle="modal" data-target="#modalEliminarFicha" onclick="PreparaEliminaFicha(this.value, this);">
+                                        <div class="hidden content">Eliminar</div>
+                                        <div class="visible content">
+                                            <i class="trash icon"></i>
+                                        </div>
+                                    </button>*@
+                                </td>
+                                <td>@lista.FechaContacto.ToShortDateString()</td>
+                                <td>@lista.Persona_Contactada</td>
+                                <td>@lista.Correo_Contacto</td>
+                                <td>@lista.Detalle_Contacto</td>
+                                <td>@lista.MotivoContactoStr</td>
+                                <td>@lista.EstadoContactoStr </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <div class="modal fade" id="modalUltimoContacto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 95%; opacity:0.9">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div style="height:5px"></div>
+                <div>
+                    <h4 style="color:black" class="ui header">
+                        <img class="bordered rounded" src="~/Recursos/Imagenes/LogoBackline.png" width="50" alt="">
+                        Contacto cliente
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="image content">
+                        <div class="ui info message">
+                            <div class="header">
+                                Atención al llenar los datos!
+                            </div>
+                            Debes completar todos los campos para guardar!
+                            <div class="ui divider"></div>
+                            <div class="ui form">
+                                <form>
+                                    <div class="two fields">
+                                        <div id="divtxtFechaContacto" class="field">
+                                            <label>Fecha contacto:</label>
+                                            <input type="date" id="txtFechaContacto">
+                                        </div>
+                                        <div id="divTxtPersona" class="field">
+                                            <label>Persona contactada:</label>
+                                            <input type="text" id="txtPersona" placeholder="Persona contactada...">
+                                        </div>
+                                    </div>
+                                    <div class="two fields">
+                                        <div id="divtxtCorreo" class="field" style="width: 100%">
+                                            <label>Correo de contacto:</label>
+                                            <input type="text" id="txtCorreo" placeholder="Correo de contacto...">
+                                        </div>
+                                    </div>
+                                    <div class="two fields">
+                                        <div id="divcmbMotivo" class="field">
+                                            <label>Motivo del contacto:</label>
+                                            <select id="cmbMotivo" name="cmbMotivo" class="ui search selection dropdown">
+                                            </select>
+                                        </div>
+                                        <div id="divcmbEstado" class="field">
+                                            <label>Estado del contacto:</label>
+                                            <select id="cmbEstado" name="cmbEstado" class="ui search selection dropdown">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="two fields">
+                                        <div id="divTxtDetalleContacto" class="field" style="width:100%">
+                                            <label>Detalle contacto:</label>
+                                            <textarea placeholder="Detalle aquí..." rows="5" id="txtDetalleContacto"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height:5px">
+
+                    </div>
+                    <div id="divExito" class="ui icon hidden positive  message">
+                        <i class="stopwatch icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Éxito!!
+                            </div>
+                            <p>El contacto fue guardado con éxito.</p>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div id="DivMessajeErrorGeneral" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Se han encontrado algunos problemas, revíselos...
+                            </div>
+                            <ul id="listMessajeError" class="list"></ul>
+                        </div>
+                    </div>
+                    <button id="btnGuardaContacto" class="ui right labeled blue icon button" onclick="GuardaUltimoContacto();">
+                        <i class="check circle icon"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Guardar
+                            </font>
+                        </font>
+                    </button>
+                    <button class="ui right labeled red icon button" @*onclick="window.location.replace('/Desarrollos?actualizar=1')"*@>
+                        <i class="left arrow icon"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Volver
+                            </font>
+                        </font>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<input type="hidden" id="idContacto" value="0" />

@@ -124,6 +124,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Code\ExcelExportHelper.cs" />
     <Compile Include="Controllers\AgendaController.cs" />
     <Compile Include="Controllers\AgendaTablaController.cs" />
     <Compile Include="Controllers\AvisoCobroController.cs" />
@@ -142,9 +143,11 @@
     <Compile Include="Controllers\FichaClienteController.cs" />
     <Compile Include="Controllers\HomeClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HorasDesarrolloController.cs" />
     <Compile Include="Controllers\ImagenesDesarrolloController.cs" />
     <Compile Include="Controllers\InformacionClienteController.cs" />
     <Compile Include="Controllers\InformacionController.cs" />
+    <Compile Include="Controllers\InformesController.cs" />
     <Compile Include="Controllers\LoginClienteController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MantenedoresController.cs" />
@@ -152,7 +155,11 @@
     <Compile Include="Controllers\MantenedorTipoArchivoController.cs" />
     <Compile Include="Controllers\MantenedorUsuariosController.cs" />
     <Compile Include="Controllers\MesaController.cs" />
+    <Compile Include="Controllers\PanelControlController.cs" />
+    <Compile Include="Controllers\PanelHorasController.cs" />
+    <Compile Include="Controllers\PruebaController.cs" />
     <Compile Include="Controllers\RequerimientoController.cs" />
+    <Compile Include="Controllers\UltimoContactoController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\VisualizaImagenesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -169,13 +176,17 @@
     <Compile Include="Models\FacturacionModel.cs" />
     <Compile Include="Models\FichaClienteModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\HorasDesarrolloModel.cs" />
     <Compile Include="Models\ImagenesDesarrolloModel.cs" />
     <Compile Include="Models\InformacionModel.cs" />
     <Compile Include="Models\HomeClienteModel.cs" />
+    <Compile Include="Models\InformesModel.cs" />
     <Compile Include="Models\MantenedorModulosModel.cs" />
+    <Compile Include="Models\PanelHorasModel.cs" />
     <Compile Include="Models\RequerimientoModel.cs" />
     <Compile Include="Models\TareaModel.cs" />
     <Compile Include="Models\TipoArchivoModel.cs" />
+    <Compile Include="Models\UltimoContactoModel.cs" />
     <Compile Include="Models\UsuariosFarmaciaModel.cs" />
     <Compile Include="Models\UsuariosModel.cs" />
     <Compile Include="Models\VisualizadorModel.cs" />
@@ -235,12 +246,15 @@
     <Content Include="Recursos\Imagenes\Imagen info.jpg" />
     <Content Include="Recursos\Imagenes\informacion.jpg" />
     <Content Include="Recursos\Imagenes\Informaciones.jpg" />
+    <Content Include="Recursos\Imagenes\InformeBodega.png" />
     <Content Include="Recursos\Imagenes\LogoBackline.png" />
     <Content Include="Recursos\Imagenes\Mantenedores.jpg" />
+    <Content Include="Recursos\Imagenes\PanelControl.png" />
     <Content Include="Recursos\Imagenes\Requerimientos.png" />
     <Content Include="Recursos\Imagenes\Solicitud.jpg" />
     <Content Include="Recursos\Imagenes\wall.jpg" />
     <Content Include="ScriptsVistas\LogicaAgenda.js" />
+    <Content Include="ScriptsVistas\LogicaAgendaTabla.js" />
     <Content Include="ScriptsVistas\LogicaCompletarVenta.js" />
     <Content Include="ScriptsVistas\LogicaConsultasVentaSimple.js" />
     <Content Include="ScriptsVistas\LogicaConsultasDrogueria.js" />
@@ -253,15 +267,19 @@
     <Content Include="ScriptsVistas\LogicaEstablecimiento.js" />
     <Content Include="ScriptsVistas\LogicaFacturacion.js" />
     <Content Include="ScriptsVistas\LogicaFichaCliente202203191652.js" />
+    <Content Include="ScriptsVistas\LogicaHorasDesarrollo.js" />
     <Content Include="ScriptsVistas\LogicaImagenDesarrollo.js" />
     <Content Include="ScriptsVistas\LogicaInformacion.js" />
+    <Content Include="ScriptsVistas\LogicaInformes.js" />
     <Content Include="ScriptsVistas\LogicaLogin.js" />
     <Content Include="ScriptsVistas\LogicaLoginCliente.js" />
     <Content Include="ScriptsVistas\LogicaMantenedorModulos.js" />
     <Content Include="ScriptsVistas\LogicaMantenedorTipoArchivo.js" />
     <Content Include="ScriptsVistas\LogicaMantenedorUsuarios.js" />
     <Content Include="ScriptsVistas\LogicaMesa.js" />
+    <Content Include="ScriptsVistas\LogicaPanelHoras.js" />
     <Content Include="ScriptsVistas\LogicaRequerimiento20221213.js" />
+    <Content Include="ScriptsVistas\LogicaUltimoContacto.js" />
     <Content Include="ScriptsVistas\LogicaUsuarios.js" />
     <Content Include="ScriptsVistas\LogicaVisualizaImagenes.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -351,10 +369,24 @@
     <Content Include="Views\Facturacion\Index.cshtml" />
     <Content Include="Views\AgendaTabla\Index.cshtml" />
     <Content Include="Views\AgendaTabla\AgendaTabla.cshtml" />
+    <Content Include="Views\Facturacion\Facturacion.cshtml" />
+    <Content Include="Views\Prueba\Index.cshtml" />
+    <Content Include="Views\Desarrollos\CronometroDesarrollo.cshtml" />
+    <Content Include="Views\HorasDesarrollo\Index.cshtml" />
+    <Content Include="Views\HorasDesarrollo\HorasDesarrollo.cshtml" />
+    <Content Include="Views\PanelControl\Index.cshtml" />
+    <Content Include="Views\PanelControl\PanelControl.cshtml" />
+    <Content Include="Views\Informes\Index.cshtml" />
+    <Content Include="Views\Informes\Informes.cshtml" />
+    <Content Include="Views\PanelHoras\Index.cshtml" />
+    <Content Include="Views\PanelHoras\PanelHoras.cshtml" />
+    <Content Include="Views\UltimoContacto\Index.cshtml" />
+    <Content Include="Views\UltimoContacto\UltimoContacto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Recursos\Imagenes\Uploads\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

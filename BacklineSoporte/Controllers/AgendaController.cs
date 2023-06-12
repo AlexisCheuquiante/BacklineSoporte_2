@@ -123,17 +123,17 @@ namespace BacklineSoporte.Controllers
             return retorno;
         }
 
-        public JsonResult RealizarTarea(BacklineSoporte.Entity.Tarea tarea, int id)
-        {
+        //public JsonResult RealizarTarea(BacklineSoporte.Entity.Tarea tarea, int id)
+        //{
 
-            tarea.Id = id;
-            DAL.TareaDAL.TareaRealizada(tarea, id);
-
-
-            return new JsonResult() { ContentEncoding = Encoding.Default, Data = "exito", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        //    tarea.Id = id;
+        //    DAL.TareaDAL.TareaRealizada(tarea, id);
 
 
-        }
+        //    return new JsonResult() { ContentEncoding = Encoding.Default, Data = "exito", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+        //}
         public JsonResult EditarTarea(int idTarea)
         {
             Entity.Filtro filtro = new Entity.Filtro();

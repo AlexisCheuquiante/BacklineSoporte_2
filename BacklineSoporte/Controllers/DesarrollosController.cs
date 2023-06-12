@@ -12,6 +12,11 @@ namespace BacklineSoporte.Controllers
         // GET: Desarrollos
         public ActionResult Index(string buscar, string limpiar, string actualizar)
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             Models.DesarrollosModel modelo = new Models.DesarrollosModel();
             Entity.Filtro filtro = new Entity.Filtro();
             
@@ -95,6 +100,10 @@ namespace BacklineSoporte.Controllers
 
         public ActionResult BusquedaFiltro(Entity.Filtro entity)
         {
+            if (entity.Usr_Responsable_Id == -1)
+            {
+                entity.Usr_Responsable_Id = 0;
+            }
             entity.FechaDesde = Utiles.FechaObtenerMinimo(entity.FechaDesde);
             entity.FechaHasta = Utiles.FechaObtenerMaximo(entity.FechaHasta);
             

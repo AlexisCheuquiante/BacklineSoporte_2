@@ -11,6 +11,10 @@ namespace BacklineSoporte.Controllers
         // GET: Consultas
         public ActionResult Index()
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             BacklineSoporte.Models.ConsultasModel model = new Models.ConsultasModel();
             model.NombreUsuario = SessionH.Usuario.NombreCompleto;
             return View(model);

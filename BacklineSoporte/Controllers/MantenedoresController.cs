@@ -12,6 +12,11 @@ namespace BacklineSoporte.Controllers
         // GET: Mantenedores
         public ActionResult Index()
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             return View();
         }
 

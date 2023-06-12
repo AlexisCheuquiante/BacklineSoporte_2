@@ -1,0 +1,359 @@
+﻿@model BacklineSoporte.Models.HorasDesarrolloModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/HorasDesarrollo/HorasDesarrollo.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Horas de desarrollos</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/CSS/FondoPantalla.css">
+    <script src="~/ScriptsVistas/LogicaHorasDesarrollo.js"></script>
+    <script>
+
+        var urlInsertarHoras = '@Url.Action("InsertarHoras", "HorasDesarrollo")';
+        var urlCerrarHora = '@Url.Action("CerrarHora", "HorasDesarrollo")';
+        var urlEliminar = '@Url.Action("Eliminar", "HorasDesarrollo")';
+        var urlObtenerObservacion = '@Url.Action("ObtenerObservacion", "HorasDesarrollo")';
+        var urlEditarObservacion = '@Url.Action("EditarObservacion", "HorasDesarrollo")';
+        
+
+        $(document).ready(function () {
+
+            $('.ui.selection.dropdown').dropdown();
+            $('.ui.menu .ui.dropdown').dropdown({
+                on: 'hover'
+            });
+            $('.ui.accordion')
+                .accordion()
+                ;
+        });
+
+        function goBack() {
+            window.history.back()
+        }
+    </script>
+</head>
+<body>
+    <br />
+    <div style="margin-left:auto; margin-right:auto; width:95%; opacity:0.9">
+        <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
+            <br />
+            <div id="btnAgregaAgenda" data-toggle="modal" data-target="#modalHoras" class="ui blue right labeled icon button">
+                Iniciar
+                <i class="clock icon"></i>
+            </div>
+            <div id="btnSalir" class="ui right labeled icon button" onclick="goBack()" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
+            <table class="ui celled striped table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Fecha ingreso</th>
+                        <th>Hora Inicio</th>
+                        <th>Hora Termino</th>
+                        <th>Total trabajado</th>
+                        
+                        <th>Observación</th>
+                        <th>Desarrollador</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var horas in Model.listaHoras)
+                    {
+                        <tr>
+                            <td style="display:flex;">
+                                @if (SessionH.Usuario.Id == horas.Usr_Desarrollador_Id)
+                                {
+
+                                    <button class="ui mini vertical animated blue button" tabindex="0" value="@horas.Id" data-toggle="modal" data-target="#modalEditarObservacion" onclick="ObtenerObservacion(this.value, this);">
+                                        <div class="hidden content">Editar</div>
+                                        <div class="visible content">
+                                            <i class="pencil icon"></i>
+                                        </div>
+                                    </button>
+                                }
+                                @if (horas.Finalizado == false && SessionH.Usuario.Id == horas.Usr_Desarrollador_Id)
+                                {
+                                    <button class="ui mini vertical animated green button" value="@horas.Id" data-toggle="modal" data-target="#modalCerrarHora" onclick="PreparaCerrarHora(this.value, this);">
+                                        <div class="hidden content">Terminar</div>
+                                        <div class="visible content">
+                                            <i class="stop icon"></i>
+                                        </div>
+
+                                    </button>
+                                    <button class="ui mini vertical animated red button" tabindex="0" value="@horas.Id" data-toggle="modal" data-target="#modalEliminaHora" onclick="PreparaElimina(this.value, this);">
+                                        <div class="hidden content">Eliminar</div>
+                                        <div class="visible content">
+                                            <i class="trash icon"></i>
+                                        </div>
+                                    </button>
+
+                                }
+                            </td>
+                            <td>@horas.Fecha</td>
+                            <td>@horas.HoraInicio</td>
+                            <td>@horas.HoraTermino</td>
+                            <td>@horas.Total_Trabajado</td>
+                            
+                            <td>@horas.Observacion</td>
+                            <td>@horas.Desarrollador</td>
+                            @if (horas.Finalizado == true)
+                            {
+                                <td style="word-wrap: break-word;background-color:lawngreen">@horas.Estado</td>
+                            }
+                            else
+                            {
+                                <td style="word-wrap: break-word;background-color:orangered">@horas.Estado</td>
+                            }
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div class="modal fade" id="modalHoras" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 95%; opacity:0.9">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div style="height:5px"></div>
+                <div>
+
+                    <h4 style="color:black" class="ui header">
+                        <img class="bordered rounded" src="~/Recursos/Imagenes/LogoBackline.png" width="50" alt="">
+                        Horas de desarrollo
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="image content">
+                        <div class="ui info message">
+                            <div class="header">
+                                Atención al llenar los datos!
+                            </div>
+                            Debes completar todos los campos para guardar!
+                            <div class="ui divider"></div>
+                            <div class="ui form">
+                                <form>
+                                    <div id="divtxtFechaInicio" class="field">
+                                        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Inicio</font></font></label>
+                                        <input id="txtFechaInicio" type="datetime-local" placeholder="">
+                                    </div>
+                                    <div id="divtxtObservacion" class="field">
+                                        <label>Observación</label>
+                                        <textarea placeholder="Observación aquí..." rows="5" id="txtObservacion"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height:5px">
+
+                    </div>
+                    <div id="divExito" class="ui icon hidden positive  message">
+                        <i class="stopwatch icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Éxito!!
+                            </div>
+                            <p>El periodo fue guardado con éxito.</p>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div id="DivMessajeErrorGeneral" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Se han encontrado algunos problemas, revíselos...
+                            </div>
+                            <ul id="listMessajeError" class="list"></ul>
+                        </div>
+                    </div>
+                    <br />
+                    <button id="btnGuardaHora" class="ui right labeled blue icon button" onclick="GuardaHoras();">
+                        <i class="check circle icon"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Guardar
+                            </font>
+                        </font>
+                    </button>
+                    <button class="ui right labeled red icon button" onclick="window.location.replace('/HorasDesarrollo?volver=' + @Model.Desa_Id)">
+                        <i class="left arrow icon"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Volver
+                            </font>
+                        </font>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalEditarObservacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 95%; opacity:0.9">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div style="height:5px"></div>
+                <div>
+
+                    <h4 style="color:black" class="ui header">
+                        <img class="bordered rounded" src="~/Recursos/Imagenes/LogoBackline.png" width="50" alt="">
+                       Observación del periodo
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="image content">
+                        <div class="ui info message">
+                            <div class="header">
+                                Atención al llenar los datos!
+                            </div>
+                            Debes completar todos los campos para guardar!
+                            <div class="ui divider"></div>
+                            <div class="ui form">
+                                <form>
+                                    <div id="divtxtObservacionCompleta" class="field">
+                                        <label>Observación</label>
+                                        <textarea placeholder="Observación aquí..." rows="5" id="txtObservacionCompleta"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height:5px">
+
+                    </div>
+                    <div id="divExitoCompleta" class="ui icon hidden positive  message">
+                        <i class="stopwatch icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Éxito!!
+                            </div>
+                            <p>La observacion fue guardada con éxito.</p>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div id="DivMessajeErrorGeneralCompleta" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Se han encontrado algunos problemas, revíselos...
+                            </div>
+                            <ul id="listMessajeErrorCompleta" class="list"></ul>
+                        </div>
+                    </div>
+                    <br />
+                    <button id="btnGuardaObservacion" class="ui right labeled blue icon button" onclick="EditarObservacion();">
+                        <i class="check circle icon"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Guardar
+                            </font>
+                        </font>
+                    </button>
+                    <button class="ui right labeled red icon button" onclick="window.location.replace('/HorasDesarrollo?volver=' + @Model.Desa_Id)">
+                        <i class="left arrow icon"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Volver
+                            </font>
+                        </font>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalCerrarHora" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Finalizar periodo de trabajo</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="divConsultaCierra" class="ui icon violet message">
+                        <i class="stopwatch icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                ¿Desea terminar con este periodo de trabajo?
+                            </div>
+                            <p>Este periodo de trabajo se dará por finalizado.</p>
+                        </div>
+                    </div>
+                    <div id="divExitoCierra" class="ui icon hidden positive  message">
+                        <i class="thumbs up icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Éxito!!
+                            </div>
+                            <p>El periodo de trabajo fue finalizado con éxito.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="btnEliminarFicha" onclick="CerrarHora();" class="ui green right labeled icon button">
+                        Finalizar periodo
+                        <i class="checkmark icon"></i>
+                    </div>
+                    <div id="btnCancelar" data-dismiss="modal" class="ui right labeled icon button">
+                        Cancelar
+                        <i class="cancel icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalEliminaHora" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Eliminar periodo de trabajo</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="divConsultaElimina" class="ui icon warning message">
+                        <i class="trash icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                ¿Desea eliminar este periodo de trabajo?
+                            </div>
+                            <p>Este periodo de trabajo sera eliminado.</p>
+                        </div>
+                    </div>
+                    <div id="divExitoElimina" class="ui icon hidden positive  message">
+                        <i class="thumbs up icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Éxito!!
+                            </div>
+                            <p>El periodo de trabajo fue eliminado con éxito.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="btnEliminarFicha" onclick="Eliminar();" class="ui red right labeled icon button">
+                        Eliminar
+                        <i class="checkmark icon"></i>
+                    </div>
+                    <div id="btnCancelar" data-dismiss="modal" class="ui right labeled icon button">
+                        Cancelar
+                        <i class="cancel icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<input type="hidden" id="idHoraSeleccionada" value="0" />

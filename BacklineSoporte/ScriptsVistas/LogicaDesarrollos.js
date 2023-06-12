@@ -32,8 +32,6 @@ function ObtenerEstados() {
     });
 
 }
-
-
 function GuardarDesarrollo() {
 
     if (ValidaGuardar() == false)
@@ -132,13 +130,10 @@ function ValidaGuardar() {
     }
 
 }
-
-
 function PreparaEliminarDesarrollo(id) {
     $('#hidDesarrollo').val(id);
 
 }
-
 function EliminarDesarrollo() {
 
     $('#btnEliminarDesarrollo').addClass('loading');
@@ -172,7 +167,6 @@ function EliminarDesarrollo() {
 function PrepararEditarDesarrollo(id) {
     $('#hidDesarrollo').val(id);
 }
-
 function EditarDesarrollo() {
 
     var idDesarrollo = $('#hidDesarrollo').val();
@@ -203,6 +197,10 @@ function ObtenerUsuarios() {
         url: window.urlObtenerUsuarios,
         type: 'POST',
         success: function (data) {
+            $('#cmbFiltroResponsable').dropdown('clear');
+            $('#cmbFiltroResponsable').empty();
+            $('#cmbFiltroResponsable').append('<option value="-1">[Usuario responsable]</option>');
+
             $('#cmbResponsable').dropdown('clear');
             $('#cmbResponsable').empty();
             $('#cmbResponsable').append('<option value="-1">[Seleccione el usuario responsable]</option>');
@@ -211,9 +209,10 @@ function ObtenerUsuarios() {
                 function (value, item) {
 
                     var texto = '<option value="' + item.Id + '">' + item.NombreCompleto + '</option>';
-                    $('#cmbResponsable').append(texto);
+                    $('#cmbFiltroResponsable').append(texto);
 
-                    
+                    var texto = '<option value="' + item.Id + '">' + item.NombreCompleto + '</option>';
+                    $('#cmbResponsable').append(texto);
                 }
             );
 
@@ -224,7 +223,6 @@ function ObtenerUsuarios() {
     });
 
 }
-
 function BusquedaFiltro() {
     $('#btnBuscar').addClass("loading");
     $('#btnBuscar').addClass("disabled");
@@ -232,7 +230,7 @@ function BusquedaFiltro() {
     var entity = {
         FechaDesde: $('#txtFiltroFechaDesde').val(),
         FechaHasta: $('#txtFiltroFechaHasta').val(),
-        
+        Usr_Responsable_Id: $('#cmbFiltroResponsable').val(),
     }
     $.ajax({
         url: window.urlBusquedaFiltro,

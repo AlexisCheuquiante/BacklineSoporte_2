@@ -38,7 +38,6 @@ function ObtenerEntidad() {
     });
 
 }
-
 function ObtenerDetalleCotizacion() {
 
     $.ajax({
@@ -63,7 +62,6 @@ function ObtenerDetalleCotizacion() {
     });
 
 }
-
 function ObtenerMotivoContacto() {
 
     $.ajax({
@@ -88,7 +86,6 @@ function ObtenerMotivoContacto() {
     });
 
 }
-
 function ObtenerRegion() {
 
     $.ajax({
@@ -723,14 +720,6 @@ function EditarFicha() {
                 $('#TxtCargoFact').val(ficha.Facturacion_Cargo),
                 $('#TxtCorreoFact').val(ficha.Facturacion_Correo),
                 $('#TxtTeléfonoFact').val(ficha.Facturacion_Telefono),
-
-                //quinta parte
-                $('#txtFechaContacto').val(ficha.Fecha_Contacto_Mostrar),
-                $("#cmbMotivo").dropdown('set selected', ficha.Motivo_Contacto_Id),
-                $("#cmbEstadoContacto").dropdown('set selected', ficha.Estado_Contacto),
-                $('#txtDetalleContacto').val(ficha.Detalle_Contacto),
-
-                
 
                 //Cargo combos
                 setTimeout(() => { $('#cmbRegion').dropdown('set selected', ficha.Reg_Id); }, 2000);

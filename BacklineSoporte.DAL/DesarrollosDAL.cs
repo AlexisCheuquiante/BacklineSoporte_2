@@ -37,6 +37,7 @@ namespace BacklineSoporte.DAL
             db.AddInParameter(dbCommand, "ID", DbType.Int32, filtro.Id != 0 ? filtro.Id : (object)null);
             db.AddInParameter(dbCommand, "FECHA_DESDE", DbType.DateTime, filtro.FechaDesde != DateTime.MinValue ? filtro.FechaDesde : (object)null);
             db.AddInParameter(dbCommand, "FECHA_HASTA", DbType.DateTime, filtro.FechaHasta != DateTime.MinValue ? filtro.FechaHasta : (object)null);
+            db.AddInParameter(dbCommand, "USR_RESPONSABLE_ID", DbType.Int32, filtro.Usr_Responsable_Id != 0 ? filtro.Usr_Responsable_Id : (object)null);
 
             IDataReader reader = (IDataReader)db.ExecuteReader(dbCommand);
             try

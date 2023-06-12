@@ -13,6 +13,11 @@ namespace BacklineSoporte.Controllers
         // GET: VisualizaImagenes
         public ActionResult Index(int id)
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             BacklineSoporte.Models.VisualizadorModel modelo = new Models.VisualizadorModel();
             BacklineSoporte.Entity.Filtro filtro = new BacklineSoporte.Entity.Filtro();
             filtro.RequeId = id;

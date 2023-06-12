@@ -30,7 +30,6 @@
             background-size: contain;
             font-family: 'Numans', sans-serif;
         }
-        
     </style>
 
     <script>
@@ -53,23 +52,34 @@
             $('.ui.menu .ui.dropdown').dropdown({
                 on: 'hover'
             });
+            $('.ui.accordion')
+                .accordion()
+                ;
+             ExportarExcel = function () {
+                location.href = '@Url.Action("ExportToExcel", "Requerimiento")';
+            };
         });
 
     </script>
 </head>
 <body>
     <br />
-    <div style="margin-left:auto; margin-right:auto; width:95%; opacity:0.9">
-        <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
-            <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
-                
+    
+    <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:97%">
+        <div class="ui styled fluid accordion">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                Filtros
+            </div>
+            <div class="content">
                 <div id="modalFiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 100%; opacity:1">
                     <div class="modal-dialog-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="ui info message">
-                                    <div class="ui form">
-                                        <form>
+                        <div class="modal-body">
+                            <div class="ui info message">
+                                <div class="ui form">
+                                    <form>
+                                        <div class="fields" style="width:100%">
+
                                             <div class="fields" style="width:100%">
                                                 <div id="divtxtFiltroFechaDesde" class="field" style="width:15%">
                                                     <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de desde</font></font></label>
@@ -79,7 +89,7 @@
                                                     <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de hasta</font></font></label>
                                                     <input id="txtFiltroFechaHasta" type="date" placeholder="" value=@Session["FiltroInformeHasta"]>
                                                 </div>
-                                                <div id="divcmbFiltroSoftware" class="field" style="width:20%">
+                                                <div id="divcmbFiltroSoftware" class="field" style="width:17%">
                                                     <label>Software</label>
                                                     <select id="cmbFiltroSoftware" name="cmbFiltroSoftware" class="ui search selection dropdown">
                                                     </select>
@@ -100,72 +110,82 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div style="height:5px"></div>
-                                            <button id="btnGuardarFactura" class="ui right labeled blue icon button" onclick="BusquedaFiltro();return false">
-                                                <i class="search icon"></i><font style="vertical-align: inherit;">
-                                                    <font style="vertical-align: inherit;">
-                                                        Buscar requerimientos
+
+                                            <div class="field">
+                                                <label>Buscar</label>
+                                                <button id="btnGuardarFactura" class="ui blue icon button" onclick="BusquedaFiltro();return false">
+                                                    <i class="search icon"></i><font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;">
+
+                                                        </font>
                                                     </font>
-                                                </font>
-                                            </button>
-                                            <div style="height:5px"></div>
-                                       
-                                        </form>
-                                    </div>
-                                    <div id="divExito" class="ui icon hidden positive message">
-                                        <i class="thumbs up outline icon"></i>
-                                        <div class="content">
-                                            <div class="header">
-                                                Éxito!!
+                                                </button>
                                             </div>
-                                            <p>La factura se a guardado con éxito.</p>
                                         </div>
-                                    </div>
-                                    <div id="divError" class="ui icon hidden negative message">
-                                        <i class="hand paper icon"></i>
-                                        <div class="content">
-                                            <div class="header">
-                                                Error!!
-                                            </div>
-                                            <p>La factura no se a guardado con éxito.</p>
-                                        </div>
-                                    </div>
-                                   
+                                    </form>
                                 </div>
+                                <div id="divExito" class="ui icon hidden positive message">
+                                    <i class="thumbs up outline icon"></i>
+                                    <div class="content">
+                                        <div class="header">
+                                            Éxito!!
+                                        </div>
+                                        <p>La factura se a guardado con éxito.</p>
+                                    </div>
+                                </div>
+                                <div id="divError" class="ui icon hidden negative message">
+                                    <i class="hand paper icon"></i>
+                                    <div class="content">
+                                        <div class="header">
+                                            Error!!
+                                        </div>
+                                        <p>La factura no se a guardado con éxito.</p>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
-            
-            <div id="btnAgregaRequerimiento" data-toggle="modal" data-target="#modalRequerimientos" class="ui blue right labeled icon button">
-                Agregar requerimiento
-                <i class="checkmark icon"></i>
-            </div>
-            <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Home'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
+        </div>
+        <br />
+        <div id="btnAgregaRequerimiento" data-toggle="modal" data-target="#modalRequerimientos" class="ui blue right labeled icon button">
+            Agregar requerimiento
+            <i class="checkmark icon"></i>
+        </div>
+        <button id="btnGuardaDesarrollo" class="ui right labeled green icon button" onclick="ExportarExcel();">
+            <i class="table download icon"></i><font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">
+                    Exportar a Excel
+                </font>
+            </font>
+        </button>
+        <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Home'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
 
-            <table class="ui celled striped table">
-                <thead>
-                    <tr>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue; width:7%"></th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">ID</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha de ingreso</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Tipo Software</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Empresa</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Solicitante</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Modulo</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue ">Funcionalidad</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha de solución</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Prioridad</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Clasificación</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Responsable</th>
-                        <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <table class="ui celled striped table">
+            <thead>
+                <tr>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue; width:7%"></th>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">ID</th>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha de ingreso</th>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Tipo Software</th>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Empresa</th>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Solicitante</th>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Modulo</th>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue ">Funcionalidad</th>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Fecha de solución</th>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Prioridad</th>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Clasificación</th>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Responsable</th>
+                    <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
 
-                    @foreach (var Requerimiento in Model.ListaRequerimiento)
-                    {
+                @foreach (var Requerimiento in Model.ListaRequerimiento)
+                {
                     <tr>
                         <td style="display:flex;">
                             <button class="ui mini vertical animated red button" tabindex="0" value="@Requerimiento.Id" data-toggle="modal" data-target="#modalEliminarRequerimiento" onclick="PreparaEliminaRequerimiento(this.value, this);">
@@ -222,13 +242,13 @@
                             <td style="word-wrap: break-word; background-color: lawngreen;">@Requerimiento.Estado_Reque</td>
                         }
                     </tr>
-                    }
+                }
 
-                </tbody>
-            </table>
-        </div>
-        
+            </tbody>
+        </table>
     </div>
+
+   
     <br />
     <div class="modal fade" id="modalRequerimientos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 95%; opacity:0.9">
         <div class="modal-dialog-sm" role="document">
@@ -254,7 +274,7 @@
                                     <div class="two fields">
                                         <div id="divtxtFechaIngreso" class="field">
                                             <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de ingreso</font></font></label>
-                                            <input id="txtFechaIngreso" type="date" placeholder=""  style="text-transform:uppercase;">
+                                            <input id="txtFechaIngreso" type="date" placeholder="" style="text-transform:uppercase;">
                                         </div>
                                         <div id="divcmbSoftware" class="field">
                                             <label>Software</label>

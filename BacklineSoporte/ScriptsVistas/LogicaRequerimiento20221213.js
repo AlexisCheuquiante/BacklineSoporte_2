@@ -203,7 +203,7 @@ function ObtenerEstado() {
         success: function (data) {
             $('#cmbEstado').dropdown('clear');
             $('#cmbEstado').empty();
-            $('#cmbEstado').append('<option value="-1">[Seleccione estado del requerimiento]</option>');
+            $('#cmbEstado').append('<option value="-1">[Estado del requerimiento]</option>');
             $.each(data,
                 function (value, item) {
 
@@ -517,7 +517,7 @@ function ObtenerFiltroResponsable() {
         success: function (data) {
             $('#cmbFiltroResponsable').dropdown('clear');
             $('#cmbFiltroResponsable').empty();
-            $('#cmbFiltroResponsable').append('<option value="-1">[Seleccione responsable]</option>');
+            $('#cmbFiltroResponsable').append('<option value="-1">[Responsable]</option>');
             $.each(data,
                 function (value, item) {
 
@@ -541,7 +541,7 @@ function ObtenerFiltroEstado() {
         success: function (data) {
             $('#cmbFiltroEstado').dropdown('clear');
             $('#cmbFiltroEstado').empty();
-            $('#cmbFiltroEstado').append('<option value="-1">[Seleccione estado del requerimiento]</option>');
+            $('#cmbFiltroEstado').append('<option value="-1">[Estado]</option>');
             $.each(data,
                 function (value, item) {
 

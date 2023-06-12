@@ -10,10 +10,14 @@ namespace BacklineSoporte.Controllers
     {
         public ActionResult Index()
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             BacklineSoporte.Models.HomeModel model = new Models.HomeModel();
             model.NombreUsuario = SessionH.Usuario.NombreCompleto;
             return View(model);
         }
-
     }
 }

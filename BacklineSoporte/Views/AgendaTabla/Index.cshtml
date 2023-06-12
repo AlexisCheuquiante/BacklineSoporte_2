@@ -22,14 +22,21 @@
     <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/CSS/FondoPantalla.css">
 
-    @*<script src="~/ScriptsVistas/LogicaRequerimiento20221213.js"></script>*@
+    <script src="~/ScriptsVistas/LogicaAgendaTabla.js"></script>
 
     <style>
     </style>
 
     <script>
 
-        @*var urlObtenerModulos = '@Url.Action("ObtenerModulos", "Requerimiento")';*@
+        var urlObtenerTipoTarea = '@Url.Action("ObtenerTipoTarea", "AgendaTabla")';
+        var urlObtenerModalidadTarea = '@Url.Action("ObtenerModalidadTarea", "AgendaTabla")';
+        var urlObtenerUsuarios = '@Url.Action("ObtenerUsuarios", "AgendaTabla")';
+        var urlInsertarTarea = '@Url.Action("InsertarTarea", "AgendaTabla")';
+        var urlEditarTarea = '@Url.Action("EditarTarea", "AgendaTabla")';
+        var urlEliminarTarea = '@Url.Action("EliminarTarea", "AgendaTabla")';
+        var urlBusquedaFiltro = '@Url.Action("BusquedaFiltro", "AgendaTabla")';
+        var urlRealizarTarea = '@Url.Action("RealizarTarea", "AgendaTabla")';
 
         $(document).ready(function () {
 
@@ -56,67 +63,66 @@
                 <div class="content">
                     <div id="modalFiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 100%; opacity:1">
                         <div class="modal-dialog-xl" role="document">
-                            
-                                <div class="modal-body">
-                                    <div class="ui info message">
-                                        <div class="ui form">
-                                            <form>
-                                                <div class="fields" style="width:100%">
-                                                    <div id="divtxtFiltroFechaDesde" class="field" style="width:15%">
-                                                        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de desde</font></font></label>
-                                                        <input id="txtFiltroFechaDesde" type="date" placeholder="" value=@Session["FiltroInformeDesde"]>
-                                                    </div>
-                                                    <div id="divtxtFiltroFechaHasta" class="field" style="width:15%">
-                                                        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de hasta</font></font></label>
-                                                        <input id="txtFiltroFechaHasta" type="date" placeholder="" value=@Session["FiltroInformeHasta"]>
-                                                    </div>
-                                                    <div id="divcmbFiltroSoftware" class="field" style="width:20%">
-                                                        <label>Tipo de tarea</label>
-                                                        <select id="cmbFiltroSoftware" name="cmbFiltroSoftware" class="ui search selection dropdown">
-                                                        </select>
-                                                    </div>
-                                                    <div class="field">
-                                                        <label>Buscar</label>
-                                                        <button id="btnGuardarFactura" class="ui blue icon button" onclick="BusquedaFiltro();return false">
-                                                            <i class="search icon"></i><font style="vertical-align: inherit;">
-                                                                <font style="vertical-align: inherit;">
-                                                                   
-                                                                </font>
-                                                            </font>
-                                                        </button>
-                                                    </div>
+                            <div class="modal-body">
+                                <div class="ui info message">
+                                    <div class="ui form">
+                                        <form>
+                                            <div class="fields" style="width:100%">
+                                                <div id="divtxtFiltroFechaDesde" class="field" style="width:15%">
+                                                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de desde</font></font></label>
+                                                    <input id="txtFiltroFechaDesde" type="date" placeholder="" value=@Session["FiltroInformeDesde"]>
                                                 </div>
-                                            </form>
-                                        </div>
-                                        <div id="divExito" class="ui icon hidden positive message">
-                                            <i class="thumbs up outline icon"></i>
-                                            <div class="content">
-                                                <div class="header">
-                                                    Éxito!!
+                                                <div id="divtxtFiltroFechaHasta" class="field" style="width:15%">
+                                                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de hasta</font></font></label>
+                                                    <input id="txtFiltroFechaHasta" type="date" placeholder="" value=@Session["FiltroInformeHasta"]>
                                                 </div>
-                                                <p>La factura se a guardado con éxito.</p>
-                                            </div>
-                                        </div>
-                                        <div id="divError" class="ui icon hidden negative message">
-                                            <i class="hand paper icon"></i>
-                                            <div class="content">
-                                                <div class="header">
-                                                    Error!!
+                                                <div id="divcmbFiltroTipoTarea" class="field" style="width:20%">
+                                                    <label>Tipo de tarea</label>
+                                                    <select id="cmbFiltroTipoTarea" name="cmbFiltroTipoTarea" class="ui search selection dropdown">
+                                                    </select>
                                                 </div>
-                                                <p>La factura no se a guardado con éxito.</p>
-                                            </div>
-                                        </div>
+                                                <div class="field">
+                                                    <label>Buscar</label>
+                                                    <button id="btnbuscar" class="ui blue icon button" onclick="BusquedaFiltro();return false">
+                                                        <i class="search icon"></i><font style="vertical-align: inherit;">
+                                                            <font style="vertical-align: inherit;">
 
+                                                            </font>
+                                                        </font>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
+                                    <div id="divExito" class="ui icon hidden positive message">
+                                        <i class="thumbs up outline icon"></i>
+                                        <div class="content">
+                                            <div class="header">
+                                                Éxito!!
+                                            </div>
+                                            <p>La factura se a guardado con éxito.</p>
+                                        </div>
+                                    </div>
+                                    <div id="divError" class="ui icon hidden negative message">
+                                        <i class="hand paper icon"></i>
+                                        <div class="content">
+                                            <div class="header">
+                                                Error!!
+                                            </div>
+                                            <p>La factura no se a guardado con éxito.</p>
+                                        </div>
+                                    </div>
+
                                 </div>
-                           
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
             <br />
-            <div id="btnAgregaRequerimiento" data-toggle="modal" data-target="#modalRequerimientos" class="ui blue right labeled icon button">
-                Agregar
+            <div id="btnAgregaAgenda" data-toggle="modal" data-target="#modalAgenda2" class="ui blue right labeled icon button">
+                Agregar Tarea
                 <i class="checkmark icon"></i>
             </div>
             <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Home'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
@@ -124,12 +130,14 @@
                 <thead>
                     <tr>
                         <th></th>
+                        <th>ID Tarea</th>
                         <th>Tipo de tarea</th>
                         <th>Detalle</th>
                         <th>Modalidad</th>
                         <th>Fecha Inicio</th>
                         <th>Fecha Termino</th>
                         <th>Usuario creador</th>
+                        <th>Dar por realizada</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -138,13 +146,13 @@
                     {
                         <tr>
                             <td style="display:flex;">
-                                <button class="ui mini vertical animated red button" tabindex="0" value="@agenda.Id" data-toggle="modal" data-target="#modalEliminarRequerimiento" onclick="PreparaEliminaRequerimiento(this.value, this);">
+                                <button class="ui mini vertical animated red button" tabindex="0" value="@agenda.Id" data-toggle="modal" data-target="#modalEliminarTarea" onclick="PreparaEliminaTarea(this.value, this);">
                                     <div class="hidden content">Eliminar</div>
                                     <div class="visible content">
                                         <i class="trash icon"></i>
                                     </div>
                                 </button>
-                                <button class="ui mini vertical animated blue button" value="@agenda.Id" data-toggle="modal" data-target="#modalRequerimientos" onclick="PrepararEditarRequerimiento(this.value, this); EditarRequerimiento();">
+                                <button class="ui mini vertical animated blue button" value="@agenda.Id" data-toggle="modal" data-target="#modalAgenda2" onclick="PrepararEditarTarea(this.value, this); EditarTarea();">
                                     <div class="hidden content"> Editar</div>
                                     <div class="visible content">
                                         <i class="edit icon"></i>
@@ -152,12 +160,29 @@
 
                                 </button>
                             </td>
+                            <td>@agenda.Id</td>
                             <td>@agenda.Tipo_Tarea</td>
                             <td>@agenda.Detalle</td>
                             <td>@agenda.Modalidad</td>
                             <td>@agenda.Fecha_Inicio_Tarea</td>
                             <td>@agenda.Fecha_Termino_Tarea</td>
                             <td>@agenda.Nombre_Completo</td>
+                            @if (agenda.Realizada == true)
+                            {
+                                <td style="word-wrap: break-word;background-color:lawngreen">Tarea completada</td>
+                            }
+                            @if (agenda.Realizada == false)
+                            {
+                                <td style="text-align:center">
+                                    <button class="ui mini vertical animated green button" value="@agenda.Id" data-toggle="modal" data-target="#modalFinalizarTarea" onclick="PrepararRealizarTarea(this.value, this);">
+                                        <div class="hidden content">Realizada</div>
+                                        <div class="visible content">
+                                            <i class="thumbs up icon"></i>
+                                        </div>
+                                    </button>
+                                </td>
+                            }
+
                         </tr>
                     }
 
@@ -166,17 +191,16 @@
         </div>
 
     </div>
-    <br />
-    <div class="modal fade" id="modalRequerimientos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 95%; opacity:0.9">
-        <div class="modal-dialog-sm" role="document">
+    <div class="modal fade" id="modalAgenda2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 95%; opacity:0.9">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div style="height:5px"></div>
                 <div>
 
-                    <h3 style="color:black" class="ui header">
+                    <h4 style="color:black" class="ui header">
                         <img class="bordered rounded" src="~/Recursos/Imagenes/LogoBackline.png" width="50" alt="">
-                        Agenda de tareas
-                    </h3>
+                        Tareas
+                    </h4>
                 </div>
                 <div class="modal-body">
                     <div class="image content">
@@ -188,115 +212,33 @@
                             <div class="ui divider"></div>
                             <div class="ui form">
                                 <form>
-                                    <div class="two fields">
-                                        <div id="divtxtFechaIngreso" class="field">
-                                            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de ingreso</font></font></label>
-                                            <input id="txtFechaIngreso" type="date" placeholder="" style="text-transform:uppercase;">
-                                        </div>
-                                        <div id="divcmbSoftware" class="field">
-                                            <label>Software</label>
-                                            <select id="cmbSoftware" name="cmbSoftware" class="ui fluid search dropdown">
-                                            </select>
-                                        </div>
+                                    <div id="divcmbTipoTarea" class="field">
+                                        <label>Tipo tarea:</label>
+                                        <select id="cmbTipoTarea" name="cmbTipoTarea" class="ui search selection dropdown">
+                                        </select>
                                     </div>
-                                    <div class="two fields">
-                                        <div id="divcmbEmpresa" class="field">
-                                            <label>Empresa(Sucursal)</label>
-                                            <select id="cmbEmpresa" name="cmbEmpresa" class="ui fluid search dropdown" onchange="ObtenerSolicitante();">
-                                            </select>
-                                        </div>
-                                        <div id="divcmbSolicitante" class="field">
-                                            <label>Usuario solicitante</label>
-                                            <select id="cmbSolicitante" name="cmbSolicitante" class="ui fluid search dropdown">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="two fields">
-                                        <div id="divtxtCorreo" class="field">
-                                            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Correo</font></font></label>
-                                            <input id="txtCorreo" type="text" placeholder="" autocomplete="off" style="text-transform:uppercase;">
-                                        </div>
-                                        <div id="divcmbRepetición" class="field">
-                                            <label>Repetición de solicitud</label>
-                                            <div id="cmbRepetición" class="ui search selection dropdown">
-                                                <input type="hidden" id="idRepetición" name="idRepetición">
-                                                <i class="dropdown icon"></i>
-                                                <div class="default text">Seleccione</div>
-                                                <div id="cmbRepeticiónMenu" class="menu">
-                                                    <div class="item" data-value="true">Si</div>
-                                                    <div class="item" data-value="false">No</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="two fields">
-                                        <div id="divcmbModulo" class="field">
-                                            <label>Modulo</label>
-                                            <select id="cmbModulo" name="cmbModulo" class="ui fluid search dropdown">
-                                            </select>
-                                        </div>
 
-                                        <div id="divtxtFuncionalidad" class="field">
-                                            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Funcionalidad</font></font></label>
-                                            <input id="txtFuncionalidad" type="text" placeholder="" autocomplete="off" style="text-transform:uppercase;">
-                                        </div>
+                                    <div id="divtxtFechaInicio" class="field">
+                                        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de inicio tarea:</font></font></label>
+                                        <input id="txtFechaInicio" type="datetime-local" placeholder="">
                                     </div>
-                                    <div class="two fields">
-                                        <div id="divcmbClasificación" class="field">
-                                            <label>Clasificación</label>
-                                            <div id="cmbClasificación" class="ui search selection dropdown">
-                                                <input type="hidden" id="idClasificación" name="idClasificación">
-                                                <i class="dropdown icon"></i>
-                                                <div class="default text">Seleccione</div>
-                                                <div id="cmbClasificaciónMenu" class="menu">
-                                                    <div class="item" data-value="1">Requerimiento</div>
-                                                    <div class="item" data-value="2">Soporte</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="divcmbPrioridad" class="field">
-                                            <label>Prioridad</label>
-                                            <select id="cmbPrioridad" name="cmbPrioridad" class="ui fluid search dropdown">
-                                            </select>
-                                        </div>
+                                    <div id="divtxtFechaTermino" class="field">
+                                        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de término tarea:</font></font></label>
+                                        <input id="txtFechaTermino" type="datetime-local" placeholder="">
                                     </div>
-                                    <div class="two fields">
-                                        <div id="divcmbResponsable" class="field" onblur="ValidaGuardar();">
-                                            <label>Responsable</label>
-                                            <select id="cmbResponsable" name="cmbResponsable" class="ui fluid search dropdown">
-                                            </select>
-                                        </div>
-
-                                        <div id="divtxtFechaSolucion" class="field">
-                                            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha Solución Solicitud</font></font></label>
-                                            <input id="txtFechaSolucion" type="date" placeholder="" autocomplete="off" style="text-transform:uppercase;">
-                                        </div>
+                                    <div id="divcmbModalidad" class="field">
+                                        <label>Modalidad tarea:</label>
+                                        <select id="cmbModalidad" name="cmbModalidad" class="ui search selection dropdown">
+                                        </select>
                                     </div>
-                                    <div class="two fields">
-                                        <div id="divcmbVisible" class="field">
-                                            <label>Visibilidad</label>
-                                            <div id="cmbVisibilidad" class="ui search selection dropdown">
-                                                <input type="hidden" id="idVisible" name="idVisible">
-                                                <i class="dropdown icon"></i>
-                                                <div class="default text">Seleccione</div>
-                                                <div id="cmbVisibilidad" class="menu">
-                                                    <div class="item" data-value="true">Visible</div>
-                                                    <div class="item" data-value="false">No visible</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="divcmbEstado" class="field">
-                                            <label>Estado requerimiento</label>
-                                            <select id="cmbEstado" name="cmbEstado" class="ui fluid search dropdown">
-                                            </select>
-                                        </div>
+                                    <div id="divcmbAsignacionUsuario" class="field">
+                                        <label>Asignar usuarios:</label>
+                                        <select id="cmbAsignacion" name="cmbAsignacion" multiple="" class="ui search selection dropdown">
+                                        </select>
                                     </div>
-                                    <div class="field">
-                                        <div id="divtxtDetalle" class="field" style="width: 100%">
-                                            <label>Detalle</label>
-                                            @*<p style=""> (Art. 12 Manual Procedimiento de la I. Municipalidad):</p>*@
-                                            <textarea id="txtDetalle" style="text-transform:uppercase;" autocomplete="off"></textarea>
-                                        </div>
+                                    <div id="divTxtDetalle" class="field">
+                                        <label>Detalle tarea:</label>
+                                        <textarea placeholder="Detalle aquí..." rows="5" id="txtDetalle"></textarea>
                                     </div>
 
                                 </form>
@@ -312,7 +254,7 @@
                             <div class="header">
                                 Éxito!!
                             </div>
-                            <p>El requerimiento fue guardado con éxito.</p>
+                            <p>La tarea fue guardada con éxito.</p>
                         </div>
                     </div>
                     <div class="actions">
@@ -325,7 +267,7 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <div id="DivMessajeErrorGeneralAgregar" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
+                        <div id="DivMessajeErrorGeneral" class="ui error hidden message" style="margin-left:auto; margin-right:auto; width:100%">
                             <i class="close icon"></i>
                             <div class="header">
                                 Se han encontrado algunos problemas, revíselos...
@@ -333,14 +275,14 @@
                             <ul id="listMessajeErrorAgregar" class="list"></ul>
                         </div>
                     </div>
-                    <button id="btnGuardaFicha" class="ui right labeled blue icon button" onclick="GuardarRequerimiento();">
+                    <button id="btnGuardaTarea" class="ui right labeled blue icon button" onclick="GuardarTarea();">
                         <i class="check circle icon"></i><font style="vertical-align: inherit;">
                             <font style="vertical-align: inherit;">
-                                Guardar requerimiento
+                                Guardar Tarea
                             </font>
                         </font>
                     </button>
-                    <button class="ui right labeled red icon button" onclick="window.location.replace('/Requerimiento?limpiar=1')">
+                    <button class="ui right labeled red icon button" onclick="window.location.replace('/AgendaTabla?buscar=1')">
                         <i class="left arrow icon"></i><font style="vertical-align: inherit;">
                             <font style="vertical-align: inherit;">
                                 Volver
@@ -351,11 +293,11 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modalEliminarRequerimiento" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="modalEliminarTarea" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLongTitle">Eliminar Requerimiento</h3>
+                    <h3 class="modal-title" id="exampleModalLongTitle">Eliminar Tarea</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -365,9 +307,9 @@
                         <i class="trash icon"></i>
                         <div class="content">
                             <div class="header">
-                                ¿Desea eliminar este requerimiento?
+                                ¿Desea eliminar esta tarea?
                             </div>
-                            <p>Este requerimiento será eliminado de forma lógica desde la base de datos</p>
+                            <p>Esta tarea será eliminada de forma lógica desde la base de datos</p>
                         </div>
                     </div>
                     <div id="divExitoElimina" class="ui icon hidden positive  message">
@@ -376,13 +318,55 @@
                             <div class="header">
                                 Éxito!!
                             </div>
-                            <p>El requerimiento fue eliminado con éxito.</p>
+                            <p>La tarea fue eliminado con éxito.</p>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div id="btnEliminarRequerimiento" onclick="EliminaRequerimiento();" class="ui red right labeled icon button">
-                        Eliminar Requerimiento
+                    <div id="btnEliminarTarea" onclick="EliminarTarea();" class="ui red right labeled icon button">
+                        Eliminar Tarea
+                        <i class="checkmark icon"></i>
+                    </div>
+                    <div id="btnCancelar" data-dismiss="modal" class="ui right labeled icon button">
+                        Cancelar
+                        <i class="cancel icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalFinalizarTarea" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Finalizar Tarea</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="divConsultaElimina" class="ui icon warning message">
+                        <i class="check icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                ¿Desea dar por realizada esta tarea?
+                            </div>
+                            <p>Esta tarea será marcada como realizada</p>
+                        </div>
+                    </div>
+                    <div id="divExitoElimina" class="ui icon hidden positive  message">
+                        <i class="thumbs up icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Éxito!!
+                            </div>
+                            <p>La tarea fue marcada como realizada.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="btnRealizarTarea" onclick="RealizarTarea();" class="ui green right labeled icon button">
+                        Completar tarea
                         <i class="checkmark icon"></i>
                     </div>
                     <div id="btnCancelar" data-dismiss="modal" class="ui right labeled icon button">

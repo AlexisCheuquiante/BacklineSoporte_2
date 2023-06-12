@@ -1,0 +1,179 @@
+﻿@model BacklineSoporte.Models.InformesModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Informes/Informes.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" />
+    <title>Informes consolidados</title>
+    <!-- Estilos y funciones básicas de funcionamiento -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/CSS/FondoPantalla.css">
+
+    <script src="~/ScriptsVistas/LogicaInformes.js"></script>
+
+    <style>
+
+        .card-img-top {
+            width: 100px;
+        }
+
+        .contenedor-imagen {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+
+        var urlObtenerTipoBusqueda = '@Url.Action("ObtenerTipoBusqueda", "Informes")';
+        var urlObtenerEmpresas = '@Url.Action("ObtenerEmpresas", "Informes")';
+        var urlObtenerBodegas = '@Url.Action("ObtenerBodegas", "Informes")';
+        var urlBusquedaFiltro = '@Url.Action("BusquedaFiltro", "Informes")';
+
+        $(document).ready(function () {
+
+            $('.ui.selection.dropdown').dropdown();
+            $('.ui.menu .ui.dropdown').dropdown({
+                on: 'hover'
+            });
+            $('.ui.accordion')
+                .accordion()
+                ;
+            ExportarExcel = function () {
+                location.href = '@Url.Action("ExportToExcel", "Informes")';
+            };
+        });
+
+    </script>
+</head>
+<body>
+    <br />
+    <div style="margin-left:auto; margin-right:auto; width:97%; opacity:0.9">
+        <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
+            <div class="ui styled fluid accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Filtros
+                </div>
+                <div class="content">
+                    <div id="modalFiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 100%; opacity:1">
+                        <div class="modal-dialog-xl" role="document">
+                            <div class="modal-body">
+                                <div class="ui info message">
+                                    <div class="ui form">
+                                        <form>
+                                            <div class="fields" style="width:100%">
+                                                <div id="divcmbFiltroTipoBusqueda" class="field" style="width:20%" onchange="fnTipoConvenio(this.value, this);">
+                                                    <label>Tipo de búsqueda</label>
+                                                    <select id="cmbFiltroTipoBusqueda" name="cmbFiltroTipoBusqueda" class="ui search selection dropdown">
+                                                    </select>
+                                                </div>
+                                                <div id="divcmbFiltroEmpresa" class="field" style="width: 20%; display: none">
+                                                    <label>Empresa</label>
+                                                    <select id="cmbFiltroEmpresa" name="cmbFiltroEmpresa" class="ui search selection dropdown" onchange="ObtenerBodegas();">
+                                                    </select>
+                                                </div>
+                                                <div class="field">
+                                                    <label>Buscar</label>
+                                                    <button id="btnbuscar" class="ui blue icon button" onclick="BusquedaFiltro();return false">
+                                                        <i class="search icon"></i><font style="vertical-align: inherit;">
+                                                            <font style="vertical-align: inherit;">
+
+                                                            </font>
+                                                        </font>
+                                                    </button>
+                                                </div>
+                                                <div class="field">
+                                                    <label>Volver</label>
+                                                    <button id="btnbuscar" class="ui red icon button" onclick="javascript: location.href = '/PanelControl'; return false">
+                                                        <i class="arrow left icon"></i><font style="vertical-align: inherit;">
+                                                            <font style="vertical-align: inherit;">
+
+                                                            </font>
+                                                        </font>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div id="divExito" class="ui icon hidden positive message">
+                                        <i class="thumbs up outline icon"></i>
+                                        <div class="content">
+                                            <div class="header">
+                                                Éxito!!
+                                            </div>
+                                            <p>La factura se a guardado con éxito.</p>
+                                        </div>
+                                    </div>
+                                    <div id="divError" class="ui icon hidden negative message">
+                                        <i class="hand paper icon"></i>
+                                        <div class="content">
+                                            <div class="header">
+                                                Error!!
+                                            </div>
+                                            <p>La factura no se a guardado con éxito.</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <button id="btnGuardaDesarrollo" class="ui right labeled green icon button" onclick="ExportarExcel();">
+                <i class="table download icon"></i><font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">
+                        Exportar a Excel
+                    </font>
+                </font>
+            </button>
+            <table class="ui celled striped table">
+                <thead>
+                    <tr>
+                        <th style="text-align:center; width:5%">#</th>
+                        <th style="text-align: center; width:10%">ID Producto</th>
+                        <th style="width:15%">Código de barra</th>
+                        <th>Descripción producto</th>
+                        <th style="text-align:center">Stock</th>
+                        <th>Bodega</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var lista in Model.Lista)
+                        {
+                            <tr>
+                                <td style="text-align:center">@lista.Orden</td>
+                                <td style="text-align:center">@lista.Id_Producto</td>
+                                <td>@lista.CodigoBarra</td>
+                                <td>@lista.DescripcionProducto</td>
+                                <td style="text-align:center">@lista.Stock</td>
+                                <td>@lista.Bodega</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>

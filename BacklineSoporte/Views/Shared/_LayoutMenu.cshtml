@@ -25,41 +25,40 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-            <li class="nav-item icon">
-                <a class="nav-link" href="/AgendaTabla?limpiar=1" style="color:white">
-                    <img class="bordered rounded" src="~/Recursos/Imagenes/IconoAgenda.png" width="60" alt="" title="Agenda">
-                </a>
+            <li class="nav-item">
+                <a class="nav-link" href="/AgendaTabla?limpiar=1" style="color:white">Agenda</a>
             </li>
-            <li class="nav-item icon">
-                <a class="nav-link" href="/FichaCliente" style="color:white">
-                    <img class="bordered rounded" src="~/Recursos/Imagenes/IconoFichaCliente.png" width="60" alt="" title="Ficha cliente">
-                </a>
+            <li class="nav-item">
+                <a class="nav-link" href="/FichaCliente" style="color:white">Ficha Cliente</a>
             </li>
-            <li class="nav-item icon">
-                <a class="nav-link" href="/Requerimiento?limpiar=1" style="color:white">
-                    <img class="bordered rounded" src="~/Recursos/Imagenes/Requerimientos.png" width="60" alt="" title="Requerimientos">
-                </a>
+            <li class="nav-item">
+                <a class="nav-link" href="/Requerimiento?limpiar=1" style="color:white">Requerimientos</a>
             </li>
-            <li class="nav-item icon">
-                <a class="nav-link" href="/Desarrollos?limpiar=1" style="color:white">
-                    <img class="bordered rounded" src="~/Recursos/Imagenes/IconoDesarrollo.png" width="60" alt="" title="Desarrollos">
-                </a>
+            <li class="nav-item">
+                <a class="nav-link" href="/Desarrollos?limpiar=1" style="color:white">Desarrollos</a>
             </li>
-            <li class="nav-item icon">
-                <a class="nav-link" href="/CrearFarmacia" style="color:white">
-                    <img class="bordered rounded" src="~/Recursos/Imagenes/IconoFarmacia.png" width="60" alt="" title="Farmacias">
-                </a>
+            <li class="nav-item">
+                <a class="nav-link" href="/CrearFarmacia" style="color:white">Farmacias</a>
             </li>
-            <li class="nav-item icon">
-                <a class="nav-link" href="/AvisoCobro" style="color:white">
-                    <img class="bordered rounded" src="~/Recursos/Imagenes/IconoCobro.png" width="60" alt="" title="Cobros">
-                </a>
+            <li class="nav-item">
+                <a class="nav-link" href="/AvisoCobro" style="color:white">Cobros</a>
             </li>
-            <li class="nav-item icon">
-                <a class="nav-link" href="/Mantenedores" style="color:white">
-                    <img class="bordered rounded" src="~/Recursos/Imagenes/IconoMantenedores.png" width="60" alt="" title="Mantenedores">
-                </a>
+            <li class="nav-item">
+                <a class="nav-link" href="/CambiarContraseña/AccionSalir" style="color:white">Salir</a>
             </li>
+            @if (SessionH.Usuario.Rol_Id == 3)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="/Mantenedores" style="color:white">Mantenedores</a>
+                </li>
+
+            }
+            @if (SessionH.Usuario.Rol_Id == 1 || SessionH.Usuario.Rol_Id == 3)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="/PanelHoras?limpiar=1" style="color:white">Panel de horas</a>
+                </li>
+            }
         </ul>
     </div>
 </nav>

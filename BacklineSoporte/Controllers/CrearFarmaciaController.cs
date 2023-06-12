@@ -14,6 +14,10 @@ namespace BacklineSoporte.Controllers
         // GET: CrearEmpresa
         public ActionResult Index()
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             Models.CrearFarmaciaModel modelo = new Models.CrearFarmaciaModel();
             Entity.Filtro filtro = new Entity.Filtro();
             modelo.ListaFarmacias = DAL.CreacionFarmaciaDAL.ObtenerFarmacias(filtro);

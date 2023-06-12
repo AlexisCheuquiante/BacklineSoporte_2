@@ -12,6 +12,11 @@ namespace BacklineSoporte.Controllers
         // GET: Usuarios
         public ActionResult Index()
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             Models.UsuariosModel modelo = new Models.UsuariosModel();
             Entity.Filtro filtro = new Entity.Filtro();
             modelo.ListaUsuarios = DAL.UsuarioDAL.ObtenerUsuario(filtro);

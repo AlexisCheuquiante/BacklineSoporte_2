@@ -13,6 +13,11 @@ namespace BacklineSoporte.Controllers
         // GET: MantenedorModulos
         public ActionResult Index()
         {
+            if (BacklineSoporte.SessionH.Usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             Models.MantenedorModulosModel modelo = new Models.MantenedorModulosModel();
             Entity.Filtro filtro = new Entity.Filtro();
             modelo.ListaModulos = DAL.ModuloDAL.ObtenerModulos(filtro);

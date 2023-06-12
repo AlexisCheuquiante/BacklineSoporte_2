@@ -20,9 +20,9 @@ namespace BacklineSoporte.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("SP_TAR_TAREA_LEER");
 
             db.AddInParameter(dbCommand, "ID", DbType.Int32, Filtro.Id != 0 ? Filtro.Id : (object)null);
+            db.AddInParameter(dbCommand, "TIPO_TAREA_ID", DbType.Int32, Filtro.Tipo_Tarea_Id != 0 ? Filtro.Tipo_Tarea_Id : (object)null);
             db.AddInParameter(dbCommand, "FECHA_DESDE", DbType.DateTime, Filtro.FechaDesde != DateTime.MinValue ? Filtro.FechaDesde : (object)null);
             db.AddInParameter(dbCommand, "FECHA_HASTA", DbType.DateTime, Filtro.FechaHasta != DateTime.MinValue ? Filtro.FechaHasta : (object)null);
-
 
             IDataReader reader = (IDataReader)db.ExecuteReader(dbCommand);
             try
@@ -98,18 +98,14 @@ namespace BacklineSoporte.DAL
             return tarea;
         }
 
-        public static void TareaRealizada(BacklineSoporte.Entity.Tarea tarea, int id)
+        public static void TareaRealizada(int id)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db = DatabaseFactory.CreateDatabase("baseDatosBacklineSoporte");
             DbCommand dbCommand = db.GetStoredProcCommand("SP_TAR_TAREA_REALIZADA_INS");
 
             db.AddInParameter(dbCommand, "IDTAREA", DbType.Int32, id);
 
-            db.AddInParameter(dbCommand, "REALIZADA", DbType.Byte, tarea.Realizada == true ? 1 : 0);
-            
-
             db.ExecuteNonQuery(dbCommand);
-
         }
 
         public static void EliminarTarea(int id)

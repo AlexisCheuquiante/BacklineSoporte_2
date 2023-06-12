@@ -152,6 +152,7 @@ namespace BacklineSoporte.Entity
         public bool Editar { get; set; }
 
         //Quinta Parte
+        public int Id_Ultimo_Contacto { get; set; }
         public DateTime FechaContacto { get; set; }
         public string Fecha_Contacto_Mostrar
         {
@@ -166,8 +167,10 @@ namespace BacklineSoporte.Entity
         public int Motivo_Contacto_Id {get; set;}
         public string Motivo_Contacto { get; set; }
         public string Detalle_Contacto { get; set; }
-        public bool Estado_Contacto { get; set; }
-
-
+        public int Estado_Contacto { get; set; }
+        public string Persona_Contactada { get; set; }
+        public string Correo_Contacto { get; set; }
+        public string MotivoContactoStr { get; set; }
+        public string EstadoContactoStr { get; set; }
     }
 }

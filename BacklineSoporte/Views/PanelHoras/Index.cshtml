@@ -1,0 +1,177 @@
+﻿@model BacklineSoporte.Models.PanelHorasModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/PanelHoras/PanelHoras.cshtml";
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" />
+    <title>Panel de Horas</title>
+    <!-- Estilos y funciones básicas de funcionamiento -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/CSS/FondoPantalla.css">
+
+    <script src="~/ScriptsVistas/LogicaPanelHoras.js"></script>
+
+    <style>
+
+        .card-img-top {
+            width: 100px;
+        }
+
+        .contenedor-imagen {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+
+        var urlBusquedaFiltro = '@Url.Action("BusquedaFiltro" , "PanelHoras")';
+
+        $(document).ready(function () {
+
+            $('.ui.selection.dropdown').dropdown();
+            $('.ui.menu .ui.dropdown').dropdown({
+                on: 'hover'
+            });
+            $('.ui.accordion')
+                .accordion()
+                ;
+            ExportarExcel = function () {
+                location.href = '@Url.Action("ExportToExcel", "PanelHoras")';
+            };
+        });
+
+    </script>
+</head>
+<body>
+    <br />
+    <div style="margin-left:auto; margin-right:auto; width:95%; opacity:0.9">
+        <div class="ui bottom attached segment" style="margin-left:auto; margin-right:auto; width:100%">
+            <div class="ui styled fluid accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Filtros
+                </div>
+                <div class="content">
+                    <div id="modalFiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 100%; opacity:1">
+                        <div class="modal-dialog-xl" role="document">
+                            <div class="modal-body">
+                                <div class="ui info message">
+                                    <div class="ui form">
+                                        <form>
+                                            <div class="fields" style="width:100%">
+                                                <div id="divtxtFiltroFechaDesde" class="field" style="width:15%">
+                                                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de desde</font></font></label>
+                                                    <input id="txtFiltroFechaDesde" type="date" placeholder="" value=@Session["FiltroInformeDesde"]>
+                                                </div>
+                                                <div id="divtxtFiltroFechaHasta" class="field" style="width:15%">
+                                                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fecha de hasta</font></font></label>
+                                                    <input id="txtFiltroFechaHasta" type="date" placeholder="" value=@Session["FiltroInformeHasta"]>
+                                                </div>
+                                                <div class="field">
+                                                    <label>Buscar</label>
+                                                    <button id="btnbuscar" class="ui blue icon button" onclick="BusquedaFiltro();return false">
+                                                        <i class="search icon"></i><font style="vertical-align: inherit;">
+                                                            <font style="vertical-align: inherit;">
+
+                                                            </font>
+                                                        </font>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div id="divExito" class="ui icon hidden positive message">
+                                        <i class="thumbs up outline icon"></i>
+                                        <div class="content">
+                                            <div class="header">
+                                                Éxito!!
+                                            </div>
+                                            <p>La factura se a guardado con éxito.</p>
+                                        </div>
+                                    </div>
+                                    <div id="divError" class="ui icon hidden negative message">
+                                        <i class="hand paper icon"></i>
+                                        <div class="content">
+                                            <div class="header">
+                                                Error!!
+                                            </div>
+                                            <p>La factura no se a guardado con éxito.</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <button id="btnGuardaDesarrollo" class="ui right labeled green icon button" onclick="ExportarExcel();">
+                <i class="table download icon"></i><font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">
+                        Exportar a Excel
+                    </font>
+                </font>
+            </button>
+            <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Home'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
+            <table class="ui celled striped table">
+                <thead>
+                    <tr>
+
+                        <th>Desarrollo</th>
+                        <th style="width:10%">Fecha ingreso</th>
+                        <th>Hora Inicio</th>
+                        <th>Hora Termino</th>
+                        <th>Total trabajado</th>
+                        <th>Observación</th>
+                        <th>Desarrollador</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var horas in Model.listaHoras)
+                    {
+                        <tr>
+
+                            <td>@horas.Desarrollo</td>
+                            <td>@horas.Fecha</td>
+                            <td>@horas.HoraInicio</td>
+                            <td>@horas.HoraTermino</td>
+                            <td>@horas.Total_Trabajado</td>
+
+                            <td>@horas.Observacion</td>
+                            <td>@horas.Desarrollador</td>
+                            @if (horas.Finalizado == true)
+                            {
+                                <td style="word-wrap: break-word;background-color:lawngreen">@horas.Estado</td>
+                            }
+                            else
+                            {
+                                <td style="word-wrap: break-word;background-color:orangered">@horas.Estado</td>
+                            }
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>
