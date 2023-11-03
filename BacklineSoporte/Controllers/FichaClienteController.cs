@@ -12,7 +12,7 @@ namespace BacklineSoporte.Controllers
     public class FichaClienteController : Controller
     {
         // GET: FichaCliente
-        public ActionResult Index()
+        public ActionResult Index(string limpiar, string actualizar)
         {
             if (BacklineSoporte.SessionH.Usuario == null)
             {
@@ -22,7 +22,28 @@ namespace BacklineSoporte.Controllers
             Session["ListaEstablecimientos"] = new List<Entity.Establecimiento>(); ;
             Models.FichaClienteModel modelo = new Models.FichaClienteModel();
             Entity.Filtro filtro = new Entity.Filtro();
-            modelo.ListaFichaCliente = DAL.FichaClienteDAL.ObtenerFicha(filtro);
+
+            if (limpiar != null || actualizar != null)
+            {
+                Session["registrosEncontrados"] = null;
+
+                modelo.ListaFichaCliente = DAL.FichaClienteDAL.ObtenerFicha(filtro);
+            }
+            if (actualizar != null)
+            {
+                Session["registrosEncontrados"] = null;
+
+                if (Session["FiltroIdCliente"] != null)
+                {
+                    filtro.Id = int.Parse(Session["FiltroIdCliente"].ToString());
+                }
+                modelo.ListaFichaCliente = DAL.FichaClienteDAL.ObtenerFicha(filtro);
+            }
+            if (Session["registrosEncontrados"] != null)
+            {
+                modelo.ListaFichaCliente = Session["registrosEncontrados"] as List<Entity.FichaCliente>;
+            }
+            
             return View(modelo);
 
         }
@@ -45,7 +66,6 @@ namespace BacklineSoporte.Controllers
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
         public JsonResult ObtenerRegion(Entity.Filtro entity)
         {
             var lista = DAL.RegionDAL.ObtenerRegiones(entity);
@@ -55,7 +75,6 @@ namespace BacklineSoporte.Controllers
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
         public JsonResult ObtenerEstadoFicha(Entity.Filtro entity)
         {
             var lista = DAL.EstadoFichaDAL.ObtenerEstadoFicha(entity);
@@ -83,7 +102,6 @@ namespace BacklineSoporte.Controllers
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
         public JsonResult ObtenerProveedor(Entity.Filtro entity)
         {
             var lista = DAL.ProveedorBeDAL.ObtenerProveedorBE(entity);
@@ -93,7 +111,6 @@ namespace BacklineSoporte.Controllers
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
         public JsonResult GuardarFicha(Entity.FichaCliente fichaCliente)
         {
             try
@@ -243,7 +260,6 @@ namespace BacklineSoporte.Controllers
                 return Json("No files selected.");
             }
         }
-
         public JsonResult ObtenerArchivos(int id)
         {
             var lista = DAL.ArchivoDAL.ObtenerArchivo(new Entity.Filtro() { Ficha_Cliente_Id = id });
@@ -261,7 +277,6 @@ namespace BacklineSoporte.Controllers
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
         public JsonResult EditarFicha(int idFicha)
         {
             Entity.Filtro filtro = new Entity.Filtro();
@@ -278,6 +293,16 @@ namespace BacklineSoporte.Controllers
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = "noexiste", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        public JsonResult ObtenerTipoEstablecimiento()
+        {
+
+            var lista = DAL.TipoEstablecimientoDAL.ObtenerTipoEstablecimiento();
+
+            if (lista == null || lista.Count == 0)
+                return new JsonResult() { ContentEncoding = Encoding.Default, Data = "Error", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public JsonResult ObtenerEstablecimientos()
         {
             var idFicha = int.Parse(Session["IdConsulta"].ToString());
@@ -285,6 +310,24 @@ namespace BacklineSoporte.Controllers
 
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult ObtenerAliasClientes()
+        {
+            var lista = DAL.FichaClienteDAL.ObtenerAliasClientes();
+
+            return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public ActionResult BusquedaFiltro(Entity.Filtro entity)
+        {
+            
+            List<Entity.FichaCliente> historicosEncontrados = DAL.FichaClienteDAL.ObtenerFicha(entity);
+            Session["registrosEncontrados"] = historicosEncontrados;
+            if (entity.Id > 0)
+            {
+                Session["FiltroIdCliente"] = entity.Id;
+            }
+
+            return new JsonResult() { ContentEncoding = Encoding.Default, Data = "OK", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }

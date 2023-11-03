@@ -5,6 +5,7 @@ var _nombreSolicitante = [];
 
 $(document).ready(function () {
 
+    $('#divEspera').dimmer('show');
     ObtenerFiltroTipoSoftware();
     ObtenerFiltroEmpresas();
     ObtenerFiltroResponsable();
@@ -15,7 +16,7 @@ $(document).ready(function () {
     ObtenerTipoPrioridad();
     ObtenerTipoSoftware();
     ObtenerEstado();
-    
+    setTimeout(() => { $('#divEspera').dimmer('hide') }, 3000);
 
     $('#cmbEmpresa').change(function () {
         var idEmpresa = $('#cmbEmpresa').val();
@@ -256,7 +257,7 @@ function GuardarRequerimiento() {
             if (data === 'exito') {
                 $('#DivMessajeErrorGeneral').addClass("hidden");
                 $('#divExito').removeClass("hidden");
-                setTimeout(() => { location.reload(); }, 2000);
+                setTimeout(() => { window.location.href = '/Requerimiento?actualizar=1' }, 2000);
             }
         },
 
@@ -553,6 +554,39 @@ function ObtenerFiltroEstado() {
         },
         error: function () {
             alert('Error al cargar los software existentes');
+        }
+    });
+
+}
+function ObtenerRequerimiento_Numero() {
+    $('#btnBuscar').addClass("loading");
+    $('#btnBuscar').addClass("disabled");
+    $('#btnBuscarNumero').addClass("loading");
+    $('#btnBuscarNumero').addClass("disabled");
+
+    var entity = {
+        Id: $('#txtNumero').val(),
+    }
+    $.ajax({
+        url: window.urlObtenerRequerimiento_Numero,
+        type: 'POST',
+        data: { entity: entity },
+        success: function (data) {
+            if (data != 'errorNumero') {
+                window.location.href = '/Requerimiento?buscar=1';
+            }
+            if (data === 'errorNumero') {
+                $('#btnBuscar').removeClass("loading");
+                $('#btnBuscar').removeClass("disabled");
+                $('#btnBuscarNumero').removeClass("loading");
+                $('#btnBuscarNumero').removeClass("disabled");
+                $('#divErrorNumero').removeClass("hidden");
+            }
+
+        },
+        error: function () {
+            showMessage('#divMensajePublicacionViaje', 'danger', 'Ocurrió un error al guardar la información. Por favor intente nuevamente.');
+            //hideLoading();
         }
     });
 

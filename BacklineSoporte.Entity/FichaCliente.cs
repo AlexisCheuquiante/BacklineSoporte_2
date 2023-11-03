@@ -14,6 +14,7 @@ namespace BacklineSoporte.Entity
         public int Usr_Id { get; set; }
         public string Comuna { get; set; }
         public string Razon_Social { get; set; }
+        public string Alias { get; set; }
         public string Direccion { get; set; }
         public string Rut { get; set; }
         public int Entidad_Id { get; set; }
@@ -77,6 +78,20 @@ namespace BacklineSoporte.Entity
 
         public bool Afecta_Iva { get; set; }
         public int Tipo_Contratacion_Id { get; set; }
+        public string Tipo_Contratacion_Id_Str
+        {
+            get
+            {
+                if (Tipo_Contratacion_Id == 1)
+                {
+                    return "Licitación";
+                }
+                else
+                {
+                    return "Trato directo";
+                }
+            }
+        }
         public string Numero_Contratacion { get; set; }
         public int Meses_Duracion { get; set; }
         public DateTime Fecha_Inicio { get; set; }
@@ -124,7 +139,67 @@ namespace BacklineSoporte.Entity
         public int Bruto { get; set; }
         public bool Boleta_Electronica { get; set; }
         public bool Fraccionamiento { get; set; }
+        public string Fraccionamiento_Str
+        {
+            get
+            {
+                if (Fraccionamiento == true)
+                {
+                    return "Si";
+                }
+                else
+                {
+                    return "No";
+                }
+            }
+        }
+        public bool Sucursal_Farmacia { get; set; }
+        public string Sucursal_Farmacia_Str
+        {
+            get
+            {
+                if (Sucursal_Farmacia == true)
+                {
+                    return "Si";
+                }
+                else
+                {
+                    return "No";
+                }
+            }
+        }
+        public int Cant_Sucursal_Farmacia { get; set; }
+        public bool Sucursal_Drogueria { get; set; }
+        public string Sucursal_Drogueria_Str
+        {
+            get
+            {
+                if (Sucursal_Drogueria == true)
+                {
+                    return "Si";
+                }
+                else
+                {
+                    return "No";
+                }
+            }
+        }
+        public int Cant_Sucursal_Drogueria { get; set; }
         public bool Venta_Simple { get; set; }
+        public string Sucursal_Venta_Simple_Str
+        {
+            get
+            {
+                if (Venta_Simple == true)
+                {
+                    return "Si";
+                }
+                else
+                {
+                    return "No";
+                }
+            }
+        }
         public int Cant_Puntos_Venta_Simple { get; set; }
         public string Nombre_Establecimiento { get; set; }
         public bool Be_Iva { get; set; }

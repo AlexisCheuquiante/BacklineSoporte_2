@@ -71,6 +71,10 @@ namespace BacklineSoporte.DAL
                 int BRUTO = reader.GetOrdinal("BRUTO");
                 int BOLETA_ELECTRONICA = reader.GetOrdinal("BOLETA_ELECTRONICA");
                 int FRACCIONAMIENTO = reader.GetOrdinal("FRACCIONAMIENTO");
+                int SUCURSAL_FARMACIA = reader.GetOrdinal("SUCURSAL_FARMACIA");
+                int CANT_SUCURSAL_FARMACIA = reader.GetOrdinal("CANT_SUCURSAL_FARMACIA");
+                int SUCURSAL_DROGUERIA = reader.GetOrdinal("SUCURSAL_DROGUERIA");
+                int CANT_SUCURSAL_DROGUERIA = reader.GetOrdinal("CANT_SUCURSAL_DROGUERIA");
                 int VENTA_SIMPLE = reader.GetOrdinal("VENTA_SIMPLE");
                 int CANT_PUNTOS_VENTA_SIMPLE = reader.GetOrdinal("CANT_PUNTOS_VENTA_SIMPLE");
                 int NOMBRE_ESTABLECIMIENTO = reader.GetOrdinal("NOMBRE_ESTABLECIMIENTO");
@@ -150,6 +154,10 @@ namespace BacklineSoporte.DAL
                     fichaCliente.Bruto = (int)(reader.IsDBNull(BRUTO) == false ? reader.GetValue(BRUTO) : 0);
                     fichaCliente.Boleta_Electronica = (bool)(reader.IsDBNull(BOLETA_ELECTRONICA) == false ? reader.GetValue(BOLETA_ELECTRONICA) : false);
                     fichaCliente.Fraccionamiento = (bool)(reader.IsDBNull(FRACCIONAMIENTO) == false ? reader.GetValue(FRACCIONAMIENTO) : false);
+                    fichaCliente.Sucursal_Farmacia = (bool)(reader.IsDBNull(SUCURSAL_FARMACIA) == false ? reader.GetValue(SUCURSAL_FARMACIA) : false);
+                    fichaCliente.Cant_Sucursal_Farmacia = (int)(reader.IsDBNull(CANT_SUCURSAL_FARMACIA) == false ? reader.GetValue(CANT_SUCURSAL_FARMACIA) : 0);
+                    fichaCliente.Sucursal_Drogueria = (bool)(reader.IsDBNull(SUCURSAL_DROGUERIA) == false ? reader.GetValue(SUCURSAL_DROGUERIA) : false);
+                    fichaCliente.Cant_Sucursal_Drogueria = (int)(reader.IsDBNull(CANT_SUCURSAL_DROGUERIA) == false ? reader.GetValue(CANT_SUCURSAL_DROGUERIA) : 0);
                     fichaCliente.Venta_Simple = (bool)(reader.IsDBNull(VENTA_SIMPLE) == false ? reader.GetValue(VENTA_SIMPLE) : false);
                     fichaCliente.Cant_Puntos_Venta_Simple = (int)(reader.IsDBNull(CANT_PUNTOS_VENTA_SIMPLE) == false ? reader.GetValue(CANT_PUNTOS_VENTA_SIMPLE) : 0);
                     fichaCliente.Total_Contratado_UF = (int)(reader.IsDBNull(TOTAL_CONTRATADO_UF) == false ? reader.GetValue(TOTAL_CONTRATADO_UF) : 0);
@@ -183,7 +191,6 @@ namespace BacklineSoporte.DAL
             }
             return listaRetorno;
         }
-
         public static BacklineSoporte.Entity.FichaCliente GuardaFicha(BacklineSoporte.Entity.FichaCliente fichaCliente)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db = DatabaseFactory.CreateDatabase("baseDatosBacklineSoporte");
@@ -262,6 +269,10 @@ namespace BacklineSoporte.DAL
             db.AddInParameter(dbCommand, "BRUTO", DbType.Int32, terceraParte.Bruto != 0 ? terceraParte.Bruto : (object)null);
             db.AddInParameter(dbCommand, "BOLETA_ELECTRONICA", DbType.Byte, terceraParte.Boleta_Electronica == true ? 1 : 0);
             db.AddInParameter(dbCommand, "FRACCIONAMIENTO", DbType.Byte, terceraParte.Fraccionamiento == true ? 1 : 0);
+            db.AddInParameter(dbCommand, "SUCURSAL_FARMACIA", DbType.Byte, terceraParte.Sucursal_Farmacia == true ? 1 : 0);
+            db.AddInParameter(dbCommand, "CANT_SUCURSAL_FARMACIA", DbType.Int32, terceraParte.Cant_Sucursal_Farmacia != 0 ? terceraParte.Cant_Sucursal_Farmacia : (object)null);
+            db.AddInParameter(dbCommand, "SUCURSAL_DROGUERIA", DbType.Byte, terceraParte.Sucursal_Drogueria == true ? 1 : 0);
+            db.AddInParameter(dbCommand, "CANT_SUCURSAL_DROGUERIA", DbType.Int32, terceraParte.Cant_Sucursal_Drogueria != 0 ? terceraParte.Cant_Sucursal_Drogueria : (object)null);
             db.AddInParameter(dbCommand, "VENTA_SIMPLE", DbType.Byte, terceraParte.Venta_Simple == true ? 1 : 0);
             db.AddInParameter(dbCommand, "CANT_PUNTOS_vENTA_SIMPLE", DbType.Int32, terceraParte.Cant_Puntos_Venta_Simple != 0 ? terceraParte.Cant_Puntos_Venta_Simple : (object)null);
             db.AddInParameter(dbCommand, "NOMBRE_ESTABLECIMIENTO", DbType.String, terceraParte.Nombre_Establecimiento != "" ? terceraParte.Nombre_Establecimiento : (object)null);
@@ -302,8 +313,6 @@ namespace BacklineSoporte.DAL
 
             return cuartaParte;
         }
-
-
         public static BacklineSoporte.Entity.FichaCliente InsertarUltimoContacto(BacklineSoporte.Entity.FichaCliente quintaParte)
         {
             Database db = DatabaseFactory.CreateDatabase("baseDatosBacklineSoporte");
@@ -366,9 +375,6 @@ namespace BacklineSoporte.DAL
             }
             return listaUltimosContactos;
         }
-
-
-
         public static void EliminarFicha(int idFicha)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db = DatabaseFactory.CreateDatabase("baseDatosBacklineSoporte");
@@ -419,6 +425,46 @@ namespace BacklineSoporte.DAL
 
 
             return editarFicha;
+
+        }
+        public static List<BacklineSoporte.Entity.FichaCliente> ObtenerAliasClientes()
+        {
+            List<BacklineSoporte.Entity.FichaCliente> lista = new List<BacklineSoporte.Entity.FichaCliente>();
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db = DatabaseFactory.CreateDatabase("baseDatosBacklineSoporte");
+            DbCommand dbCommand = db.GetStoredProcCommand("SP_FICH_FICHA_CLIENTE_LEER_ALIAS");
+
+            IDataReader reader = (IDataReader)db.ExecuteReader(dbCommand);
+
+            try
+            {
+                int ID = reader.GetOrdinal("ID");
+                int ALIAS = reader.GetOrdinal("ALIAS");
+
+                while (reader.Read())
+                {
+                    BacklineSoporte.Entity.FichaCliente OBJ = new BacklineSoporte.Entity.FichaCliente();
+                    //BeginFields
+                    OBJ.Id = (int)(reader.IsDBNull(ID) == false ? reader.GetValue(ID) : "");
+                    OBJ.Alias = (string)(reader.IsDBNull(ALIAS) == false ? reader.GetValue(ALIAS) : "");
+
+                    //EndFields
+
+                    lista.Add(OBJ);
+                }
+            }
+            catch (Exception ex)
+            {
+                //GlobalesDAO.InsertErrores(ex);
+                throw ex;
+            }
+            finally
+            {
+                reader.Close();
+            }
+
+
+
+            return lista;
 
         }
     }

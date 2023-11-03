@@ -2,6 +2,7 @@
 
 $(document).ready(function () {
 
+    $('#divEspera').dimmer('show');
     ObtenerEntidad();
     ObtenerRegion();
     ObtenerEstadoFicha();
@@ -10,8 +11,9 @@ $(document).ready(function () {
     ObtenerTipoArchivo();
     ObtenerMotivoContacto();
     ObtenerDetalleCotizacion();
-
-
+    ObtenerTipoEstablecimiento();
+    ObtenerAliasClientes();
+    setTimeout(() => { $('#divEspera').dimmer('hide') }, 3000);
 });
 
 function ObtenerEntidad() {
@@ -182,6 +184,54 @@ function ObtenerProveedor() {
     });
 
 }
+function ObtenerTipoEstablecimiento() {
+
+    $.ajax({
+        url: window.urlObtenerTipoEstablecimiento,
+        type: 'POST',
+        success: function (data) {
+            $('#cmbSucursal').dropdown('clear');
+            $('#cmbSucursal').empty();
+            $('#cmbSucursal').append('<option value="-1">[Seleccione tipo de sucursal]</option>');
+            $.each(data,
+                function (value, item) {
+
+                    var texto = '<option value="' + item.Id + '">' + item.Descripcion + '</option>';
+                    $('#cmbSucursal').append(texto);
+                }
+            );
+
+        },
+        error: function () {
+            alert('Error al cargar los tipos de sucursales existentes');
+        }
+    });
+
+}
+function ObtenerAliasClientes() {
+
+    $.ajax({
+        url: window.urlObtenerAliasClientes,
+        type: 'POST',
+        success: function (data) {
+            $('#cmbFiltroCliente').dropdown('clear');
+            $('#cmbFiltroCliente').empty();
+            $('#cmbFiltroCliente').append('<option value="-1">[Seleccione cliente]</option>');
+            $.each(data,
+                function (value, item) {
+
+                    var texto = '<option value="' + item.Id + '">' + item.Alias + '</option>';
+                    $('#cmbFiltroCliente').append(texto);
+                }
+            );
+
+        },
+        error: function () {
+            alert('Error al cargar los clientes existentes');
+        }
+    });
+
+}
 function GuardarFicha() {
 
     if (ValidaGuardar() == false)
@@ -243,6 +293,10 @@ function GuardarFicha() {
         Boleta_Electronica: $('#idBE').val(),
         Prov_Be_Id: $('#cmbProveedor').val(),
         Fraccionamiento: $('#idFRA').val(),
+        Sucursal_Farmacia: $('#idSucursalFarmacia').val(),
+        Cant_Sucursal_Farmacia: $('#txtCantidadSucursalFarmacia').val(),
+        Sucursal_Drogueria: $('#idSucursalDrogueria').val(),
+        Cant_Sucursal_Drogueria: $('#txtCantidadSucursalDrogueria').val(),
         Venta_Simple: $('#idVS').val(),
         Cant_Puntos_Venta_Simple: $('#txtCPTV').val(),
         Nombre_Establecimiento: $('#txtNombreEstablecimiento').val(),
@@ -283,7 +337,7 @@ function GuardarFicha() {
             if (data === 'exito') {
                 $('#DivMessajeErrorGeneral').addClass("hidden");
                 $('#divExito').removeClass("hidden");
-                setTimeout(() => { location.reload(); }, 1000);
+                setTimeout(() => { window.location.href = '/FichaCliente?actualizar=1'; }, 1000);
             }
         },
 
@@ -686,22 +740,26 @@ function EditarFicha() {
 
 
                     //Datos contratación
-                $('#TxtNumeroContra').val(ficha.Numero_Contratacion),
-                $('#txtMesesDuracion').val(ficha.Meses_Duracion),
-                $('#TxtFechaIniCon').val(ficha.Fecha_Inicio_Mostrar),
-                $('#TxtFechaTerCon').val(ficha.Fecha_Termino_Mostrar),
-                $('#TxtOrdenC').val(ficha.Numero_Oc),
-                $('#TxtFechaTermOc').val(ficha.Fecha_Termino_Oc_Mostrar),
-                $('#TxtTotalNeto').val(ficha.Total_Neto),
-                $('#txtIVA').val(ficha.Iva),
-                $('#txtBruto').val(ficha.Bruto),
-                $("#cmbBE").dropdown('set selected', ficha.Boleta_Electronica),
-                $("#cmbFRA").dropdown('set selected', ficha.Fraccionamiento),
-                $("#cmbVS").dropdown('set selected', ficha.Venta_Simple),
-                $('#txtCPTV').val(ficha.Cant_Puntos_Venta_Simple),
-                $('#txtTotalUf').val(ficha.Total_Contratado_UF),
-                $('#txtTotalPeso').val(ficha.Total_Contratado_Peso),
-                $('#txtObservación').val(ficha.Observacion),
+                    $('#TxtNumeroContra').val(ficha.Numero_Contratacion),
+                    $('#txtMesesDuracion').val(ficha.Meses_Duracion),
+                    $('#TxtFechaIniCon').val(ficha.Fecha_Inicio_Mostrar),
+                    $('#TxtFechaTerCon').val(ficha.Fecha_Termino_Mostrar),
+                    $('#TxtOrdenC').val(ficha.Numero_Oc),
+                    $('#TxtFechaTermOc').val(ficha.Fecha_Termino_Oc_Mostrar),
+                    $('#TxtTotalNeto').val(ficha.Total_Neto),
+                    $('#txtIVA').val(ficha.Iva),
+                    $('#txtBruto').val(ficha.Bruto),
+                    $("#cmbBE").dropdown('set selected', ficha.Boleta_Electronica),
+                    $("#cmbFRA").dropdown('set selected', ficha.Fraccionamiento),
+                    $("#cmbSucursalFarmacia").dropdown('set selected', ficha.Sucursal_Farmacia),
+                    $('#txtCantidadSucursalFarmacia').val(ficha.Cant_Sucursal_Farmacia),
+                    $("#cmbSucursalDrogueria").dropdown('set selected', ficha.Sucursal_Drogueria),
+                    $('#txtCantidadSucursalDrogueria').val(ficha.Cant_Sucursal_Drogueria),
+                    $("#cmbVS").dropdown('set selected', ficha.Venta_Simple),
+                    $('#txtCPTV').val(ficha.Cant_Puntos_Venta_Simple),
+                    $('#txtTotalUf').val(ficha.Total_Contratado_UF),
+                    $('#txtTotalPeso').val(ficha.Total_Contratado_Peso),
+                    $('#txtObservación').val(ficha.Observacion),
 
                 //Cuarta parte
                 $('#txtNombreCFDP').val(ficha.FDP_Nombre),
@@ -744,11 +802,11 @@ function PintaEstablecimientos() {
         dataType: "json",
         success: function (resultado) {
             var tabla = "<table class='ui celled table table-striped'>";
-            tabla = tabla + "<thead><tr><th> </th><th>Nombre establecimiento</th><th>Afecto a IVA</th></tr></thead>";
+            tabla = tabla + "<thead><tr><th> </th><th>Tipo sucursal</th><th>Nombre sucursal</th></tr></thead>";
             tabla = tabla + "<tbody>";
             $.each(resultado, function (value, item) {
                 tabla = tabla + "<tr>";
-                tabla = tabla + "<td>" + "" + "</td><td>" + item.NombreEstablecimiento + "</td><td>" + item.Afecta_IVA_Mostrar + "</td>";
+                tabla = tabla + "<td>" + "" + "</td><td>" + item.Tipo_Sucursal + "</td><td>" + item.NombreEstablecimiento + "</td>";
                 tabla = tabla + "</tr>";
             });
 
@@ -763,4 +821,27 @@ function PintaEstablecimientos() {
             //hideLoading();
         }
     });
+}
+function BusquedaFiltro() {
+    $('#btnBuscarFiltro').addClass("loading");
+    $('#btnBuscarFiltro').addClass("disabled");
+
+    var entity = {
+        Id: $('#cmbFiltroCliente').val(),
+    }
+    $.ajax({
+        url: window.urlBusquedaFiltro,
+        type: 'POST',
+        data: { entity: entity },
+        success: function (data) {
+
+            window.location.href = '/FichaCliente';
+
+        },
+        error: function () {
+            showMessage('#divMensajePublicacionViaje', 'danger', 'Ocurrió un error al guardar la información. Por favor intente nuevamente.');
+            //hideLoading();
+        }
+    });
+
 }

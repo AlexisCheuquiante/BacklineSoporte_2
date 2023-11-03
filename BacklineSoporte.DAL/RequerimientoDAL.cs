@@ -11,7 +11,82 @@ namespace BacklineSoporte.DAL
 {
     public class RequerimientoDAL
     {
+        public static List<Entity.Requerimiento> ObtenerRequerimiento_Numero(Entity.Filtro Filtro)
+        {
+            List<Entity.Requerimiento> listaRetorno = new List<Entity.Requerimiento>();
+            Database db = DatabaseFactory.CreateDatabase("baseDatosBacklineSoporte");
+            DbCommand dbCommand = db.GetStoredProcCommand("SP_REQUE_REQUERIMIENTOS_BUSCAR_NUMERO");
 
+            db.AddInParameter(dbCommand, "ID", DbType.Int32, Filtro.Id != 0 ? Filtro.Id : (object)null);
+
+            IDataReader reader = (IDataReader)db.ExecuteReader(dbCommand);
+            try
+            {
+                int ID = reader.GetOrdinal("ID");
+                int EMP_ID = reader.GetOrdinal("EMP_ID");
+                int NOMBRE_EMPRESA = reader.GetOrdinal("NOMBRE_EMPRESA");
+                int USR_ID_SOLICITANTE = reader.GetOrdinal("USR_ID_SOLICITANTE");
+                int NOMBRE_SOLICITANTE = reader.GetOrdinal("NOMBRE_SOLICITANTE");
+                int FUNCIONALIDAD = reader.GetOrdinal("FUNCIONALIDAD");
+                int PRIO_ID = reader.GetOrdinal("PRIO_ID");
+                int TIPO_PRIORIDAD = reader.GetOrdinal("TIPO_PRIORIDAD");
+                int DETALLE = reader.GetOrdinal("DETALLE");
+                int FECHA_INGRESO = reader.GetOrdinal("FECHA_INGRESO");
+                int APRUEBO = reader.GetOrdinal("APRUEBO");
+                int DESAPRUEBO = reader.GetOrdinal("DESAPRUEBO");
+                int CORREO = reader.GetOrdinal("CORREO");
+                int REPETICION_REQUERIMIENTO = reader.GetOrdinal("REPETICION_REQUERIMIENTO");
+                int MOD_ID = reader.GetOrdinal("MOD_ID");
+                int MODULO = reader.GetOrdinal("MODULO");
+                int CLASIFICACION = reader.GetOrdinal("CLASIFICACION");
+                int TISO_ID = reader.GetOrdinal("TISO_ID");
+                int SOFTWARE = reader.GetOrdinal("SOFTWARE");
+                int USR_RESPONSABLE = reader.GetOrdinal("USR_RESPONSABLE");
+                int FECHA_SOLUCION = reader.GetOrdinal("FECHA_SOLUCION");
+                int NOMBRE_COMPLETO = reader.GetOrdinal("NOMBRE_COMPLETO");
+                int ESTADO = reader.GetOrdinal("ESTADO");
+                int ESTADO_REQUE = reader.GetOrdinal("ESTADO_REQUE");
+                int VISIBLE = reader.GetOrdinal("VISIBLE");
+
+
+                while (reader.Read())
+                {
+                    Entity.Requerimiento requerimiento = new Entity.Requerimiento();
+                    requerimiento.Id = (int)(reader.IsDBNull(ID) == false ? reader.GetValue(ID) : 0);
+                    requerimiento.EmpId = (int)(reader.IsDBNull(EMP_ID) == false ? reader.GetValue(EMP_ID) : 0);
+                    requerimiento.NombreEmpresa = (string)(reader.IsDBNull(NOMBRE_EMPRESA) == false ? reader.GetValue(NOMBRE_EMPRESA) : "");
+                    requerimiento.SolicitanteId = (int)(reader.IsDBNull(USR_ID_SOLICITANTE) == false ? reader.GetValue(USR_ID_SOLICITANTE) : 0);
+                    requerimiento.NombreSolicitante = (string)(reader.IsDBNull(NOMBRE_SOLICITANTE) == false ? reader.GetValue(NOMBRE_SOLICITANTE) : "");
+                    requerimiento.Funcionalidad = (string)(reader.IsDBNull(FUNCIONALIDAD) == false ? reader.GetValue(FUNCIONALIDAD) : "");
+                    requerimiento.PriodId = (int)(reader.IsDBNull(PRIO_ID) == false ? reader.GetValue(PRIO_ID) : "");
+                    requerimiento.Prioridad = (string)(reader.IsDBNull(TIPO_PRIORIDAD) == false ? reader.GetValue(TIPO_PRIORIDAD) : "");
+                    requerimiento.Detalle = (string)(reader.IsDBNull(DETALLE) == false ? reader.GetValue(DETALLE) : "");
+                    requerimiento.FechaIngreso = (DateTime)(!reader.IsDBNull(FECHA_INGRESO) ? reader.GetValue(FECHA_INGRESO) : DateTime.MinValue);
+                    requerimiento.Apruebo = (int)(!reader.IsDBNull(APRUEBO) ? reader.GetValue(APRUEBO) : 0);
+                    requerimiento.Desapruebo = (int)(!reader.IsDBNull(DESAPRUEBO) ? reader.GetValue(DESAPRUEBO) : 0);
+                    requerimiento.Correo = (string)(reader.IsDBNull(CORREO) == false ? reader.GetValue(CORREO) : "");
+                    requerimiento.RepeticionRequerimiento = (bool)(reader.IsDBNull(REPETICION_REQUERIMIENTO) == false ? reader.GetValue(REPETICION_REQUERIMIENTO) : "");
+                    requerimiento.ModId = (int)(reader.IsDBNull(MOD_ID) == false ? reader.GetValue(MOD_ID) : "");
+                    requerimiento.Modulo = (string)(reader.IsDBNull(MODULO) == false ? reader.GetValue(MODULO) : "");
+                    requerimiento.Clasificacion = (int)(reader.IsDBNull(CLASIFICACION) == false ? reader.GetValue(CLASIFICACION) : 0);
+                    requerimiento.TisoId = (int)(reader.IsDBNull(TISO_ID) == false ? reader.GetValue(TISO_ID) : 0);
+                    requerimiento.SoftwareStr = (string)(reader.IsDBNull(SOFTWARE) == false ? reader.GetValue(SOFTWARE) : "");
+                    requerimiento.ResponsableId = (int)(reader.IsDBNull(USR_RESPONSABLE) == false ? reader.GetValue(USR_RESPONSABLE) : 0);
+                    requerimiento.FechaSolucion = (DateTime)(!reader.IsDBNull(FECHA_SOLUCION) ? reader.GetValue(FECHA_SOLUCION) : DateTime.MinValue);
+                    requerimiento.NombreResponsable = (string)(reader.IsDBNull(NOMBRE_COMPLETO) == false ? reader.GetValue(NOMBRE_COMPLETO) : "");
+                    requerimiento.Estado = (int)(reader.IsDBNull(ESTADO) == false ? reader.GetValue(ESTADO) : 0);
+                    requerimiento.Estado_Reque = (string)(reader.IsDBNull(ESTADO_REQUE) == false ? reader.GetValue(ESTADO_REQUE) : "");
+                    requerimiento.Visible = (bool)(!reader.IsDBNull(VISIBLE) ? reader.GetValue(VISIBLE) : false);
+
+                    listaRetorno.Add(requerimiento);
+                }
+            }
+            catch (Exception ex)
+            {
+                //DAL.errror.insertar(ex.de)
+            }
+            return listaRetorno;
+        }
         public static List<Entity.Requerimiento> ObtenerRequerimiento(Entity.Filtro Filtro)
         {
             List<Entity.Requerimiento> listaRetorno = new List<Entity.Requerimiento>();

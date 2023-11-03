@@ -45,6 +45,7 @@
         var urlEditarRequerimiento = '@Url.Action("EditarRequerimiento", "Requerimiento")';
         var urlEliminarRequerimiento = '@Url.Action("EliminarRequerimiento", "Requerimiento")';
         var urlBusquedaFiltro = '@Url.Action("BusquedaFiltro", "Requerimiento")';
+        var urlObtenerRequerimiento_Numero = '@Url.Action("ObtenerRequerimiento_Numero", "Requerimiento")';
 
         $(document).ready(function () {
 
@@ -113,7 +114,7 @@
 
                                             <div class="field">
                                                 <label>Buscar</label>
-                                                <button id="btnGuardarFactura" class="ui blue icon button" onclick="BusquedaFiltro();return false">
+                                                <button id="btnBuscar" class="ui blue icon button" onclick="BusquedaFiltro();return false">
                                                     <i class="search icon"></i><font style="vertical-align: inherit;">
                                                         <font style="vertical-align: inherit;">
 
@@ -122,7 +123,36 @@
                                                 </button>
                                             </div>
                                         </div>
+                                        <div class="fields" style="width:100%">
+                                            <div class="fields">
+                                                <div id="divtxtNumero" class="field">
+                                                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Número de requerimiento</font></font></label>
+                                                    <input id="txtNumero" type="number" placeholder="" autocomplete="off">
+                                                </div>
+                                                <div class="field">
+                                                    <label>Buscar por número</label>
+                                                    <button id="btnBuscarNumero" class="ui blue icon button" onclick="ObtenerRequerimiento_Numero();return false">
+                                                        <i class="search icon"></i><font style="vertical-align: inherit;">
+                                                            <font style="vertical-align: inherit;">
+
+                                                            </font>
+                                                        </font>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
                                     </form>
+                                </div>
+                                <div id="divErrorNumero" class="ui icon hidden negative message">
+                                    <i class="error icon"></i>
+                                    <div class="content">
+                                        <div class="header">
+                                            ¡Atención!
+                                        </div>
+                                        <p>Debe indicar al menos un número para realizar la busqueda.</p>
+                                    </div>
                                 </div>
                                 <div id="divExito" class="ui icon hidden positive message">
                                     <i class="thumbs up outline icon"></i>
@@ -164,7 +194,7 @@
         </button>
         <div id="btnSalir" class="ui right labeled icon button" onclick="javascript:location.href='/Home'" data-dismiss="modal">Volver<i class="arrow left icon"></i></div>
 
-        <table class="ui celled striped table">
+        <table class="ui celled striped inverted table">
             <thead>
                 <tr>
                     <th style="text-align: center; word-wrap: break-word; background-color: deepskyblue; width:7%"></th>
@@ -248,7 +278,14 @@
         </table>
     </div>
 
-   
+    <div id="divEspera" class="ui dimmer">
+        <div class="content">
+            <h2 class="ui inverted icon header">
+                <i class="notched circle loading icon"></i>
+                Cargando!
+            </h2>
+        </div>
+    </div>
     <br />
     <div class="modal fade" id="modalRequerimientos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left: auto; margin-right: auto; width: 95%; opacity:0.9">
         <div class="modal-dialog-sm" role="document">
@@ -423,7 +460,7 @@
                             </font>
                         </font>
                     </button>
-                    <button class="ui right labeled red icon button" onclick="window.location.replace('/Requerimiento?limpiar=1')">
+                    <button class="ui right labeled red icon button" onclick="location.reload()">
                         <i class="left arrow icon"></i><font style="vertical-align: inherit;">
                             <font style="vertical-align: inherit;">
                                 Volver

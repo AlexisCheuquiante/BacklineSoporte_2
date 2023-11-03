@@ -103,6 +103,7 @@
     <Compile Include="TipoBusquedaDAL.cs" />
     <Compile Include="TipoContratacionDAL.cs" />
     <Compile Include="TipoDocumentoConsultaDAL.cs" />
+    <Compile Include="TipoEstablecimientoDAL.cs" />
     <Compile Include="TipoTareaDAL.cs" />
     <Compile Include="UsuarioDAL.cs" />
     <Compile Include="UsuarioFarmaciaDAL.cs" />

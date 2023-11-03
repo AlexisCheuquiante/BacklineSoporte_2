@@ -10,8 +10,13 @@ namespace BacklineSoporte.Entity
     {
         public int Id { get; set; }
         public int Fich_Id { get; set; }
+        public int Ties_Id { get; set; }
+        public string Tipo_Sucursal { get; set; }
         public string Razon_Social { get; set; }
         public string NombreEstablecimiento { get; set; }
+        public string Direccion { get; set; }
+        public string Telefono { get; set; }
+        public string Correo { get; set; }
         public bool BE_Afecta_IVA { get; set; }
         public string Afecta_IVA_Mostrar
         {

@@ -11,7 +11,7 @@ namespace BacklineSoporte.Controllers
     public class RequerimientoController : Controller
     {
         // GET: Requerimiento
-        public ActionResult Index(string buscar, string limpiar)
+        public ActionResult Index(string buscar, string limpiar, string actualizar)
         {
             if (BacklineSoporte.SessionH.Usuario == null)
             {
@@ -23,6 +23,56 @@ namespace BacklineSoporte.Controllers
             Models.RequerimientoModel modelo = new Models.RequerimientoModel();
             Entity.Filtro filtro = new Entity.Filtro();
 
+            if (actualizar != null)
+            {
+                buscar = null;
+                limpiar = null;
+                var numero_buscado = 0;
+                var emp_id = 0;
+                var tipo_Software = 0;
+                var responsable = 0;
+                var estado = 0;
+
+                if (Session["numero_Buscado"] != null)
+                {
+                    numero_buscado = int.Parse(Session["numero_Buscado"].ToString());
+                }
+                if (Session["FiltroEmpresa"] != null)
+                {
+                    emp_id = int.Parse(Session["FiltroEmpresa"].ToString());
+                }
+                if (Session["FiltroTipoSoftware"] != null)
+                {
+                    tipo_Software = int.Parse(Session["FiltroTipoSoftware"].ToString());
+                }
+                if (Session["FiltroResponsable"] != null)
+                {
+                   responsable = int.Parse(Session["FiltroResponsable"].ToString());
+                }
+                if (Session["FiltroEstado"] != null)
+                {
+                    estado = int.Parse(Session["FiltroEstado"].ToString());
+                }
+
+                if (numero_buscado > 0)
+                {
+                    filtro.Id = numero_buscado;
+                    Session["registrosEncontrados"] = DAL.RequerimientoDAL.ObtenerRequerimiento_Numero(filtro);
+                    modelo.ListaRequerimiento = Session["registrosEncontrados"] as List<Entity.Requerimiento>;
+                }
+                else
+                {
+                    filtro.FechaDesde = Convert.ToDateTime(Session["FiltroInformeDesde"]);
+                    filtro.FechaHasta = Convert.ToDateTime(Session["FiltroInformeHasta"]);
+                    filtro.Tipo_Software = tipo_Software;
+                    filtro.EmpId = emp_id;
+                    filtro.Responsable = responsable;
+                    filtro.Estado = estado;
+                    Session["registrosEncontrados"] = DAL.RequerimientoDAL.ObtenerRequerimiento(filtro);
+                    modelo.ListaRequerimiento = Session["registrosEncontrados"] as List<Entity.Requerimiento>;
+                }
+
+            }
             if (buscar != null)
             {
                 Session["FiltroInformeDesde"] = Session["FiltroInformeDesde"];
@@ -178,6 +228,8 @@ namespace BacklineSoporte.Controllers
         }
         public ActionResult BusquedaFiltro(Entity.Filtro entity)
         {
+            Session["numero_Buscado"] = null;
+
             entity.FechaDesde = Utiles.FechaObtenerMinimo(entity.FechaDesde);
             entity.FechaHasta = Utiles.FechaObtenerMaximo(entity.FechaHasta);
             if (entity.Tipo_Software == -1)
@@ -200,6 +252,22 @@ namespace BacklineSoporte.Controllers
             Session["FiltroInformeDesde"] = Utiles.ReversaFecha(entity.FechaDesde);
             Session["FiltroInformeHasta"] = Utiles.ReversaFecha(entity.FechaHasta);
             Session["registrosEncontrados"] = historicosEncontrados;
+            if (entity.Tipo_Software > 0)
+            {
+                Session["FiltroTipoSoftware"] = entity.Tipo_Software;
+            }
+            if (entity.EmpId > 0)
+            {
+                Session["FiltroEmpresa"] = entity.EmpId;
+            }
+            if (entity.Responsable > 0)
+            {
+                Session["FiltroResponsable"] = entity.Responsable;
+            }
+            if (entity.Estado > 0)
+            {
+                Session["FiltroEstado"] = entity.Estado;
+            }
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = "OK", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
@@ -221,6 +289,19 @@ namespace BacklineSoporte.Controllers
                 return null;
             }
 
+        }
+        public ActionResult ObtenerRequerimiento_Numero(Entity.Filtro entity)
+        {
+            if (entity.Id <= 0)
+            {
+                return new JsonResult() { ContentEncoding = Encoding.Default, Data = "errorNumero", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            
+            List<Entity.Requerimiento> historicosEncontrados = DAL.RequerimientoDAL.ObtenerRequerimiento_Numero(entity);
+            Session["numero_Buscado"] = entity.Id;
+            Session["registrosEncontrados"] = historicosEncontrados;
+
+            return new JsonResult() { ContentEncoding = Encoding.Default, Data = "OK", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }

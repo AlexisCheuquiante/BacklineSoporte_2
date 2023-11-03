@@ -54,7 +54,7 @@ namespace BacklineSoporte.Controllers
 
             if (lista != null && lista.Count > 0)
             {
-                string[] columns = { "Desarrollo", "Fecha", "HoraInicio", "HoraTermino", "Total_Trabajado", "Observacion", "Desarrollador", "Estado" };
+                string[] columns = { "Desarrollo", "Detalle_Requerimiento", "Fecha", "HoraInicio", "HoraTermino", "Total_Trabajado", "Observacion", "Desarrollador", "Estado" };
                 byte[] filecontent = Code.ExcelExportHelper.ExportExcel(lista, "Horas", true, columns);
                 return File(filecontent, Code.ExcelExportHelper.ExcelContentType, "Horas_Trabajas_De_" + "_" + SessionH.Usuario.NombreCompleto + "(" + timestamp + ")" + ".xlsx");
             }

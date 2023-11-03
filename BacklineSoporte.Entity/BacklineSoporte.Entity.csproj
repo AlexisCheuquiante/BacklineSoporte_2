@@ -89,6 +89,7 @@
     <Compile Include="TipoBusqueda.cs" />
     <Compile Include="TipoContratacion.cs" />
     <Compile Include="TipoDocumentoConsulta.cs" />
+    <Compile Include="TipoEstablecimiento.cs" />
     <Compile Include="TipoTarea.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="UsuarioFarmacia.cs" />

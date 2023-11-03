@@ -12,6 +12,7 @@ namespace BacklineSoporte.Entity
         public int Desa_Id { get; set; }
         public DateTime Fecha_Inicio { get; set; }
         public string Desarrollo { get; set; }
+        public string Detalle_Requerimiento { get; set; }
         public string Fecha
         {
             get

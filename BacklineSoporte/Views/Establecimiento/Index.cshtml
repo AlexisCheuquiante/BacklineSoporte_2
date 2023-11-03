@@ -38,6 +38,8 @@
         var urlEliminarEstablecimiento = '@Url.Action("EliminarEstablecimiento", "Establecimiento")';
         var urlEditarEstablecimiento = '@Url.Action("EditarEstablecimiento", "Establecimiento")';
         var urlGuardarEstablecimiento = '@Url.Action("GuardarEstablecimiento", "Establecimiento")';
+        var urlObtenerTipoEstablecimiento = '@Url.Action("ObtenerTipoEstablecimiento", "Establecimiento")';
+
         $(document).ready(function () {
 
             $('.ui.selection.dropdown').dropdown();
@@ -54,7 +56,7 @@
 </head>
 <body>
     <br />
-    <div style="margin-left:auto; margin-right:auto; width:40%; opacity:0.9">
+    <div style="margin-left:auto; margin-right:auto; width:90%; opacity:0.9">
         <div id="btnAgregaFicha" data-toggle="modal" data-target="#modalEstablecimiento" class="ui purple right labeled icon button">
             Agregar establecimiento
             <i class="checkmark icon"></i>
@@ -67,7 +69,11 @@
                     <th style="width:130px;"></th>
                     <th>ID</th>
                     <th>Ficha</th>
+                    <th>Tipo sucursal</th>
                     <th>Nombre establecimiento</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
                     <th>Es afecto a IVA</th>
                 </tr>
             </thead>
@@ -86,7 +92,11 @@
                             </td>
                             <td>@Establecimiento.Id</td>
                             <td>@Establecimiento.Razon_Social</td>
+                            <td>@Establecimiento.Tipo_Sucursal</td>
                             <td>@Establecimiento.NombreEstablecimiento</td>
+                            <td>@Establecimiento.Direccion</td>
+                            <td>@Establecimiento.Telefono</td>
+                            <td>@Establecimiento.Correo</td>
                             <td>@Establecimiento.Afecta_IVA_Mostrar</td>
                         </tr>
                     }
@@ -118,23 +128,44 @@
                                 <form>
                                     <div id="divTxtTitulo" class="field">
                                         <label>Nombre establecimiento:</label>
-                                        <input type="text" id="txtEstablecimiento" style="text-transform:uppercase;" placeholder="Ingrese nombre del establecimiento" >
+                                        <input type="text" id="txtEstablecimiento" style="text-transform:uppercase;" placeholder="Ingrese nombre del establecimiento">
 
                                     </div>
+                                    <div id="divtxtDireccion" class="field">
+                                        <label>Dirección</label>
+                                        <input type="text" id="txtDireccion" placeholder="Ingrese dirección">
 
-                                  
-                                    <div id="divcmbRepetición" class="field">
-                                        <label>BE afecta/Exenta IVA</label>
-                                        <div id="cmbRepetición" class="ui search selection dropdown">
-                                            <input type="hidden" id="idRepetición" name="idRepetición" >
-                                            <i class="dropdown icon"></i>
-                                            <div class="default text">Seleccione</div>
-                                            <div id="cmbRepeticiónMenu" class="menu">
-                                                <div class="item" data-value="true">Afecta</div>
-                                                <div class="item" data-value="false">Exenta</div>
+                                    </div>
+                                    <div class="two fields">
+                                        <div id="divtxtTelefono" class="field">
+                                            <label>Teléfono</label>
+                                            <input type="text" id="txtTelefono" placeholder="Ejemplo: +56941625555" autocomplete="off">
+                                        </div>
+                                        <div id="divtxtCorreo" class="field">
+                                            <label>Correo</label>
+                                            <input type="text" id="txtCorreo" placeholder="Ingrese correo" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="two fields">
+                                        <div id="divcmbSucursal" class="field">
+                                            <label>Tipo de sucursal</label>
+                                            <select id="cmbSucursal" class="ui search selection dropdown">
+                                            </select>
+                                        </div>
+                                        <div id="divcmbRepetición" class="field">
+                                            <label>BE afecta/Exenta IVA</label>
+                                            <div id="cmbRepetición" class="ui search selection dropdown">
+                                                <input type="hidden" id="idRepetición" name="idRepetición">
+                                                <i class="dropdown icon"></i>
+                                                <div class="default text">Seleccione</div>
+                                                <div id="cmbRepeticiónMenu" class="menu">
+                                                    <div class="item" data-value="true">Afecta</div>
+                                                    <div class="item" data-value="false">Exenta</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </form>
                             </div>
                         </div>

@@ -52,6 +52,7 @@ namespace BacklineSoporte.DAL
                 int OBSERVACION = reader.GetOrdinal("OBSERVACION");
                 int FINALIZADO = reader.GetOrdinal("FINALIZADO");
                 int REQUERIMIENTO = reader.GetOrdinal("REQUERIMIENTO");
+                int DETALLE_REQUERIMIENTO = reader.GetOrdinal("DETALLE_REQUERIMIENTO");
 
                 while (reader.Read())
                 {
@@ -65,6 +66,7 @@ namespace BacklineSoporte.DAL
                     obj.Observacion = (string)(reader.IsDBNull(OBSERVACION) == false ? reader.GetValue(OBSERVACION) : "");
                     obj.Finalizado = (bool)(reader.IsDBNull(FINALIZADO) == false ? reader.GetValue(FINALIZADO) : false);
                     obj.Desarrollo = (string)(reader.IsDBNull(REQUERIMIENTO) == false ? reader.GetValue(REQUERIMIENTO) : "");
+                    obj.Detalle_Requerimiento = (string)(reader.IsDBNull(DETALLE_REQUERIMIENTO) == false ? reader.GetValue(DETALLE_REQUERIMIENTO) : "");
 
                     lista.Add(obj);
                 }

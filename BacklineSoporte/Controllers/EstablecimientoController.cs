@@ -50,7 +50,16 @@ namespace BacklineSoporte.Controllers
 
             return new JsonResult() { ContentEncoding = Encoding.Default, Data = "ok", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        public JsonResult ObtenerTipoEstablecimiento()
+        {
+            
+            var lista = DAL.TipoEstablecimientoDAL.ObtenerTipoEstablecimiento();
 
+            if (lista == null || lista.Count == 0)
+                return new JsonResult() { ContentEncoding = Encoding.Default, Data = "Error", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            return new JsonResult() { ContentEncoding = Encoding.Default, Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
 
 
         public JsonResult EditarEstablecimiento(int idEstablecimiento)

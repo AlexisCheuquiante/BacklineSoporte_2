@@ -1,4 +1,34 @@
-﻿function PreparaEliminaEstablecimiento(id) {
+﻿$(document).ready(function () {
+
+    ObtenerTipoEstablecimiento();
+    
+});
+
+function ObtenerTipoEstablecimiento() {
+
+    $.ajax({
+        url: window.urlObtenerTipoEstablecimiento,
+        type: 'POST',
+        success: function (data) {
+            $('#cmbSucursal').dropdown('clear');
+            $('#cmbSucursal').empty();
+            $('#cmbSucursal').append('<option value="-1">[Seleccione tipo de sucursal]</option>');
+            $.each(data,
+                function (value, item) {
+
+                    var texto = '<option value="' + item.Id + '">' + item.Descripcion + '</option>';
+                    $('#cmbSucursal').append(texto);
+                }
+            );
+
+        },
+        error: function () {
+            alert('Error al cargar los tipos de sucursales existentes');
+        }
+    });
+
+}
+function PreparaEliminaEstablecimiento(id) {
     $('#hidEstablecimiento').val(id);
 }
 function EliminarEstablecimiento() {
@@ -32,7 +62,6 @@ function EliminarEstablecimiento() {
     });
 
 }
-
 function GuardarEstablecimiento() {
 
 
@@ -41,7 +70,11 @@ function GuardarEstablecimiento() {
 
     var strParams = {
         Id: $('#hidEstablecimiento').val(),
+        Ties_Id: $('#cmbSucursal').val(),
         NombreEstablecimiento: $('#txtEstablecimiento').val(),
+        Direccion: $('#txtDireccion').val(),
+        Telefono: $('#txtTelefono').val(),
+        Correo: $('#txtCorreo').val(),
         BE_Afecta_IVA: $('#idRepetición').val()
     }
     $.ajax({
@@ -64,19 +97,9 @@ function GuardarEstablecimiento() {
     });
 
 }
-
-
-
-
-
-
-
-
-
 function PrepararEditaEstablecimiento(id) {
     $('#hidEstablecimiento').val(id);
 }
-
 function EditarEstablecimiento() {
 
     var idEstablecimiento = $('#hidEstablecimiento').val();
@@ -86,7 +109,11 @@ function EditarEstablecimiento() {
         type: 'POST',
         data: { idEstablecimiento: idEstablecimiento },
         success: function (establecimiento) {
+            $("#cmbSucursal").dropdown('set selected', establecimiento.Ties_Id);
             $('#txtEstablecimiento').val(establecimiento.NombreEstablecimiento);
+            $('#txtDireccion').val(establecimiento.Direccion);
+            $('#txtTelefono').val(establecimiento.Telefono);
+            $('#txtCorreo').val(establecimiento.Correo);
             $("#cmbRepetición").dropdown('set selected', establecimiento.BE_Afecta_IVA);
         },
         error: function () {
