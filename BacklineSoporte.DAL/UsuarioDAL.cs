@@ -102,7 +102,7 @@ namespace BacklineSoporte.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("SP_USR_USUARIO_LEER_BACKLINE_SOPORTE");
 
             db.AddInParameter(dbCommand, "EMP_ID", DbType.Int32, filtro.EmpId != 0 ? filtro.EmpId : (object)null);
-            db.AddInParameter(dbCommand, "ELIMINADO", DbType.Boolean, filtro.Eliminado == false ? filtro.Eliminado : (object)null);mm
+            db.AddInParameter(dbCommand, "ELIMINADO", DbType.Boolean, filtro.Eliminado == false ? filtro.Eliminado : (object)null);
 
             IDataReader reader = (IDataReader)db.ExecuteReader(dbCommand);
 
