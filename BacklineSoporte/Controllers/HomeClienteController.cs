@@ -13,7 +13,7 @@ namespace BacklineSoporte.Controllers
         {
             if (BacklineSoporte.SessionH.Usuario == null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "LoginCliente");
             }
 
             BacklineSoporte.Models.HomeClienteModel model = new Models.HomeClienteModel();

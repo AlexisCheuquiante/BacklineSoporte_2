@@ -159,18 +159,22 @@ namespace BacklineSoporte.DAL
             try
             {
                 int ID = reader.GetOrdinal("ID");
+                int EMP_ID = reader.GetOrdinal("EMP_ID");
                 int NOMBRE = reader.GetOrdinal("NOMBRE");
                 int USUARIO = reader.GetOrdinal("USUARIO");
                 int PASSWORD = reader.GetOrdinal("PASSWORD");
+                int EMPRESA = reader.GetOrdinal("EMPRESA");
 
                 while (reader.Read())
                 {
                     BacklineSoporte.Entity.Usuario OBJ = new BacklineSoporte.Entity.Usuario();
                     //BeginFields
                     OBJ.Id = (int)(!reader.IsDBNull(ID) ? reader.GetValue(ID) : 0);
+                    OBJ.Emp_Id = (int)(!reader.IsDBNull(EMP_ID) ? reader.GetValue(EMP_ID) : 0);
                     OBJ.NombreCompleto = (String)(!reader.IsDBNull(NOMBRE) ? reader.GetValue(NOMBRE) : string.Empty);
                     OBJ.UsuarioStr = (String)(!reader.IsDBNull(USUARIO) ? reader.GetValue(USUARIO) : string.Empty);
                     OBJ.Password = (String)(!reader.IsDBNull(PASSWORD) ? reader.GetValue(PASSWORD) : string.Empty);
+                    OBJ.Empresa = (String)(!reader.IsDBNull(EMPRESA) ? reader.GetValue(EMPRESA) : string.Empty);
                     //EndFields
 
                     listaUsuarios.Add(OBJ);

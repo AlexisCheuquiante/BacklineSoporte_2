@@ -9,6 +9,7 @@ namespace BacklineSoporte.Entity
     public class Requerimiento
     {
         public int Id { get; set; }
+       
         public string FechaMostrar
         {
             get
@@ -38,12 +39,13 @@ namespace BacklineSoporte.Entity
         public string NombreEmpresa { get; set; }
         public int SolicitanteId { get; set; }
         public string NombreSolicitante { get; set; }
+       
         public string Correo { get; set; }
         public bool RepeticionRequerimiento { get; set; }
         public bool Visible { get; set; }
         public int ModId { get; set; }
         public string Modulo { get; set; }
-        public string Funcionalidad { get; set; }
+        
         public string FechaMostrarSolucion
         {
             get
@@ -86,13 +88,82 @@ namespace BacklineSoporte.Entity
         public string NombreResponsable { get; set; }
         public DateTime FechaSolucion { get; set; }
         
-        public string Detalle { get; set; }
         public bool Eliminado { get; set; }
         public int Apruebo { get; set; }
         public int Desapruebo { get; set; }
-
         public int Estado { get; set; }
-
         public string Estado_Reque { get; set; }
+        public string Estado_Nuevo
+        {
+            get
+            {
+                if (Estado == 7)
+                {
+                    return "Completado";
+                }
+                else
+                {
+                    return "En Desarrollo";
+                }
+            }
+        }
+        public string Color_Estado
+        {
+            get
+            {
+                if (Estado == 7)
+                {
+                    return "64FF33";
+                }
+                else
+                {
+                    return "FF9633";
+                }
+            }
+        }
+        public string Numero
+        {
+            get
+            {
+                return Id.ToString();
+            }
+        }
+        public string Funcionalidad { get; set; }
+        public string Detalle { get; set; }
+        public string Solicitante
+        {
+            get
+            {
+                return NombreSolicitante;
+            }
+        }
+        public string Ingreso
+        {
+            get
+            {
+                return FechaIngreso.ToShortDateString(); ;
+            }
+        }
+        public string Termino
+        {
+            get
+            {
+                return FechaSolucion.ToShortDateString();
+            }
+        }
+        public string Estado_Requerimiento
+        {
+            get
+            {
+                return Estado_Nuevo;
+            }
+        }
+        public string Empresa
+        {
+            get
+            {
+                return NombreEmpresa;
+            }
+        }
     }
 }

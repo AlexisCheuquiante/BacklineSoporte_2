@@ -50,3 +50,61 @@ function InsertaDesapruebo() {
         }
     });
 }
+function BusquedaFiltro() {
+    $('#btnBuscarFiltro').addClass("loading");
+    $('#btnBuscarFiltro').addClass("disabled");
+
+    var entity = {
+        FechaDesde: $('#txtFiltroFechaDesde').val(),
+        FechaHasta: $('#txtFiltroFechaHasta').val(),
+        Estado: $('#idcmbEstado').val(),
+    }
+    $.ajax({
+        url: window.urlBusquedaFiltro,
+        type: 'POST',
+        data: { entity: entity },
+        success: function (data) {
+
+            window.location.href = '/Mesa?buscar=1';
+
+        },
+        error: function () {
+            showMessage('#divMensajePublicacionViaje', 'danger', 'Ocurrió un error al guardar la información. Por favor intente nuevamente.');
+            //hideLoading();
+        }
+    });
+
+}
+function ObtenerRequerimiento_Numero() {
+    $('#btnBuscar').addClass("loading");
+    $('#btnBuscar').addClass("disabled");
+    $('#btnBuscarNumero').addClass("loading");
+    $('#btnBuscarNumero').addClass("disabled");
+
+    var entity = {
+        Id: $('#txtNumero').val(),
+    }
+    $.ajax({
+        url: window.urlObtenerRequerimiento_Numero,
+        type: 'POST',
+        data: { entity: entity },
+        success: function (data) {
+            if (data != 'errorNumero') {
+                window.location.href = '/Mesa?buscar=1';
+            }
+            if (data === 'errorNumero') {
+                $('#btnBuscar').removeClass("loading");
+                $('#btnBuscar').removeClass("disabled");
+                $('#btnBuscarNumero').removeClass("loading");
+                $('#btnBuscarNumero').removeClass("disabled");
+                $('#divErrorNumero').removeClass("hidden");
+            }
+
+        },
+        error: function () {
+            showMessage('#divMensajePublicacionViaje', 'danger', 'Ocurrió un error al guardar la información. Por favor intente nuevamente.');
+            //hideLoading();
+        }
+    });
+
+}

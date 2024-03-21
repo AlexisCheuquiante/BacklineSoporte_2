@@ -9,6 +9,7 @@ namespace BacklineSoporte.Entity
     public class Usuario
     {
         public int Id { get; set; }
+        public int Emp_Id { get; set; }
         public int Rol_Id { get; set; }
         public string Rol_Usuario { get; set; }
         public string NombreCompleto { get; set; }
@@ -45,5 +46,6 @@ namespace BacklineSoporte.Entity
                 }
             }
         }
+        public string Empresa { get; set; }
     }
 }

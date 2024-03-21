@@ -177,6 +177,7 @@ namespace BacklineSoporte.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("SP_REQUE_REQUERIMIENTOS_GET_BY_VISIBLE");
 
             db.AddInParameter(dbCommand, "ID", DbType.Int32, Filtro.Id != 0 ? Filtro.Id : (object)null);
+            db.AddInParameter(dbCommand, "EMP_ID", DbType.Int32, Filtro.EmpId != 0 ? Filtro.EmpId : (object)null);
 
             IDataReader reader = (IDataReader)db.ExecuteReader(dbCommand);
             try

@@ -236,6 +236,7 @@
     <Content Include="Recursos\Imagenes\FichaCliente.png" />
     <Content Include="Recursos\Imagenes\FondoFinal.png" />
     <Content Include="Recursos\Imagenes\FondoNuevoSoporte.jpeg" />
+    <Content Include="Recursos\Imagenes\Fondo_Cliente_2024.png" />
     <Content Include="Recursos\Imagenes\IconoAgenda.png" />
     <Content Include="Recursos\Imagenes\IconoCobro.png" />
     <Content Include="Recursos\Imagenes\IconoDesarrollo.png" />
